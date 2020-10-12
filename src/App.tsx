@@ -1,5 +1,8 @@
 import React from "react";
+// React Context
+import { AppProvider } from "./context/app-context";
 import { IonApp } from "@ionic/react";
+import Toolbar from "./components/Toolbar";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -20,6 +23,12 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-const App: React.FC = () => <IonApp></IonApp>;
+const App = () => (
+  <AppProvider>
+    <IonApp>
+      <Toolbar />
+    </IonApp>
+  </AppProvider>
+);
 
 export default App;
