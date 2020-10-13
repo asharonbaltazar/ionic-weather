@@ -1,4 +1,6 @@
 import React from "react";
+import { Provider } from "react-redux";
+import store from "./store";
 import SettingsModal from "./components/SettingsModal";
 import SearchModal from "./components/SearchModal";
 // React Context
@@ -26,13 +28,15 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 const App = () => (
-  <AppProvider>
-    <IonApp>
-      <Toolbar />
-      <SettingsModal />
-      <SearchModal />
-    </IonApp>
-  </AppProvider>
+  <Provider store={store}>
+    <AppProvider>
+      <IonApp>
+        <Toolbar />
+        <SettingsModal />
+        <SearchModal />
+      </IonApp>
+    </AppProvider>
+  </Provider>
 );
 
 export default App;
