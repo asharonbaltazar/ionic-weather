@@ -4,6 +4,8 @@ import React, { createContext, useReducer } from "react";
 interface IStoreState {
   settingsModal: boolean;
   searchModal: boolean;
+  toggleSettingsModal: Function;
+  toggleSearchModal: Function;
 }
 interface IToggleSettings {
   type: "TOGGLE_SETTINGS_MODAL";
@@ -17,6 +19,8 @@ type Action = IToggleSearch | IToggleSettings;
 const initialState = {
   settingsModal: false,
   searchModal: false,
+  toggleSettingsModal: () => null,
+  toggleSearchModal: () => null,
 };
 
 // Reducer
@@ -25,12 +29,12 @@ const reducer = (state: IStoreState, action: Action) => {
     case "TOGGLE_SEARCH_MODAL":
       return {
         ...state,
-        searchModal: !initialState.searchModal,
+        searchModal: !state.searchModal,
       };
     case "TOGGLE_SETTINGS_MODAL":
       return {
         ...state,
-        settingsModal: !initialState.settingsModal,
+        settingsModal: !state.settingsModal,
       };
     default:
       return state;
@@ -56,6 +60,8 @@ const AppProvider: React.FC = ({ children }) => {
       value={{
         settingsModal: state.settingsModal,
         searchModal: state.searchModal,
+        toggleSearchModal,
+        toggleSettingsModal,
       }}
     >
       {children}

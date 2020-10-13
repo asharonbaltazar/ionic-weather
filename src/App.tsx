@@ -1,4 +1,6 @@
 import React from "react";
+import SettingsModal from "./components/SettingsModal";
+import SearchModal from "./components/SearchModal";
 // React Context
 import { AppProvider } from "./context/app-context";
 import { IonApp } from "@ionic/react";
@@ -27,6 +29,8 @@ const App = () => (
   <AppProvider>
     <IonApp>
       <Toolbar />
+      <SettingsModal />
+      <SearchModal />
     </IonApp>
   </AppProvider>
 );
