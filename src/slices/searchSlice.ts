@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface recentQueries {
@@ -26,12 +26,17 @@ export const searchSlice = createSlice({
     },
 
     setRecentQuery: (state, action) => {
-      if (state.recentQueries.length >= 5) state.recentQueries.pop();
-      state.recentQueries.unshift(action.payload);
+      const found = state.recentQueries.find(
+        element => element.id === action.payload.id
+      );
+      if (!found) {
+        if (state.recentQueries.length >= 5) state.recentQueries.pop();
+        state.recentQueries.unshift(action.payload);
+      }
     },
 
-    setLoading: state => {
-      state.loading = true;
+    setLoading: (state, action) => {
+      state.loading = action.payload;
     },
   },
 });
@@ -40,25 +45,33 @@ export const searchSlice = createSlice({
 export const getPlacesBySearch = (query: string) => async (
   dispatch: Function
 ) => {
-  if (query.length) {
-    dispatch(setLoading());
-    const response = await axios.get(
-      `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGMapSuggestions/${query}`
-    );
+  try {
+    if (query.length) {
+      dispatch(setLoading(true));
+      const response = await axios.get(
+        `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGMapSuggestions/${query}`
+      );
 
-    if (response.data.status === "OK") {
-      const formattedResults = response.data.predictions.map((element: any) => {
-        return {
-          text: {
-            main_text: element.structured_formatting.main_text,
-            secondary_text: element.structured_formatting.secondary_text,
-          },
-          place_id: element.place_id,
-        };
-      });
+      if (response.data.status === "OK") {
+        const formattedResults = response.data.predictions.map(
+          (element: any) => {
+            return {
+              text: {
+                main_text: element.structured_formatting.main_text,
+                secondary_text: element.structured_formatting.secondary_text,
+              },
+              place_id: element.place_id,
+            };
+          }
+        );
 
-      dispatch(displaySearchQueries(formattedResults));
+        dispatch(displaySearchQueries(formattedResults));
+      }
     }
+  } catch (error) {
+    console.log(error.message);
+
+    dispatch(setLoading(false));
   }
 };
 

@@ -26,15 +26,21 @@ const SearchModalContent = () => {
 
   return (
     <>
-      <IonItem
-        className="ion-margin-top ion-margin-bottom"
-        button
-        onClick={() => {}}
-      >
-        <IonIcon color={"primary"} ios={locate} md={locateSharp} slot="start" />
-        <IonLabel>Use your current location</IonLabel>
-      </IonItem>
       <IonContent>
+        <IonItem
+          className="ion-margin-top ion-margin-bottom"
+          button
+          onClick={() => {}}
+          detail={false}
+        >
+          <IonIcon
+            color={"primary"}
+            ios={locate}
+            md={locateSharp}
+            slot="start"
+          />
+          <IonLabel>Use your current location</IonLabel>
+        </IonItem>
         {searchResults.length ? (
           searchResults.map((element: any) => (
             <SearchResult
@@ -45,7 +51,7 @@ const SearchModalContent = () => {
           ))
         ) : (
           <>
-            {recentSearches.length ? (
+            {recentSearches.length && !loading ? (
               <>
                 <IonItemDivider>Recent searches</IonItemDivider>
                 {recentSearches.map((element: any) => (

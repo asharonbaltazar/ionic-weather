@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { setRecentQuery } from "../slices/searchSlice";
 import { IonItem, IonLabel, IonIcon, IonNote } from "@ionic/react";
 import { locationSharp, locationOutline } from "ionicons/icons";
+import { getWeather } from "../slices/weatherSlice";
 
 interface IProps {
   text: text;
@@ -17,10 +18,11 @@ const SearchResult: React.FC<IProps> = ({ text, id }) => {
   const dispatch = useDispatch();
   const getLatLong = () => {
     dispatch(setRecentQuery({ text, id }));
+    dispatch(getWeather(id));
   };
 
   return (
-    <IonItem button onClick={getLatLong}>
+    <IonItem button onClick={getLatLong} detail={false}>
       <IonIcon
         color={"primary"}
         ios={locationOutline}

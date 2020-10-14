@@ -18,7 +18,7 @@ const SearchModal = () => {
   return (
     <IonModal isOpen={searchModal} backdropDismiss={false}>
       <IonToolbar>
-        <IonButtons slot="secondary">
+        <IonButtons slot="end">
           <IonButton onClick={() => toggleSearchModal()}>CLOSE</IonButton>
         </IonButtons>
         <Searchbar />
