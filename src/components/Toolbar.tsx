@@ -21,7 +21,7 @@ const Toolbar = () => {
             <IonIcon slot="icon-only" md={settingsSharp} ios={settings} />
           </IonButton>
         </IonButtons> */}
-        <IonTitle>Ionic Weather</IonTitle>
+        <IonTitle>Chicago, IL</IonTitle>
         <IonButtons slot="end">
           <IonButton onClick={() => toggleSearchModal()}>
             <IonIcon slot="icon-only" md={searchSharp} ios={search} />

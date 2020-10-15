@@ -1,0 +1,51 @@
+.card {
+  width: 100%;
+  background: rgb(56, 128, 255);
+  background: linear-gradient(
+    139deg,
+    var(--ion-color-primary) 40%,
+    rgba(0, 169, 255, 1) 100%
+  );
+}
+
+.card-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.date {
+  margin-top: 16px;
+  padding-left: 16px;
+  color: #dedede;
+}
+
+.desc {
+  display: flex;
+  flex-direction: column;
+  justify-items: space-between;
+}
+
+.desc-icon {
+  font-size: 2rem;
+}
+
+.desc-title {
+  margin: 0;
+  font-size: 2rem;
+}
+
+.temp {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.temp-title {
+  font-size: 3rem;
+}
+
+.temp-subtitle {
+  margin: 0;
+  color: #dedede;
+}

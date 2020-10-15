@@ -1,0 +1,8 @@
+.segment {
+  width: 75%;
+  margin: 0 auto;
+}
+
+.segment ion-segment-button.md {
+  font-weight: bold;
+}
