@@ -1,0 +1,22 @@
+.carousel-item ion-card {
+  height: 10rem;
+  width: 7rem;
+  margin: 16px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.carousel-item ion-card-header {
+  padding: 0;
+}
+
+/* Android margin */
+ion-slides.md {
+  padding: 0 10px;
+}
+
+/* iOS margin */
+ion-slides.ios {
+  padding: 0 16px;
+}

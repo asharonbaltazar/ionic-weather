@@ -4,8 +4,10 @@ import React, { createContext, useReducer } from "react";
 interface IStoreState {
   settingsModal: boolean;
   searchModal: boolean;
+  segmentCarouselOption: string;
   toggleSettingsModal: Function;
   toggleSearchModal: Function;
+  toggleSegmentsCarousel: Function;
 }
 interface IToggleSettings {
   type: "TOGGLE_SETTINGS_MODAL";
@@ -13,14 +15,27 @@ interface IToggleSettings {
 interface IToggleSearch {
   type: "TOGGLE_SEARCH_MODAL";
 }
-type Action = IToggleSearch | IToggleSettings;
+
+interface IToggleSegmentsCarousel {
+  type: "TOGGLE_SEGMENTS_CAROUSEL";
+  payload: string;
+}
+type Action = IToggleSearch | IToggleSettings | IToggleSegmentsCarousel;
 
 // Initial state
 const initialState = {
   settingsModal: false,
   searchModal: false,
-  toggleSettingsModal: () => null,
-  toggleSearchModal: () => null,
+  segmentCarouselOption: "today",
+  toggleSettingsModal: () => {
+    return;
+  },
+  toggleSearchModal: () => {
+    return;
+  },
+  toggleSegmentsCarousel: () => {
+    return;
+  },
 };
 
 // Reducer
@@ -35,6 +50,10 @@ const reducer = (state: IStoreState, action: Action) => {
       return {
         ...state,
         settingsModal: !state.settingsModal,
+      };
+    case "TOGGLE_SEGMENTS_CAROUSEL":
+      return {
+        ...state,
       };
     default:
       return state;
@@ -55,13 +74,19 @@ const AppProvider: React.FC = ({ children }) => {
     dispatch({ type: "TOGGLE_SETTINGS_MODAL" });
   };
 
+  const toggleSegmentsCarousel = (segmentItem: string) => {
+    dispatch({ type: "TOGGLE_SEGMENTS_CAROUSEL", payload: segmentItem });
+  };
+
   return (
     <AppContext.Provider
       value={{
         settingsModal: state.settingsModal,
         searchModal: state.searchModal,
+        segmentCarouselOption: state.segmentCarouselOption,
         toggleSearchModal,
         toggleSettingsModal,
+        toggleSegmentsCarousel,
       }}
     >
       {children}

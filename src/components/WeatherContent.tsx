@@ -2,6 +2,8 @@ import React from "react";
 import { IonGrid, IonRow } from "@ionic/react";
 import MainWeatherCard from "./MainWeatherCard";
 import DaysSegment from "./DaysSegment";
+import WeatherCarousel from "./WeatherCarousel";
+import AdditionalInfo from "./AdditionalInfo";
 
 const WeatherContent = () => {
   return (
@@ -11,6 +13,10 @@ const WeatherContent = () => {
       </IonRow>
       <IonRow>
         <DaysSegment />
+        <WeatherCarousel />
+      </IonRow>
+      <IonRow>
+        <AdditionalInfo />
       </IonRow>
     </IonGrid>
   );

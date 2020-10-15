@@ -7,7 +7,7 @@ import SettingsModal from "./components/SettingsModal";
 import SearchModal from "./components/SearchModal";
 // React Context
 import { AppProvider } from "./context/app-context";
-import { IonApp } from "@ionic/react";
+import { IonApp, IonContent } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -33,9 +33,11 @@ const App = () => (
     <AppProvider>
       <IonApp>
         <Toolbar />
-        <WeatherContent />
-        <SettingsModal />
-        <SearchModal />
+        <IonContent>
+          <WeatherContent />
+          <SettingsModal />
+          <SearchModal />
+        </IonContent>
       </IonApp>
     </AppProvider>
   </ReduxProvider>

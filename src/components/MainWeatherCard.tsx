@@ -8,7 +8,7 @@ import {
   IonCardSubtitle,
 } from "@ionic/react";
 import { cloud } from "ionicons/icons";
-import "../css/card.css";
+import "../css/weather-card.css";
 
 const MainWeatherCard = () => {
   return (

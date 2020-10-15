@@ -5,7 +5,7 @@ import "../css/segment.css";
 const DaysSegment = () => {
   return (
     <div className="segment">
-      <IonSegment onIonChange={() => {}}>
+      <IonSegment onIonChange={() => {}} value="today">
         <IonSegmentButton value="today">
           <IonLabel>Today</IonLabel>
         </IonSegmentButton>
