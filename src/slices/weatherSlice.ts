@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
+interface selectedWeather {
+  address: string;
+  weather: object;
+}
+
 export const weatherSlice = createSlice({
   name: "weather",
   initialState: {
-    selectedWeather: {},
+    selectedWeather: {} as selectedWeather,
     savedWeather: [],
     loading: false,
   },
@@ -43,7 +48,7 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
 
       const weatherObj = {
         address: formatted_address,
-        data: response.data,
+        weather: response.data,
       };
 
       setTimeout(() => {

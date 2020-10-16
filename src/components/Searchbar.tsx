@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { IonSearchbar } from "@ionic/react";
 import { useDispatch } from "react-redux";
-import {
-  getPlacesBySearch,
-  displaySearchQueries,
-  setSearchLoading,
-} from "../slices/searchSlice";
+import { getPlacesBySearch, displaySearchQueries } from "../slices/searchSlice";
 // import { useDebouncedCallback } from "use-debounce";
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [loadingTerm, setLoadingTerm] = useState("");
+  // const [loadingTerm, setLoadingTerm] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {

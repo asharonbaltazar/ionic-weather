@@ -6,7 +6,9 @@ import {
   IonTitle,
   IonButtons,
   IonButton,
+  IonList,
 } from "@ionic/react";
+import TempPreference from "./settings_toggles/TempPreference";
 import { AppContext } from "../context/app-context";
 
 const SettingsModal: React.FC = () => {
@@ -14,13 +16,17 @@ const SettingsModal: React.FC = () => {
 
   return (
     <IonModal isOpen={settingsModal} backdropDismiss={false}>
+      <IonToolbar>
+        <IonTitle>Settings</IonTitle>
+        <IonButtons slot="end">
+          <IonButton onClick={() => toggleSettingsModal()}>CLOSE</IonButton>
+        </IonButtons>
+      </IonToolbar>
+
       <IonContent>
-        <IonToolbar>
-          <IonTitle>Settings</IonTitle>
-          <IonButtons slot="end">
-            <IonButton onClick={() => toggleSettingsModal()}>CLOSE</IonButton>
-          </IonButtons>
-        </IonToolbar>
+        <IonList>
+          <TempPreference />
+        </IonList>
       </IonContent>
     </IonModal>
   );

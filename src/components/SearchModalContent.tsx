@@ -9,10 +9,10 @@ import {
   IonItemDivider,
 } from "@ionic/react";
 import { locate, locateSharp } from "ionicons/icons";
-import { useDispatch, RootStateOrAny, useSelector } from "react-redux";
+import { RootStateOrAny, useSelector } from "react-redux";
 
 const SearchModalContent = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   const searchResults = useSelector(
     (state: RootStateOrAny) => state.search.queries
   );

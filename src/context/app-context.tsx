@@ -4,10 +4,12 @@ import React, { createContext, ReactNode, useReducer } from "react";
 interface IStoreState {
   settingsModal: boolean;
   searchModal: boolean;
+  tempActionSheet: boolean;
   segmentCarouselOption: string;
   toggleSettingsModal: () => void;
   toggleSearchModal: () => void;
   toggleSegmentsCarousel: (segmentItem: any) => void;
+  toggleTempActionSheet: () => void;
 }
 
 interface IProps {
@@ -24,12 +26,20 @@ interface IToggleSegmentsCarousel {
   type: "TOGGLE_SEGMENTS_CAROUSEL";
   payload: string;
 }
-type Action = IToggleSearch | IToggleSettings | IToggleSegmentsCarousel;
+interface IToggleTempActionSheet {
+  type: "TOGGLE_TEMP_ACTION_SHEET";
+}
+type Action =
+  | IToggleSearch
+  | IToggleSettings
+  | IToggleSegmentsCarousel
+  | IToggleTempActionSheet;
 
 // Initial state
 const initialState = {
   settingsModal: false,
   searchModal: false,
+  tempActionSheet: false,
   segmentCarouselOption: "today",
   toggleSettingsModal: () => {
     return;
@@ -38,6 +48,9 @@ const initialState = {
     return;
   },
   toggleSegmentsCarousel: () => {
+    return;
+  },
+  toggleTempActionSheet: () => {
     return;
   },
 };
@@ -59,6 +72,11 @@ const reducer = (state: IStoreState, action: Action) => {
       return {
         ...state,
         segmentCarouselOption: action.payload,
+      };
+    case "TOGGLE_TEMP_ACTION_SHEET":
+      return {
+        ...state,
+        tempActionSheet: !state.tempActionSheet,
       };
     default:
       return state;
@@ -83,15 +101,21 @@ const AppProvider = ({ children }: IProps) => {
     dispatch({ type: "TOGGLE_SEGMENTS_CAROUSEL", payload: segmentItem });
   };
 
+  const toggleTempActionSheet = () => {
+    dispatch({ type: "TOGGLE_TEMP_ACTION_SHEET" });
+  };
+
   return (
     <AppContext.Provider
       value={{
         settingsModal: state.settingsModal,
         searchModal: state.searchModal,
+        tempActionSheet: state.tempActionSheet,
         segmentCarouselOption: state.segmentCarouselOption,
         toggleSearchModal,
         toggleSettingsModal,
         toggleSegmentsCarousel,
+        toggleTempActionSheet,
       }}
     >
       {children}
