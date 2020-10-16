@@ -1,4 +1,4 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface recentQueries {
@@ -47,7 +47,7 @@ export const getPlacesBySearch = (query: string) => async (
 ) => {
   try {
     if (query.length) {
-      dispatch(setLoading(true));
+      dispatch(setSearchLoading(true));
       const response = await axios.get(
         `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGMapSuggestions/${query}`
       );
@@ -71,13 +71,13 @@ export const getPlacesBySearch = (query: string) => async (
   } catch (error) {
     console.log(error.message);
 
-    dispatch(setLoading(false));
+    dispatch(setSearchLoading(false));
   }
 };
 
 export const {
   displaySearchQueries,
   setRecentQuery,
-  setLoading,
+  setLoading: setSearchLoading,
 } = searchSlice.actions;
 export default searchSlice.reducer;

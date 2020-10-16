@@ -16,15 +16,13 @@ const Toolbar = () => {
   return (
     <IonHeader translucent={true}>
       <IonToolbar>
-        {/* <IonButtons slot="start">
-          <IonButton onClick={() => toggleSettingsModal()}>
-            <IonIcon slot="icon-only" md={settingsSharp} ios={settings} />
-          </IonButton>
-        </IonButtons> */}
         <IonTitle>Chicago, IL</IonTitle>
         <IonButtons slot="end">
           <IonButton onClick={() => toggleSearchModal()}>
             <IonIcon slot="icon-only" md={searchSharp} ios={search} />
+          </IonButton>
+          <IonButton onClick={() => toggleSettingsModal()}>
+            <IonIcon slot="icon-only" md={settingsSharp} ios={settings} />
           </IonButton>
         </IonButtons>
       </IonToolbar>

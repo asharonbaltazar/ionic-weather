@@ -5,8 +5,10 @@ import Toolbar from "./components/Toolbar";
 import WeatherContent from "./components/WeatherContent";
 import SettingsModal from "./components/SettingsModal";
 import SearchModal from "./components/SearchModal";
+import ScreenLoader from "./components/ScreenLoader";
+
 // React Context
-import { AppProvider } from "./context/app-context";
+import { AppProvider as ContextProvider } from "./context/app-context";
 import { IonApp, IonContent } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
@@ -30,7 +32,7 @@ import "./theme/variables.css";
 
 const App = () => (
   <ReduxProvider store={store}>
-    <AppProvider>
+    <ContextProvider>
       <IonApp>
         <Toolbar />
         <IonContent>
@@ -38,8 +40,9 @@ const App = () => (
           <SettingsModal />
           <SearchModal />
         </IonContent>
+        <ScreenLoader />
       </IonApp>
-    </AppProvider>
+    </ContextProvider>
   </ReduxProvider>
 );
 

@@ -1,13 +1,17 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, ReactNode, useReducer } from "react";
 
 // Typescript declarations
 interface IStoreState {
   settingsModal: boolean;
   searchModal: boolean;
   segmentCarouselOption: string;
-  toggleSettingsModal: Function;
-  toggleSearchModal: Function;
-  toggleSegmentsCarousel: Function;
+  toggleSettingsModal: () => void;
+  toggleSearchModal: () => void;
+  toggleSegmentsCarousel: (segmentItem: any) => void;
+}
+
+interface IProps {
+  children: ReactNode;
 }
 interface IToggleSettings {
   type: "TOGGLE_SETTINGS_MODAL";
@@ -54,6 +58,7 @@ const reducer = (state: IStoreState, action: Action) => {
     case "TOGGLE_SEGMENTS_CAROUSEL":
       return {
         ...state,
+        segmentCarouselOption: action.payload,
       };
     default:
       return state;
@@ -63,7 +68,7 @@ const reducer = (state: IStoreState, action: Action) => {
 const AppContext = createContext<IStoreState>(initialState);
 
 // Context Provider componenet
-const AppProvider: React.FC = ({ children }) => {
+const AppProvider = ({ children }: IProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const toggleSearchModal = () => {

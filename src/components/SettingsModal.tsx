@@ -17,7 +17,7 @@ const SettingsModal: React.FC = () => {
       <IonContent>
         <IonToolbar>
           <IonTitle>Settings</IonTitle>
-          <IonButtons slot="secondary">
+          <IonButtons slot="end">
             <IonButton onClick={() => toggleSettingsModal()}>CLOSE</IonButton>
           </IonButtons>
         </IonToolbar>

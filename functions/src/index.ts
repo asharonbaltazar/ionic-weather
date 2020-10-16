@@ -56,7 +56,7 @@ export const getWeatherViaCoordinates = functions.https.onRequest(
         const [, lat, lon] = request.url.split("/");
 
         const { data } = await axios.get(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude={part}&appid=${
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
             functions.config().openweatherapi.key
           }`
         );

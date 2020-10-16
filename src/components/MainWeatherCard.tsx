@@ -35,6 +35,7 @@ const MainWeatherCard = () => {
           <h3>Humidity</h3>
           <h3>Pressure</h3>
           <h3>Wind Speed</h3>
+          <h6>Updated on: 10:14pm</h6>
         </IonCardContent>
       </div>
     </IonCard>

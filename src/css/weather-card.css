@@ -49,3 +49,9 @@
   margin: 0;
   color: #dedede;
 }
+
+.details-div h6 {
+  margin-top: 5px;
+  font-size: 10px;
+  text-align: end;
+}

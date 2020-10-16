@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import {
   getPlacesBySearch,
   displaySearchQueries,
-  setLoading,
+  setSearchLoading,
 } from "../slices/searchSlice";
 // import { useDebouncedCallback } from "use-debounce";
 
