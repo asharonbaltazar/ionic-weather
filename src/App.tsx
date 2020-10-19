@@ -2,14 +2,15 @@ import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
 import store from "./store";
 import Toolbar from "./components/Toolbar";
-import WeatherContent from "./components/WeatherContent";
+import Main from "./pages/Main";
+import Saved from "./pages/Saved";
 import SettingsModal from "./components/SettingsModal";
 import SearchModal from "./components/SearchModal";
 import ScreenLoader from "./components/ScreenLoader";
 
 // React Context
 import { AppProvider as ContextProvider } from "./context/app-context";
-import { IonApp, IonContent } from "@ionic/react";
+import { IonApp } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -35,11 +36,10 @@ const App = () => (
     <ContextProvider>
       <IonApp>
         <Toolbar />
-        <IonContent>
-          <WeatherContent />
-          <SettingsModal />
-          <SearchModal />
-        </IonContent>
+        <Main />
+        <Saved />
+        <SettingsModal />
+        <SearchModal />
         <ScreenLoader />
       </IonApp>
     </ContextProvider>

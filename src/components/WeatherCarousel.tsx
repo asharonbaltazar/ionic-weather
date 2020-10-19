@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IonSlides } from "@ionic/react";
 import WeatherCarouselItem from "./WeatherCarouselItem";
+import { RootStateOrAny, useSelector } from "react-redux";
+import { AppContext } from "../context/app-context";
 import "../css/weather-carousel.css";
 
 const WeatherCarousel = () => {
+  const { weather } = useSelector(
+    (state: RootStateOrAny) => state.weather.selectedWeather
+  );
+
+  const { segmentCarouselOption } = useContext(AppContext);
+
   const slideOptions = {
     initialSlide: 0,
     speed: 500,
@@ -16,12 +24,13 @@ const WeatherCarousel = () => {
   return (
     <div className="weather-carousel">
       <IonSlides options={slideOptions}>
-        <WeatherCarouselItem />
-        <WeatherCarouselItem />
-        <WeatherCarouselItem />
-        <WeatherCarouselItem />
-        <WeatherCarouselItem />
-        <WeatherCarouselItem />
+        {weather[segmentCarouselOption].map((element: any) => (
+          <WeatherCarouselItem
+            time={element.dt}
+            temp={element.temp}
+            weather={element.weather}
+          />
+        ))}
       </IonSlides>
     </div>
   );

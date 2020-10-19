@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { RootStateOrAny, useSelector } from "react-redux";
 import {
   IonToolbar,
   IonButtons,
@@ -11,12 +12,16 @@ import { searchSharp, search, settings, settingsSharp } from "ionicons/icons";
 import { AppContext } from "../context/app-context";
 
 const Toolbar = () => {
+  const { address } = useSelector(
+    (state: RootStateOrAny) => state.weather.selectedWeather
+  );
+
   const { toggleSettingsModal, toggleSearchModal } = useContext(AppContext);
 
   return (
     <IonHeader translucent={true}>
       <IonToolbar>
-        <IonTitle>Chicago, IL</IonTitle>
+        <IonTitle>{address ? address : "Ionic Weather"}</IonTitle>
         <IonButtons slot="end">
           <IonButton onClick={() => toggleSearchModal()}>
             <IonIcon slot="icon-only" md={searchSharp} ios={search} />

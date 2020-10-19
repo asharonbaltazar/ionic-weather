@@ -5,10 +5,10 @@ interface selectedWeather {
   address: string;
   weather: {
     current: object;
-    today: Array<object>;
-    tomorrow: Array<object>;
-    next_week: Array<object>;
-    alerts?: Array<object>;
+    today: object[];
+    tomorrow: object[];
+    next_week: object[];
+    alerts?: object[];
   };
 }
 
