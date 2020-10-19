@@ -10,8 +10,6 @@ const WeatherCarousel = () => {
     slidesPerView: 3.2,
     centeredSlides: true,
     centeredSlidesBounds: true,
-    freeMode: true,
-    freeModeSticky: true,
     slideToClickedSlide: true,
   };
 

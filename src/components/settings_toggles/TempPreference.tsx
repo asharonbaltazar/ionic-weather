@@ -6,9 +6,12 @@ const TempPreference = () => {
   const { toggleTempActionSheet } = useContext(AppContext);
   return (
     <IonItem>
-      <IonLabel>Temperature Unit:</IonLabel>
+      <IonLabel>Temperature:</IonLabel>
       <IonSelect
         interface="action-sheet"
+        interfaceOptions={{
+          header: "Units",
+        }}
         value="Celsius"
         onClick={() => toggleTempActionSheet()}
       >

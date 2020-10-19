@@ -3,14 +3,20 @@ import axios from "axios";
 
 interface selectedWeather {
   address: string;
-  weather: object;
+  weather: {
+    current: object;
+    today: Array<object>;
+    tomorrow: Array<object>;
+    next_week: Array<object>;
+    alerts?: Array<object>;
+  };
 }
 
 export const weatherSlice = createSlice({
   name: "weather",
   initialState: {
     selectedWeather: {} as selectedWeather,
-    savedWeather: [],
+    savedWeather: [] as Array<selectedWeather>,
     loading: false,
   },
   reducers: {
@@ -28,28 +34,76 @@ export const weatherSlice = createSlice({
 export const getWeather = (placeId: string) => async (dispatch: Function) => {
   try {
     dispatch(setWeatherLoading(true));
-    const { data } = await axios.get(
+    const response = await axios.get(
       `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGPlaceId/${placeId}`
     );
 
-    if (data.status === "OK") {
+    if (response.data.status === "OK") {
       const {
         formatted_address,
         geometry: {
           location: { lat, lng },
         },
-      } = data.results[0];
+      } = response.data.results[0];
 
-      const response = await axios.get(
+      // Grab weather data
+      const { data } = await axios.get(
         `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getWeatherViaCoordinates/${lat}/${lng}`
       );
 
-      console.log(response.data);
+      // Split hourly into today and tomorrow
+      const hourly = data.hourly.reduce(
+        (acc: any, element: any, index: number) => {
+          // Convert seconds to ISO format for readability
+          if (element.hasOwnProperty("dt"))
+            element.dt = new Date(element.dt * 1000).toISOString();
 
+          // Split into today and tomorrow
+          index <= 23 ? acc[0].push(element) : acc[1].push(element);
+
+          return acc;
+        },
+        [[], []]
+      );
+
+      // Create weather object
       const weatherObj = {
         address: formatted_address,
-        weather: response.data,
+        weather: {
+          current: {
+            ...data.current,
+            dt: new Date(data.current.dt * 1000).toISOString(),
+            sunrise: new Date(data.current.sunrise * 1000).toISOString(),
+            sunset: new Date(data.current.sunset * 1000).toISOString(),
+          },
+          today: hourly[0],
+          tomorrow: hourly[1],
+          next_week: data.daily.flatMap((element: any, index: number) =>
+            index !== 0
+              ? {
+                  ...element,
+                  dt: new Date(element.dt * 1000).toISOString(),
+                  sunrise: new Date(element.sunrise * 1000).toISOString(),
+                  sunset: new Date(element.sunset * 1000).toISOString(),
+                }
+              : []
+          ),
+        },
       };
+
+      // Conditionally assign alerts property if (data.alerts)
+      Object.assign(
+        weatherObj.weather,
+        data.hasOwnProperty("alerts")
+          ? {
+              alerts: data.alerts.map((element: any) => ({
+                ...element,
+                start: new Date(element.start * 1000).toISOString(),
+                end: new Date(element.end * 1000).toISOString(),
+              })),
+            }
+          : null
+      );
 
       setTimeout(() => {
         dispatch(setWeatherData(weatherObj));
