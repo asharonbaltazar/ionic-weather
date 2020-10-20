@@ -4,12 +4,12 @@ import React, { createContext, ReactNode, useReducer } from "react";
 interface IStoreState {
   settingsModal: boolean;
   searchModal: boolean;
-  tempActionSheet: boolean;
+  tempActionSheetUnit: "celsius" | "kelvin" | "fahrenheit";
   segmentCarouselOption: string;
   toggleSettingsModal: () => void;
   toggleSearchModal: () => void;
   toggleSegmentsCarousel: (segmentItem: any) => void;
-  toggleTempActionSheet: () => void;
+  toggleTempActionSheet: (unit: any) => void;
 }
 
 interface IProps {
@@ -28,6 +28,7 @@ interface IToggleSegmentsCarousel {
 }
 interface IToggleTempActionSheet {
   type: "TOGGLE_TEMP_ACTION_SHEET";
+  payload: "celsius" | "kelvin" | "fahrenheit";
 }
 type Action =
   | IToggleSearch
@@ -36,10 +37,10 @@ type Action =
   | IToggleTempActionSheet;
 
 // Initial state
-const initialState = {
+const initialState: IStoreState = {
   settingsModal: false,
   searchModal: false,
-  tempActionSheet: false,
+  tempActionSheetUnit: "celsius",
   segmentCarouselOption: "today",
   toggleSettingsModal: () => {
     return;
@@ -56,7 +57,7 @@ const initialState = {
 };
 
 // Reducer
-const reducer = (state: IStoreState, action: Action) => {
+const reducer = (state: IStoreState, action: Action): IStoreState => {
   switch (action.type) {
     case "TOGGLE_SEARCH_MODAL":
       return {
@@ -76,14 +77,14 @@ const reducer = (state: IStoreState, action: Action) => {
     case "TOGGLE_TEMP_ACTION_SHEET":
       return {
         ...state,
-        tempActionSheet: !state.tempActionSheet,
+        tempActionSheetUnit: action.payload,
       };
     default:
       return state;
   }
 };
 
-const AppContext = createContext<IStoreState>(initialState);
+const AppContext = createContext(initialState);
 
 // Context Provider componenet
 const AppProvider = ({ children }: IProps) => {
@@ -101,8 +102,8 @@ const AppProvider = ({ children }: IProps) => {
     dispatch({ type: "TOGGLE_SEGMENTS_CAROUSEL", payload: segmentItem });
   };
 
-  const toggleTempActionSheet = () => {
-    dispatch({ type: "TOGGLE_TEMP_ACTION_SHEET" });
+  const toggleTempActionSheet = (unit: any) => {
+    dispatch({ type: "TOGGLE_TEMP_ACTION_SHEET", payload: unit });
   };
 
   return (
@@ -110,7 +111,7 @@ const AppProvider = ({ children }: IProps) => {
       value={{
         settingsModal: state.settingsModal,
         searchModal: state.searchModal,
-        tempActionSheet: state.tempActionSheet,
+        tempActionSheetUnit: state.tempActionSheetUnit,
         segmentCarouselOption: state.segmentCarouselOption,
         toggleSearchModal,
         toggleSettingsModal,

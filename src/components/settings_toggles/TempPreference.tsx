@@ -3,7 +3,7 @@ import { IonItem, IonLabel, IonSelectOption, IonSelect } from "@ionic/react";
 import { AppContext } from "../../context/app-context";
 
 const TempPreference = () => {
-  const { toggleTempActionSheet } = useContext(AppContext);
+  const { tempActionSheetUnit, toggleTempActionSheet } = useContext(AppContext);
   return (
     <IonItem>
       <IonLabel>Temperature:</IonLabel>
@@ -12,12 +12,12 @@ const TempPreference = () => {
         interfaceOptions={{
           header: "Units",
         }}
-        value="Celsius"
-        onClick={() => toggleTempActionSheet()}
+        value={tempActionSheetUnit}
+        onIonChange={e => toggleTempActionSheet(e.detail.value)}
       >
-        <IonSelectOption value="metric">Celsius</IonSelectOption>
-        <IonSelectOption value="imperial">Fahrenheit</IonSelectOption>
-        <IonSelectOption value="">Kelvin</IonSelectOption>
+        <IonSelectOption value="celsius">Celsius</IonSelectOption>
+        <IonSelectOption value="fahrenheit">Fahrenheit</IonSelectOption>
+        <IonSelectOption value="kelvin">Kelvin</IonSelectOption>
       </IonSelect>
     </IonItem>
   );

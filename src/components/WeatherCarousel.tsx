@@ -14,7 +14,7 @@ const WeatherCarousel = () => {
 
   const slideOptions = {
     initialSlide: 0,
-    speed: 500,
+    speed: 200,
     slidesPerView: 3.2,
     centeredSlides: true,
     centeredSlidesBounds: true,

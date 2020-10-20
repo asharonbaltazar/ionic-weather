@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   IonSlide,
   IonCard,
@@ -6,6 +6,8 @@ import {
   IonCardSubtitle,
   IonCardTitle,
 } from "@ionic/react";
+import { AppContext } from "../context/app-context";
+import { format } from "../utilities/format";
 import dayjs from "dayjs";
 import "../css/carousel-item.css";
 
@@ -20,12 +22,14 @@ const WeatherCarouselItem = ({
   temp,
   weather: [{ description }],
 }: IProps) => {
+  const { tempActionSheetUnit } = useContext(AppContext);
+
   return (
     <IonSlide className="carousel-item">
       <IonCard color="primary">
         <IonCardHeader>
           <IonCardSubtitle>{dayjs(time).format("hh:mm a")}</IonCardSubtitle>
-          <IonCardTitle>{temp}°</IonCardTitle>
+          <IonCardTitle>{format[tempActionSheetUnit](temp)}°</IonCardTitle>
           <IonCardSubtitle>
             {description.charAt(0).toUpperCase() + description.slice(1)}
           </IonCardSubtitle>

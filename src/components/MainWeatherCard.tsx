@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   IonCard,
   IonCardHeader,
@@ -9,10 +9,13 @@ import {
 } from "@ionic/react";
 import { cloud } from "ionicons/icons";
 import { RootStateOrAny, useSelector } from "react-redux";
+import { AppContext } from "../context/app-context";
+import { format } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
 
 const MainWeatherCard = () => {
+  const { tempActionSheetUnit } = useContext(AppContext);
   const {
     dt,
     temp,
@@ -37,9 +40,11 @@ const MainWeatherCard = () => {
           </IonCardTitle>
         </IonCardHeader>
         <IonCardHeader className="temp">
-          <IonCardTitle className="temp-title">{temp}°</IonCardTitle>
+          <IonCardTitle className="temp-title">
+            {format[tempActionSheetUnit](temp)}°
+          </IonCardTitle>
           <IonCardSubtitle className="temp-subtitle">
-            feels like {feels_like}°
+            feels like {format[tempActionSheetUnit](feels_like)}°
           </IonCardSubtitle>
         </IonCardHeader>
       </div>
