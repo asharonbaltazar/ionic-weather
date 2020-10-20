@@ -3,27 +3,31 @@ import {
   IonCard,
   IonCardHeader,
   IonCardContent,
-  IonIcon,
   IonCardTitle,
   IonCardSubtitle,
 } from "@ionic/react";
-import { cloud } from "ionicons/icons";
 import { RootStateOrAny, useSelector } from "react-redux";
 import { AppContext } from "../context/app-context";
-import { format } from "../utilities/format";
+import { formatTemp } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
+import isBetween from "dayjs/plugin/isBetween";
+dayjs.extend(isBetween);
 
 const MainWeatherCard = () => {
   const { tempActionSheetUnit } = useContext(AppContext);
   const {
     dt,
+    sunrise,
+    sunset,
     temp,
     feels_like,
-    weather: [{ description }],
+    weather: [{ description, id }],
   } = useSelector(
     (state: RootStateOrAny) => state.weather.selectedWeather.weather.current
   );
+
+  const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
 
   return (
     <IonCard className="card" color="primary">
@@ -33,7 +37,7 @@ const MainWeatherCard = () => {
       <div className="card-div">
         <IonCardHeader className="desc">
           <IonCardTitle>
-            <IonIcon className="desc-icon" icon={cloud} />
+            <i className={`wi wi-owm-${icon}-${id} weather-icon`}></i>
           </IonCardTitle>
           <IonCardTitle className="desc-title">
             {description.charAt(0).toUpperCase() + description.slice(1)}
@@ -41,10 +45,10 @@ const MainWeatherCard = () => {
         </IonCardHeader>
         <IonCardHeader className="temp">
           <IonCardTitle className="temp-title">
-            {format[tempActionSheetUnit](temp)}°
+            {formatTemp[tempActionSheetUnit](temp)}°
           </IonCardTitle>
           <IonCardSubtitle className="temp-subtitle">
-            feels like {format[tempActionSheetUnit](feels_like)}°
+            feels like {formatTemp[tempActionSheetUnit](feels_like)}°
           </IonCardSubtitle>
         </IonCardHeader>
       </div>

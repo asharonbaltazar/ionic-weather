@@ -79,18 +79,22 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
           },
           today: hourly[0],
           tomorrow: hourly[1],
-          next_week: data.daily.flatMap((element: any, index: number) =>
-            index !== 0
-              ? {
-                  ...element,
-                  dt: new Date(element.dt * 1000).toISOString(),
-                  sunrise: new Date(element.sunrise * 1000).toISOString(),
-                  sunset: new Date(element.sunset * 1000).toISOString(),
-                }
-              : []
-          ),
+          next_week: data.daily.map((element: any, index: number) => ({
+            ...element,
+            dt: new Date(element.dt * 1000).toISOString(),
+            sunrise: new Date(element.sunrise * 1000).toISOString(),
+            sunset: new Date(element.sunset * 1000).toISOString(),
+          })),
         },
         gId: placeId,
+        icon_times: data.daily.flatMap((element: any, index: any) =>
+          index <= 2
+            ? {
+                sunrise: new Date(element.sunrise * 1000).toISOString(),
+                sunset: new Date(element.sunset * 1000).toISOString(),
+              }
+            : []
+        ),
       };
 
       // Conditionally assign alerts property if (data.alerts)

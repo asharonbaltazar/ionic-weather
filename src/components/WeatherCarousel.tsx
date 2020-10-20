@@ -14,22 +14,23 @@ const WeatherCarousel = () => {
 
   const slideOptions = {
     initialSlide: 0,
-    speed: 200,
-    slidesPerView: 3.2,
-    centeredSlides: true,
+    slidesPerView: 2,
     centeredSlidesBounds: true,
     slideToClickedSlide: true,
+    freeMode: true,
+    freeModeSticky: true,
   };
 
   return (
     <div className="weather-carousel">
-      <IonSlides options={slideOptions}>
+      <IonSlides options={slideOptions} mode="ios" scrollbar={true}>
         {weather[segmentCarouselOption].map((element: any, index: number) => (
           <WeatherCarouselItem
             key={index}
             time={element.dt}
             temp={element.temp}
             weather={element.weather}
+            pop={element.pop}
           />
         ))}
       </IonSlides>

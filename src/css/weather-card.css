@@ -16,7 +16,7 @@
 
 .date {
   margin-top: 16px;
-  padding-left: 16px;
+  text-align: center;
   color: #dedede;
 }
 
@@ -31,7 +31,7 @@
 }
 
 .desc-title {
-  margin: 0;
+  margin: 10px 0 0 0;
   font-size: 2rem;
 }
 
@@ -48,6 +48,10 @@
 .temp-subtitle {
   margin: 0;
   color: #dedede;
+}
+
+.card i {
+  font-size: 4rem;
 }
 
 .details-div h6 {
