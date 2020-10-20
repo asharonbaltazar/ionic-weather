@@ -9,6 +9,7 @@ interface selectedWeather {
     tomorrow: object[];
     next_week: object[];
     alerts?: object[];
+    gId: string;
   };
 }
 
@@ -89,6 +90,7 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
               : []
           ),
         },
+        gId: placeId,
       };
 
       // Conditionally assign alerts property if (data.alerts)

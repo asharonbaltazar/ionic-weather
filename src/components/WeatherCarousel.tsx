@@ -24,8 +24,9 @@ const WeatherCarousel = () => {
   return (
     <div className="weather-carousel">
       <IonSlides options={slideOptions}>
-        {weather[segmentCarouselOption].map((element: any) => (
+        {weather[segmentCarouselOption].map((element: any, index: number) => (
           <WeatherCarouselItem
+            key={index}
             time={element.dt}
             temp={element.temp}
             weather={element.weather}

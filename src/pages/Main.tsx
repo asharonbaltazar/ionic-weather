@@ -7,13 +7,12 @@ const Main = () => {
   const { selectedWeather } = useSelector(
     (state: RootStateOrAny) => state.weather
   );
-
-  return Object.keys(selectedWeather).length ? (
+  return selectedWeather.hasOwnProperty("weather") ? (
     <IonContent>
       <WeatherContent />
     </IonContent>
   ) : (
-    <div></div>
+    <></>
   );
 };
 
