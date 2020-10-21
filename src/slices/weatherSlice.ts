@@ -111,9 +111,7 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
           : null
       );
 
-      setTimeout(() => {
-        dispatch(setWeatherData(weatherObj));
-      }, 500);
+      dispatch(setWeatherData(weatherObj));
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   IonCard,
   IonCardHeader,
@@ -7,7 +7,6 @@ import {
   IonCardSubtitle,
 } from "@ionic/react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { AppContext } from "../context/app-context";
 import { formatTemp } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
@@ -15,7 +14,11 @@ import isBetween from "dayjs/plugin/isBetween";
 dayjs.extend(isBetween);
 
 const MainWeatherCard = () => {
-  const { tempActionSheetUnit } = useContext(AppContext);
+  // Temperature unit from settings
+  const selectedTemp: "celsius" | "fahrenheit" | "kelvin" = useSelector(
+    (state: RootStateOrAny) => state.settings.tempPreference
+  );
+
   const {
     dt,
     sunrise,
@@ -27,6 +30,7 @@ const MainWeatherCard = () => {
     (state: RootStateOrAny) => state.weather.selectedWeather.weather.current
   );
 
+  // Icon string
   const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
 
   return (
@@ -45,10 +49,10 @@ const MainWeatherCard = () => {
         </IonCardHeader>
         <IonCardHeader className="temp">
           <IonCardTitle className="temp-title">
-            {formatTemp[tempActionSheetUnit](temp)}°
+            {formatTemp[selectedTemp](temp)}°
           </IonCardTitle>
           <IonCardSubtitle className="temp-subtitle">
-            feels like {formatTemp[tempActionSheetUnit](feels_like)}°
+            feels like {formatTemp[selectedTemp](feels_like)}°
           </IonCardSubtitle>
         </IonCardHeader>
       </div>

@@ -6,7 +6,7 @@ import { getPlacesBySearch, displaySearchQueries } from "../slices/searchSlice";
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  // const [loadingTerm, setLoadingTerm] = useState("");
+  const [loadingTerm, setLoadingTerm] = useState("");
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,6 +24,7 @@ const Searchbar = () => {
       placeholder="Search places"
       value={searchTerm}
       onIonChange={e => setSearchTerm(e.detail.value!)}
+      // onInput={e => setLoadingTerm(e.currentTarget.value || "")}
       debounce={750}
       autoCorrect={"off"}
       enterkeyhint={"search"}
