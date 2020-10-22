@@ -19,16 +19,19 @@ const WeatherCarousel = () => {
     freeMode: true,
     freeModeSticky: true,
     breakpoints: {
-      500: {
+      300: {
+        slidesPerView: 2,
+      },
+      450: {
         slidesPerView: 3,
       },
-      750: {
+      600: {
         slidesPerView: 4,
       },
-      900: {
+      750: {
         slidesPerView: 5,
       },
-      1000: {
+      850: {
         slidesPerView: 6,
       },
     },
