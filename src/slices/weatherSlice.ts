@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import dayjs from "dayjs";
 
 interface selectedWeather {
   address: string;
@@ -52,6 +53,11 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
         `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getWeatherViaCoordinates/${lat}/${lng}`
       );
 
+      // tomorrow morning
+      const tom_morn = dayjs().add(1, "day").hour(6).minute(0).second(0);
+      // after tomorrow morning
+      const after_tom_morn = dayjs().add(2, "day").hour(6).minute(0).second(0);
+
       // Split hourly into today and tomorrow
       const hourly = data.hourly.reduce(
         (acc: any, element: any, index: number) => {
@@ -60,7 +66,9 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
             element.dt = new Date(element.dt * 1000).toISOString();
 
           // Split into today and tomorrow
-          index <= 23 ? acc[0].push(element) : acc[1].push(element);
+          dayjs(element.dt).isBefore(tom_morn) && acc[0].push(element);
+          dayjs(element.dt).isBetween(tom_morn, after_tom_morn) &&
+            acc[1].push(element);
 
           return acc;
         },

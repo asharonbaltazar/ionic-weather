@@ -7,7 +7,7 @@ import {
   IonCardSubtitle,
 } from "@ionic/react";
 import { RootStateOrAny, useSelector } from "react-redux";
-import { formatTemp } from "../utilities/format";
+import { formatTemp, formatSpeed } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
@@ -18,6 +18,9 @@ const MainWeatherCard = () => {
   const selectedTemp: "celsius" | "fahrenheit" | "kelvin" = useSelector(
     (state: RootStateOrAny) => state.settings.tempPreference
   );
+  const selectedSpeed: "miles" | "kilometers" = useSelector(
+    (state: RootStateOrAny) => state.settings.windSpeedPreference
+  );
 
   const {
     dt,
@@ -25,6 +28,9 @@ const MainWeatherCard = () => {
     sunset,
     temp,
     feels_like,
+    pressure,
+    humidity,
+    wind_speed,
     weather: [{ description, id }],
   } = useSelector(
     (state: RootStateOrAny) => state.weather.selectedWeather.weather.current
@@ -58,9 +64,21 @@ const MainWeatherCard = () => {
       </div>
       <div className="details-div">
         <IonCardContent>
-          <h3>Humidity</h3>
-          <h3>Pressure</h3>
-          <h3>Wind Speed</h3>
+          <div className="additional-details">
+            <h3>Humidity</h3>
+            <h3>{humidity}%</h3>
+          </div>
+          <div className="additional-details">
+            <h3>Pressure</h3>
+            <h3>{pressure}</h3>
+          </div>
+          <div className="additional-details">
+            <h3>Wind Speed</h3>
+            <h3>
+              {formatSpeed[selectedSpeed](wind_speed)}{" "}
+              {selectedSpeed === "kilometers" ? "km/h" : "mph"}
+            </h3>
+          </div>
           <h6>Updated on: {dayjs(dt).format("hh:mm a")}</h6>
         </IonCardContent>
       </div>

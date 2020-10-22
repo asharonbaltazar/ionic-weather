@@ -59,3 +59,8 @@
   font-size: 10px;
   text-align: end;
 }
+
+.additional-details {
+  display: flex;
+  justify-content: space-between;
+}

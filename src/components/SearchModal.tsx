@@ -7,7 +7,6 @@ import {
   IonButtons,
   IonButton,
   IonNote,
-  IonTitle,
 } from "@ionic/react";
 import lightLogo from "../assets/google_light.png";
 import darkLogo from "../assets/google_dark.png";
@@ -18,9 +17,6 @@ const SearchModal = () => {
 
   return (
     <IonModal isOpen={searchModal} backdropDismiss={false}>
-      <IonToolbar>
-        <IonTitle>Search</IonTitle>
-      </IonToolbar>
       <IonToolbar>
         <IonButtons slot="end">
           <IonButton onClick={() => toggleSearchModal()}>CLOSE</IonButton>

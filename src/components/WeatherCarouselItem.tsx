@@ -48,7 +48,7 @@ const WeatherCarouselItem = ({
         </div>
         <div>
           {pop && pop > 0 ? (
-            <p className="pop">% {Math.floor(pop * 100)}</p>
+            <p className="pop">{Math.floor(pop * 100)}%</p>
           ) : (
             <div className="pop"></div>
           )}

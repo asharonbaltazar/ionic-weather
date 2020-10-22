@@ -8,6 +8,11 @@ export const formatTemp = {
   kelvin: (value: number) => Math.ceil(value),
 };
 
+export const formatSpeed = {
+  miles: (value: number) => Math.ceil(value / 1.609),
+  kilometers: (value: number) => value,
+};
+
 export const formatIconTime = (day: boolean): string => {
   return day ? "day" : "night";
 };
