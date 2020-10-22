@@ -9,9 +9,9 @@ const WeatherCarousel = () => {
   const { weather } = useSelector(
     (state: RootStateOrAny) => state.weather.selectedWeather
   );
-
   const { segmentCarouselOption } = useContext(AppContext);
 
+  // Carousel init options
   const slideOptions = {
     initialSlide: 0,
     slidesPerView: 2,
