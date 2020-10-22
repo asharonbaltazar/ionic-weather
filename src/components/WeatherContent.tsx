@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { IonGrid, IonRow } from "@ionic/react";
 import MainWeatherCard from "./MainWeatherCard";
 import DaysSegment from "./DaysSegment";
 import WeatherCarousel from "./WeatherCarousel";
+import { AppContext } from "../context/app-context";
 import AdditionalInfo from "./AdditionalInfo";
 
 const WeatherContent = () => {
+  const { segmentCarouselOption } = useContext(AppContext);
+
   return (
     <IonGrid className="ion-no-margin">
       <IonRow>
@@ -13,7 +16,7 @@ const WeatherContent = () => {
       </IonRow>
       <IonRow>
         <DaysSegment />
-        <WeatherCarousel />
+        <WeatherCarousel key={segmentCarouselOption} />
       </IonRow>
       <IonRow>
         <AdditionalInfo />

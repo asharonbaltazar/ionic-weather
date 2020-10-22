@@ -3,7 +3,6 @@ import {
   IonContent,
   IonModal,
   IonToolbar,
-  IonTitle,
   IonButtons,
   IonButton,
   IonList,
@@ -17,7 +16,6 @@ const SettingsModal: React.FC = () => {
   return (
     <IonModal isOpen={settingsModal} backdropDismiss={false}>
       <IonToolbar>
-        <IonTitle>Settings</IonTitle>
         <IonButtons slot="end">
           <IonButton onClick={() => toggleSettingsModal()}>CLOSE</IonButton>
         </IonButtons>
