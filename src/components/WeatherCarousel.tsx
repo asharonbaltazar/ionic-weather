@@ -14,7 +14,6 @@ const WeatherCarousel = () => {
   // Carousel init options
   const slideOptions = {
     initialSlide: 0,
-    slidesPerView: 2,
     centeredSlidesBounds: true,
     slideToClickedSlide: true,
     freeMode: true,
