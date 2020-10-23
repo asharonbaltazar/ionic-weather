@@ -21,7 +21,7 @@ const DaysSegment = () => {
           <IonLabel>Tomorrow</IonLabel>
         </IonSegmentButton>
         <IonSegmentButton value="next_week">
-          <IonLabel>Next Week</IonLabel>
+          <IonLabel>Next 7 Days</IonLabel>
         </IonSegmentButton>
       </IonSegment>
     </div>

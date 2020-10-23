@@ -19,7 +19,7 @@ const Toolbar = () => {
 
   return (
     <IonToolbar>
-      <IonTitle>{address ? address : "Ionic Weather"}</IonTitle>
+      <IonTitle>{address && address}</IonTitle>
       <IonButtons slot="end">
         <IonButton onClick={() => toggleSearchModal()}>
           <IonIcon slot="icon-only" md={searchSharp} ios={search} />
