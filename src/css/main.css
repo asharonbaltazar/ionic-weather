@@ -1,3 +1,7 @@
+ion-icon {
+  color: var(--ion-color-primary) !important;
+}
+
 .empty-placeholder {
   height: 100%;
   display: flex;

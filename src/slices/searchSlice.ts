@@ -67,6 +67,9 @@ export const getPlacesBySearch = (query: string) => async (
         );
 
         dispatch(displaySearchQueries(formattedResults));
+      } else {
+        dispatch(setSearchLoading(false));
+        console.log(response.data);
       }
     }
   } catch (error) {
