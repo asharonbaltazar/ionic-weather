@@ -1,7 +1,4 @@
-import React, { useContext } from "react";
-import { AppContext } from "../context/app-context";
-import SkeletonResults from "./SkeletonResults";
-import SearchResult from "./SearchResult";
+import React from "react";
 import {
   IonItem,
   IonIcon,
@@ -9,6 +6,9 @@ import {
   IonContent,
   IonItemDivider,
 } from "@ionic/react";
+import { useHistory } from "react-router";
+import SkeletonResults from "./SkeletonResults";
+import SearchResult from "./SearchResult";
 import { locate, locateSharp } from "ionicons/icons";
 import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
@@ -26,7 +26,7 @@ const SearchModalContent = () => {
     (state: RootStateOrAny) => state.search.loading
   );
 
-  const { toggleSearchModal } = useContext(AppContext);
+  const history = useHistory();
 
   return (
     <>
@@ -36,7 +36,7 @@ const SearchModalContent = () => {
           button
           onClick={() => {
             dispatch(getWeatherByGeolocation());
-            toggleSearchModal();
+            history.goBack();
           }}
           detail={false}
         >

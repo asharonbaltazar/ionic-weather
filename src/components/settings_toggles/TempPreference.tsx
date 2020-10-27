@@ -14,7 +14,7 @@ const TempPreference = () => {
     <IonItem>
       <IonLabel>Temperature:</IonLabel>
       <IonSelect
-        interface="action-sheet"
+        interface="alert"
         interfaceOptions={{
           header: "Units",
         }}

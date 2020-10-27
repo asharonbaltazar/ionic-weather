@@ -1,7 +1,7 @@
-import React, { useContext } from "react";
+import React from "react";
 import { IonItem, IonLabel, IonIcon, IonNote } from "@ionic/react";
 import { locationSharp, locationOutline } from "ionicons/icons";
-import { AppContext } from "../context/app-context";
+import { useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setRecentQuery } from "../slices/searchSlice";
 import { getWeather } from "../slices/weatherSlice";
@@ -16,13 +16,12 @@ interface text {
 }
 
 const SearchResult: React.FC<IProps> = ({ text, id }) => {
-  const { toggleSearchModal } = useContext(AppContext);
-
+  const history = useHistory();
   const dispatch = useDispatch();
   const getLatLong = () => {
     dispatch(setRecentQuery({ text, id }));
     dispatch(getWeather(id));
-    toggleSearchModal();
+    history.goBack();
   };
 
   return (

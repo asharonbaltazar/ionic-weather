@@ -1,8 +1,10 @@
 import React from "react";
-import { IonContent, IonIcon } from "@ionic/react";
-import { searchSharp, search } from "ionicons/icons";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { IonContent, IonPage } from "@ionic/react";
+import Toolbar from "../components/Toolbar";
 import WeatherContent from "../components/WeatherContent";
+import MainPagePlaceholder from "../components/MainPagePlaceholder";
+import { RootStateOrAny, useSelector } from "react-redux";
+
 import "../css/main.css";
 
 const Main = () => {
@@ -10,22 +12,16 @@ const Main = () => {
     (state: RootStateOrAny) => state.weather
   );
   return (
-    <IonContent>
-      {selectedWeather.hasOwnProperty("weather") ? (
-        <WeatherContent />
-      ) : (
-        <>
-          <div className="empty-placeholder">
-            <i className="wi wi-day-cloudy"></i>
-            <h2>Welcome to Ionic Weather</h2>
-            <h3>
-              To begin, tap the <IonIcon md={searchSharp} ios={search} /> to
-              search
-            </h3>
-          </div>
-        </>
-      )}
-    </IonContent>
+    <IonPage>
+      <Toolbar />
+      <IonContent>
+        {selectedWeather.hasOwnProperty("weather") ? (
+          <WeatherContent />
+        ) : (
+          <MainPagePlaceholder />
+        )}
+      </IonContent>
+    </IonPage>
   );
 };
 

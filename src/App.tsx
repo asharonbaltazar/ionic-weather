@@ -1,16 +1,16 @@
 import React from "react";
+import { Route } from "react-router-dom";
+import { IonApp, IonRouterOutlet } from "@ionic/react";
+import { IonReactRouter } from "@ionic/react-router";
 import { Provider as ReduxProvider } from "react-redux";
 import { store } from "./store";
-import Toolbar from "./components/Toolbar";
 import Main from "./pages/Main";
-import Saved from "./pages/Saved";
 import SettingsModal from "./components/SettingsModal";
 import SearchModal from "./components/SearchModal";
 import ScreenLoader from "./components/ScreenLoader";
 
 // React Context
 import { AppProvider as ContextProvider } from "./context/app-context";
-import { IonApp } from "@ionic/react";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -35,15 +35,22 @@ const App = () => (
   <ReduxProvider store={store}>
     <ContextProvider>
       <IonApp>
-        <Toolbar />
-        <Main />
-        <Saved />
-        <SettingsModal />
-        <SearchModal />
-        <ScreenLoader />
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Route exact path="/" component={Main} />
+            <Route path="/search" component={SearchModal} />
+            <Route path="/settings" component={SettingsModal} />
+          </IonRouterOutlet>
+          <ScreenLoader />
+        </IonReactRouter>
       </IonApp>
     </ContextProvider>
   </ReduxProvider>
 );
+
+// <Main />
+// <Saved />
+// <SettingsModal />
+// <SearchModal />
 
 export default App;

@@ -1,36 +1,41 @@
-import React, { useContext } from "react";
+import React from "react";
 import {
   IonContent,
-  IonModal,
   IonToolbar,
   IonTitle,
   IonButtons,
-  IonButton,
   IonList,
+  IonPage,
+  IonBackButton,
+  IonHeader,
+  IonItemGroup,
+  IonItemDivider,
 } from "@ionic/react";
 import TempPreference from "./settings_toggles/TempPreference";
 import SpeedPreference from "./settings_toggles/SpeedPreference";
-import { AppContext } from "../context/app-context";
 
-const SettingsModal: React.FC = () => {
-  const { settingsModal, toggleSettingsModal } = useContext(AppContext);
-
+const SettingsModal = () => {
   return (
-    <IonModal isOpen={settingsModal} backdropDismiss={false}>
-      <IonToolbar>
-        <IonTitle>Settings</IonTitle>
-        <IonButtons slot="end">
-          <IonButton onClick={() => toggleSettingsModal()}>CLOSE</IonButton>
-        </IonButtons>
-      </IonToolbar>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <IonButtons slot="start">
+            <IonBackButton defaultHref="/" />
+            <IonTitle>Settings</IonTitle>
+          </IonButtons>
+        </IonToolbar>
+      </IonHeader>
 
       <IonContent>
-        <IonList>
-          <TempPreference />
-          <SpeedPreference />
+        <IonList lines="none">
+          <IonItemGroup>
+            <IonItemDivider>Weather preferences: </IonItemDivider>
+            <TempPreference />
+            <SpeedPreference />
+          </IonItemGroup>
         </IonList>
       </IonContent>
-    </IonModal>
+    </IonPage>
   );
 };
 

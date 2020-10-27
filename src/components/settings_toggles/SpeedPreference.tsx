@@ -14,7 +14,7 @@ const SpeedPreference = () => {
     <IonItem>
       <IonLabel>Wind Speed:</IonLabel>
       <IonSelect
-        interface="action-sheet"
+        interface="alert"
         interfaceOptions={{
           header: "Units",
         }}

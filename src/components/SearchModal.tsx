@@ -1,28 +1,19 @@
-import React, { useContext, CSSProperties } from "react";
+import React, { CSSProperties } from "react";
 import Searchbar from "./Searchbar";
 import SearchModalContent from "./SearchModalContent";
-import {
-  IonModal,
-  IonToolbar,
-  IonButtons,
-  IonButton,
-  IonNote,
-} from "@ionic/react";
+import { IonToolbar, IonNote, IonPage, IonHeader } from "@ionic/react";
 import lightLogo from "../assets/google_light.png";
 import darkLogo from "../assets/google_dark.png";
-import { AppContext } from "../context/app-context";
 
 const SearchModal = () => {
-  const { searchModal, toggleSearchModal } = useContext(AppContext);
-
   return (
-    <IonModal isOpen={searchModal} backdropDismiss={false}>
-      <IonToolbar>
-        <IonButtons slot="end">
-          <IonButton onClick={() => toggleSearchModal()}>CLOSE</IonButton>
-        </IonButtons>
-        <Searchbar />
-      </IonToolbar>
+    <IonPage>
+      <IonHeader>
+        <IonToolbar>
+          <Searchbar />
+        </IonToolbar>
+      </IonHeader>
+
       <SearchModalContent />
       <IonNote className="ion-padding-end ion-padding-bottom">
         <div style={imgDiv}>
@@ -32,7 +23,7 @@ const SearchModal = () => {
           </picture>
         </div>
       </IonNote>
-    </IonModal>
+    </IonPage>
   );
 };
 
