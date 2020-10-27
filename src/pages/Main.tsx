@@ -16,6 +16,7 @@ const Main = () => {
       ) : (
         <>
           <div className="empty-placeholder">
+            <i className="wi wi-day-cloudy"></i>
             <h2>Welcome to Ionic Weather</h2>
             <h3>
               To begin, tap the <IonIcon md={searchSharp} ios={search} /> to

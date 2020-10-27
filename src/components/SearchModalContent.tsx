@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AppContext } from "../context/app-context";
 import SkeletonResults from "./SkeletonResults";
 import SearchResult from "./SearchResult";
 import {
@@ -9,10 +10,11 @@ import {
   IonItemDivider,
 } from "@ionic/react";
 import { locate, locateSharp } from "ionicons/icons";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
+import { getWeatherByGeolocation } from "../slices/weatherSlice";
 
 const SearchModalContent = () => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   const searchResults = useSelector(
     (state: RootStateOrAny) => state.search.queries
   );
@@ -24,13 +26,18 @@ const SearchModalContent = () => {
     (state: RootStateOrAny) => state.search.loading
   );
 
+  const { toggleSearchModal } = useContext(AppContext);
+
   return (
     <>
       <IonContent>
         <IonItem
           className="ion-margin-top ion-margin-bottom"
           button
-          onClick={() => {}}
+          onClick={() => {
+            dispatch(getWeatherByGeolocation());
+            toggleSearchModal();
+          }}
           detail={false}
         >
           <IonIcon

@@ -20,6 +20,8 @@ export const getGMapSuggestions = functions.https.onRequest(
           response.send(data);
         } else if (data.status === "ZERO_RESULTS") {
           response.send("No city found");
+        } else {
+          response.send(data);
         }
       } catch (error) {
         response.send("Internal Server Error");
@@ -58,6 +60,27 @@ export const getWeatherViaCoordinates = functions.https.onRequest(
         const { data } = await axios.get(
           `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
             functions.config().openweatherapi.key
+          }`
+        );
+
+        response.send(data);
+      } catch (error) {
+        response.send("Internal Server Error");
+      }
+    });
+  }
+);
+
+// This is for the geolocation function
+export const getGeolocationPlaceData = functions.https.onRequest(
+  (request, response) => {
+    cors(request, response, async () => {
+      try {
+        const [, lat, lon] = request.url.split("/");
+
+        const { data } = await axios.get(
+          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
+            functions.config().googlemaps.key
           }`
         );
 

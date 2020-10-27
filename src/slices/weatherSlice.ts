@@ -1,6 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Geolocation } from "@ionic-native/geolocation";
+import { AppDispatch } from "../store";
+import { formatWeatherData } from "../utilities/format";
 import axios from "axios";
-import dayjs from "dayjs";
 
 interface selectedWeather {
   address: string;
@@ -33,11 +35,13 @@ export const weatherSlice = createSlice({
 });
 
 // Thunk functions
-export const getWeather = (placeId: string) => async (dispatch: Function) => {
+export const getWeather = (placeId: string) => async (
+  dispatch: AppDispatch
+) => {
   try {
     dispatch(setWeatherLoading(true));
     const response = await axios.get(
-      `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGPlaceId/${placeId}`
+      process.env.REACT_APP_GET_GPLACE_ID + placeId
     );
 
     if (response.data.status === "OK") {
@@ -48,75 +52,11 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
         },
       } = response.data.results[0];
 
-      // Grab weather data
-      const { data } = await axios.get(
-        `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getWeatherViaCoordinates/${lat}/${lng}`
-      );
-
-      // tomorrow morning
-      const tom_morn = dayjs().add(1, "day").hour(6).minute(0).second(0);
-      // after tomorrow morning
-      const after_tom_morn = dayjs().add(2, "day").hour(6).minute(0).second(0);
-
-      // Split hourly into today and tomorrow
-      const hourly = data.hourly.reduce(
-        (acc: any, element: any, index: number) => {
-          // Convert seconds to ISO format for readability
-          if (element.hasOwnProperty("dt"))
-            element.dt = new Date(element.dt * 1000).toISOString();
-
-          // Split into today and tomorrow
-          dayjs(element.dt).isBefore(tom_morn) && acc[0].push(element);
-          dayjs(element.dt).isBetween(tom_morn, after_tom_morn) &&
-            acc[1].push(element);
-
-          return acc;
-        },
-        [[], []]
-      );
-
-      // Create weather object
-      const weatherObj = {
-        address: formatted_address,
-        weather: {
-          current: {
-            ...data.current,
-            dt: new Date(data.current.dt * 1000).toISOString(),
-            sunrise: new Date(data.current.sunrise * 1000).toISOString(),
-            sunset: new Date(data.current.sunset * 1000).toISOString(),
-          },
-          today: hourly[0],
-          tomorrow: hourly[1],
-          next_week: data.daily.map((element: any, index: number) => ({
-            ...element,
-            dt: new Date(element.dt * 1000).toISOString(),
-            sunrise: new Date(element.sunrise * 1000).toISOString(),
-            sunset: new Date(element.sunset * 1000).toISOString(),
-          })),
-        },
-        gId: placeId,
-        icon_times: data.daily.flatMap((element: any, index: any) =>
-          index <= 2
-            ? {
-                sunrise: new Date(element.sunrise * 1000).toISOString(),
-                sunset: new Date(element.sunset * 1000).toISOString(),
-              }
-            : []
-        ),
-      };
-
-      // Conditionally assign alerts property if (data.alerts)
-      Object.assign(
-        weatherObj.weather,
-        data.hasOwnProperty("alerts")
-          ? {
-              alerts: data.alerts.map((element: any) => ({
-                ...element,
-                start: new Date(element.start * 1000).toISOString(),
-                end: new Date(element.end * 1000).toISOString(),
-              })),
-            }
-          : null
+      const weatherObj = await formatWeatherData(
+        lat,
+        lng,
+        formatted_address,
+        placeId
       );
 
       dispatch(setWeatherData(weatherObj));
@@ -124,6 +64,42 @@ export const getWeather = (placeId: string) => async (dispatch: Function) => {
   } catch (error) {
     dispatch(setWeatherLoading(false));
     console.error(error.message);
+  }
+};
+
+export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
+  try {
+    dispatch(setWeatherLoading(true));
+
+    // geolocation coordinates
+    const {
+      coords: { latitude, longitude },
+    } = await Geolocation.getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 10000,
+    });
+
+    const {
+      data: {
+        results: [{ formatted_address, place_id }],
+      },
+    } = await axios.get(
+      process.env.REACT_APP_GET_GEOLOCATION_DATA + `/${latitude}/${longitude}`
+    );
+
+    if (formatted_address && place_id) {
+      const weatherObj = await formatWeatherData(
+        latitude.toString(),
+        longitude.toString(),
+        formatted_address,
+        place_id
+      );
+
+      dispatch(setWeatherData(weatherObj));
+    }
+  } catch (error) {
+    dispatch(setWeatherLoading(false));
+    console.log(error.message);
   }
 };
 

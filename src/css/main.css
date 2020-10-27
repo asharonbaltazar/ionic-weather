@@ -4,11 +4,15 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  opacity: 0.5;
+}
+
+.empty-placeholder i {
+  font-size: 5rem;
 }
 
 .empty-placeholder h2 {
-  margin: 0 0 10px 0;
-  opacity: 0.5;
+  margin: 10px 0;
   font-weight: 700;
 }
 
@@ -16,7 +20,6 @@
   margin: 0;
   display: flex;
   align-items: center;
-  opacity: 0.5;
 }
 
 .empty-placeholder ion-icon {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider as ReduxProvider } from "react-redux";
-import store from "./store";
+import { store } from "./store";
 import Toolbar from "./components/Toolbar";
 import Main from "./pages/Main";
 import Saved from "./pages/Saved";

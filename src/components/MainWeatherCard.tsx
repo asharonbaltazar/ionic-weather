@@ -10,8 +10,8 @@ import { RootStateOrAny, useSelector } from "react-redux";
 import { formatTemp, formatSpeed } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
-dayjs.extend(isBetween);
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
 
 const MainWeatherCard = () => {
   // Temperature unit from settings
@@ -31,6 +31,7 @@ const MainWeatherCard = () => {
     pressure,
     humidity,
     wind_speed,
+    updated,
     weather: [{ description, id }],
   } = useSelector(
     (state: RootStateOrAny) => state.weather.selectedWeather.weather.current
@@ -79,7 +80,7 @@ const MainWeatherCard = () => {
               {selectedSpeed === "kilometers" ? "km/h" : "mph"}
             </h3>
           </div>
-          <h6>Updated on: {dayjs(dt).format("hh:mm a")}</h6>
+          <h6>Updated: {dayjs(updated).fromNow()}</h6>
         </IonCardContent>
       </div>
     </IonCard>

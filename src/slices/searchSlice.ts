@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { AppDispatch } from "../store";
 import axios from "axios";
 
 interface recentQueries {
@@ -43,7 +44,7 @@ export const searchSlice = createSlice({
 
 // Thunk functions
 export const getPlacesBySearch = (query: string) => async (
-  dispatch: Function
+  dispatch: AppDispatch
 ) => {
   try {
     if (query.length) {
