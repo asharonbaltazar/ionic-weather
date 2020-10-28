@@ -62,7 +62,7 @@ export const getWeather = (placeId: string) => async (
       );
 
       dispatch(setWeatherData(weatherObj));
-      Vibration.vibrate(100);
+      Vibration.vibrate(50);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));
@@ -100,7 +100,7 @@ export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
       );
 
       dispatch(setWeatherData(weatherObj));
-      Vibration.vibrate(100);
+      Vibration.vibrate(50);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));

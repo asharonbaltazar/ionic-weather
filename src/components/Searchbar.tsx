@@ -25,7 +25,7 @@ const Searchbar = () => {
 
   return (
     <IonSearchbar
-      placeholder="Search cities"
+      placeholder="Search places"
       value={searchTerm}
       onIonChange={e => setSearchTerm(e.detail.value!)}
       debounce={750}

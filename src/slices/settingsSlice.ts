@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface initialState {
+  vibrationPreference: boolean;
   tempPreference: "celsius" | "kelvin" | "fahrenheit";
   windSpeedPreference: "miles" | "kilometers";
 }
@@ -8,10 +9,14 @@ interface initialState {
 export const settingsSlice = createSlice({
   name: "settings",
   initialState: {
+    vibrationPreference: false,
     tempPreference: "celsius",
     windSpeedPreference: "kilometers",
   } as initialState,
   reducers: {
+    changeVibrationPreference: state => {
+      state.vibrationPreference = !state.vibrationPreference;
+    },
     changeTempPreference: (state, action) => {
       state.tempPreference = action.payload;
     },
@@ -24,5 +29,6 @@ export const settingsSlice = createSlice({
 export const {
   changeTempPreference,
   changeWindSpeedPreference,
+  changeVibrationPreference,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;

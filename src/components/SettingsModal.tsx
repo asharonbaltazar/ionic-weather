@@ -13,16 +13,17 @@ import {
 } from "@ionic/react";
 import TempPreference from "./settings_toggles/TempPreference";
 import SpeedPreference from "./settings_toggles/SpeedPreference";
+import VibationPreference from "./settings_toggles/VibationPreference";
 
 const SettingsModal = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
           <IonButtons slot="start">
             <IonBackButton defaultHref="/" />
-            <IonTitle>Settings</IonTitle>
           </IonButtons>
+          <IonTitle>Settings</IonTitle>
         </IonToolbar>
       </IonHeader>
 
@@ -32,6 +33,10 @@ const SettingsModal = () => {
             <IonItemDivider>Weather preferences: </IonItemDivider>
             <TempPreference />
             <SpeedPreference />
+          </IonItemGroup>
+          <IonItemGroup>
+            <IonItemDivider>Application preferences: </IonItemDivider>
+            <VibationPreference />
           </IonItemGroup>
         </IonList>
       </IonContent>

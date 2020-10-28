@@ -40,17 +40,15 @@ const WeatherCarousel = () => {
   return (
     <div className="weather-carousel">
       <IonSlides options={slideOptions} mode="ios" scrollbar={true}>
-        {weather[segmentCarouselOption].map((element: any, index: number) => {
-          return (
-            <WeatherCarouselItem
-              key={index}
-              time={element.dt}
-              temp={element.temp}
-              weather={element.weather}
-              pop={element.pop}
-            />
-          );
-        })}
+        {weather[segmentCarouselOption].map((element: any, index: number) => (
+          <WeatherCarouselItem
+            key={index}
+            time={element.dt}
+            temp={element.temp}
+            weather={element.weather}
+            pop={element.pop}
+          />
+        ))}
       </IonSlides>
     </div>
   );
