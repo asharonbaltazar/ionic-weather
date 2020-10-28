@@ -4,6 +4,7 @@ import { Vibration } from "@ionic-native/vibration";
 import { AppDispatch } from "../store";
 import { formatWeatherData } from "../utilities/format";
 import axios from "axios";
+import { RootStateOrAny } from "react-redux";
 
 interface selectedWeather {
   address: string;
@@ -37,7 +38,8 @@ export const weatherSlice = createSlice({
 
 // Thunk functions
 export const getWeather = (placeId: string) => async (
-  dispatch: AppDispatch
+  dispatch: AppDispatch,
+  getState: RootStateOrAny
 ) => {
   try {
     dispatch(setWeatherLoading(true));
@@ -62,7 +64,7 @@ export const getWeather = (placeId: string) => async (
       );
 
       dispatch(setWeatherData(weatherObj));
-      Vibration.vibrate(50);
+      getState().settings.vibrationPreference && Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));
@@ -70,7 +72,10 @@ export const getWeather = (placeId: string) => async (
   }
 };
 
-export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
+export const getWeatherByGeolocation = () => async (
+  dispatch: AppDispatch,
+  getState: RootStateOrAny
+) => {
   try {
     dispatch(setWeatherLoading(true));
 
@@ -100,7 +105,7 @@ export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
       );
 
       dispatch(setWeatherData(weatherObj));
-      Vibration.vibrate(50);
+      getState().settings.vibrationPreference && Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));
