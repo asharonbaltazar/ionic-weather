@@ -10,7 +10,7 @@ const VibationPreference = () => {
   );
   return (
     <IonItem>
-      <IonLabel>Vibrate on weather loaded:</IonLabel>
+      <IonLabel>Vibrate when weather loads:</IonLabel>
       <IonToggle
         checked={vibrationOption}
         value={vibrationOption}

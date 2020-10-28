@@ -29,53 +29,46 @@ const SearchModalContent = () => {
   const history = useHistory();
 
   return (
-    <>
-      <IonContent>
-        <IonItem
-          className="ion-margin-top ion-margin-bottom"
-          button
-          onClick={() => {
-            dispatch(getWeatherByGeolocation());
-            history.goBack();
-          }}
-          detail={false}
-        >
-          <IonIcon
-            color={"primary"}
-            ios={locate}
-            md={locateSharp}
-            slot="start"
+    <IonContent>
+      <IonItem
+        className="ion-margin-top ion-margin-bottom"
+        button
+        onClick={() => {
+          dispatch(getWeatherByGeolocation());
+          history.goBack();
+        }}
+        detail={false}
+      >
+        <IonIcon color={"primary"} ios={locate} md={locateSharp} slot="start" />
+        <IonLabel>Use your current location</IonLabel>
+      </IonItem>
+      {searchResults.length ? (
+        searchResults.map((element: any) => (
+          <SearchResult
+            key={element.place_id}
+            id={element.place_id}
+            text={element.text}
           />
-          <IonLabel>Use your current location</IonLabel>
-        </IonItem>
-        {searchResults.length ? (
-          searchResults.map((element: any) => (
-            <SearchResult
-              key={element.place_id}
-              id={element.place_id}
-              text={element.text}
-            />
-          ))
-        ) : (
-          <>
-            {recentSearches.length && !loading ? (
-              <>
-                <IonItemDivider>Recent searches</IonItemDivider>
-                {recentSearches.map((element: any) => (
-                  <SearchResult
-                    key={element.id}
-                    id={element.id}
-                    text={element.text}
-                  />
-                ))}
-              </>
-            ) : (
-              <>{loading && <SkeletonResults />}</>
-            )}
-          </>
-        )}
-      </IonContent>
-    </>
+        ))
+      ) : (
+        <>
+          {recentSearches.length && !loading ? (
+            <>
+              <IonItemDivider>Recent searches</IonItemDivider>
+              {recentSearches.map((element: any) => (
+                <SearchResult
+                  key={element.id}
+                  id={element.id}
+                  text={element.text}
+                />
+              ))}
+            </>
+          ) : (
+            <>{loading && <SkeletonResults />}</>
+          )}
+        </>
+      )}
+    </IonContent>
   );
 };
 

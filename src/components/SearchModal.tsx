@@ -1,33 +1,39 @@
 import React, { CSSProperties } from "react";
 import Searchbar from "./Searchbar";
 import SearchModalContent from "./SearchModalContent";
-import { IonToolbar, IonNote, IonPage, IonHeader } from "@ionic/react";
+import {
+  IonToolbar,
+  IonPage,
+  IonHeader,
+  IonFooter,
+  IonTitle,
+} from "@ionic/react";
 import lightLogo from "../assets/google_light.png";
 import darkLogo from "../assets/google_dark.png";
 
 const SearchModal = () => {
   return (
     <IonPage>
-      <IonHeader>
+      <IonHeader className="ion-no-border">
         <IonToolbar>
           <Searchbar />
         </IonToolbar>
       </IonHeader>
-
       <SearchModalContent />
-      <IonNote className="ion-padding-end ion-padding-bottom">
-        <div style={imgDiv}>
-          <picture>
-            <source srcSet={darkLogo} media="(prefers-color-scheme: dark)" />
-            <img style={imgStyle} src={lightLogo} alt={"google logo"} />
-          </picture>
-        </div>
-      </IonNote>
+      <IonFooter className="ion-no-border">
+        <IonToolbar>
+          <IonTitle slot="end">
+            <picture>
+              <source srcSet={darkLogo} media="(prefers-color-scheme: dark)" />
+              <img style={imgStyle} src={lightLogo} alt={"google logo"} />
+            </picture>
+          </IonTitle>
+        </IonToolbar>
+      </IonFooter>
     </IonPage>
   );
 };
 
-const imgDiv: CSSProperties = { display: "flex", justifyContent: "flex-end" };
 const imgStyle: CSSProperties = {
   height: "25px",
   width: "150px",
