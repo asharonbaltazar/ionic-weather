@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Geolocation } from "@ionic-native/geolocation";
+import { Vibration } from "@ionic-native/vibration";
 import { AppDispatch } from "../store";
 import { formatWeatherData } from "../utilities/format";
 import axios from "axios";
@@ -52,6 +53,7 @@ export const getWeather = (placeId: string) => async (
         },
       } = response.data.results[0];
 
+      // Format weather data
       const weatherObj = await formatWeatherData(
         lat,
         lng,
@@ -60,6 +62,7 @@ export const getWeather = (placeId: string) => async (
       );
 
       dispatch(setWeatherData(weatherObj));
+      Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));
@@ -76,7 +79,7 @@ export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
       coords: { latitude, longitude },
     } = await Geolocation.getCurrentPosition({
       enableHighAccuracy: true,
-      timeout: 10000,
+      timeout: 20000,
     });
 
     const {
@@ -88,6 +91,7 @@ export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
     );
 
     if (formatted_address && place_id) {
+      // Format weather data
       const weatherObj = await formatWeatherData(
         latitude.toString(),
         longitude.toString(),
@@ -96,6 +100,7 @@ export const getWeatherByGeolocation = () => async (dispatch: AppDispatch) => {
       );
 
       dispatch(setWeatherData(weatherObj));
+      Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
-import { IonSearchbar, useIonViewWillEnter } from "@ionic/react";
+import { IonSearchbar, useIonViewDidEnter } from "@ionic/react";
 import { useDispatch } from "react-redux";
 import { getPlacesBySearch, displaySearchQueries } from "../slices/searchSlice";
 import "../css/searchbar.css";
@@ -21,11 +21,11 @@ const Searchbar = () => {
   const keyboard = useRef<HTMLIonSearchbarElement>(null);
 
   // Lifecycle method for setFocus for the keyboard
-  useIonViewWillEnter(() => keyboard.current?.setFocus());
+  useIonViewDidEnter(() => keyboard.current?.setFocus());
 
   return (
     <IonSearchbar
-      placeholder="Search places"
+      placeholder="Search cities"
       value={searchTerm}
       onIonChange={e => setSearchTerm(e.detail.value!)}
       debounce={750}

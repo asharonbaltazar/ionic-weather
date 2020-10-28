@@ -1,7 +1,13 @@
 import axios from "axios";
 import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
 import isBetween from "dayjs/plugin/isBetween";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 dayjs.extend(isBetween);
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(isSameOrBefore);
 
 interface weatherObj {
   address: string;
@@ -50,19 +56,33 @@ export const formatWeatherData = async (
   );
 
   // tomorrow morning
-  const tom_morn = dayjs().add(1, "day").hour(6).minute(0).second(0);
+  const tom_morn = dayjs()
+    .tz(data.timezone)
+    .add(1, "day")
+    .hour(6)
+    .minute(0)
+    .second(0)
+    .format("YYYY-MM-DDTHH:mm:ss");
   // after tomorrow morning
-  const after_tom_morn = dayjs().add(2, "day").hour(6).minute(0).second(0);
+  const after_tom_morn = dayjs()
+    .tz(data.timezone)
+    .add(2, "day")
+    .hour(7)
+    .minute(0)
+    .second(0)
+    .format("YYYY-MM-DDTHH:mm:ss");
 
   // Split hourly into today and tomorrow
   const hourly = data.hourly.reduce(
     (acc: any, element: any) => {
       // Convert seconds to ISO format for readability
       if (element.hasOwnProperty("dt"))
-        element.dt = new Date(element.dt * 1000).toISOString();
+        element.dt = dayjs
+          .tz(dayjs.unix(element.dt), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss");
 
       // Split into today and tomorrow
-      dayjs(element.dt).isBefore(tom_morn) && acc[0].push(element);
+      dayjs(element.dt).isSameOrBefore(tom_morn) && acc[0].push(element);
       dayjs(element.dt).isBetween(tom_morn, after_tom_morn) &&
         acc[1].push(element);
 
@@ -77,25 +97,41 @@ export const formatWeatherData = async (
     weather: {
       current: {
         ...data.current,
-        dt: new Date(data.current.dt * 1000).toISOString(),
-        sunrise: new Date(data.current.sunrise * 1000).toISOString(),
-        sunset: new Date(data.current.sunset * 1000).toISOString(),
+        dt: dayjs
+          .tz(dayjs.unix(data.current.dt), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
+        sunrise: dayjs
+          .tz(dayjs.unix(data.current.sunrise), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
+        sunset: dayjs
+          .tz(dayjs.unix(data.current.sunset), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
       },
       today: hourly[0],
       tomorrow: hourly[1],
-      next_week: data.daily.map((element: any, index: number) => ({
+      next_week: data.daily.map((element: any) => ({
         ...element,
-        dt: new Date(element.dt * 1000).toISOString(),
-        sunrise: new Date(element.sunrise * 1000).toISOString(),
-        sunset: new Date(element.sunset * 1000).toISOString(),
+        dt: dayjs
+          .tz(dayjs(element.dt), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
+        sunrise: dayjs
+          .tz(dayjs(element.sunrise), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
+        sunset: dayjs
+          .tz(dayjs(element.sunset), data.timezone)
+          .format("YYYY-MM-DDTHH:mm:ss"),
       })),
     },
     gId: placeId,
     icon_times: data.daily.flatMap((element: any, index: any) =>
       index <= 2
         ? {
-            sunrise: new Date(element.sunrise * 1000).toISOString(),
-            sunset: new Date(element.sunset * 1000).toISOString(),
+            sunrise: dayjs
+              .tz(dayjs.unix(element.sunrise), data.timezone)
+              .format("YYYY-MM-DDTHH:mm:ss"),
+            sunset: dayjs
+              .tz(dayjs.unix(element.sunset), data.timezone)
+              .format("YYYY-MM-DDTHH:mm:ss"),
           }
         : []
     ),
@@ -109,8 +145,12 @@ export const formatWeatherData = async (
       ? {
           alerts: data.alerts.map((element: any) => ({
             ...element,
-            start: new Date(element.start * 1000).toISOString(),
-            end: new Date(element.end * 1000).toISOString(),
+            start: dayjs
+              .tz(dayjs(element.start), data.timezone)
+              .format("YYYY-MM-DDTHH:mm:ss"),
+            end: dayjs
+              .tz(dayjs(element.end), data.timezone)
+              .format("YYYY-MM-DDTHH:mm:ss"),
           })),
         }
       : null
