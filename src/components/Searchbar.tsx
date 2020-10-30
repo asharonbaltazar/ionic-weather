@@ -19,13 +19,12 @@ const Searchbar = () => {
   const history = useHistory();
   // Component ref
   const keyboard = useRef<HTMLIonSearchbarElement>(null);
-
   // Lifecycle method for setFocus for the keyboard
   useIonViewDidEnter(() => keyboard.current?.setFocus());
 
   return (
     <IonSearchbar
-      placeholder="Search places"
+      placeholder="Search cities"
       value={searchTerm}
       onIonChange={e => setSearchTerm(e.detail.value!)}
       debounce={750}

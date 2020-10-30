@@ -1,31 +1,22 @@
-.carousel-item ion-card {
-  padding: 15px;
-  height: 15rem;
-  width: 10rem;
-  margin: 16px 4px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+.carousel-item {
+  padding: 5px;
+  height: 10rem;
+  width: 7rem;
 }
 
-.carousel-item h1,
+.carousel-item h4,
 p {
   margin: 0;
 }
 
 .pop {
   margin: 5px;
-  font-weight: 800;
+  font-weight: 400;
   height: 20px;
 }
 
 .carousel-item i {
-  margin-top: 15px;
-  font-size: 3rem;
+  margin: 15px;
+  font-size: 2rem;
   font-weight: 400;
-}
-
-/* iOS margin */
-ion-slides.ios {
-  padding: 0 16px;
 }

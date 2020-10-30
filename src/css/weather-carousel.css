@@ -1,3 +1,9 @@
 .weather-carousel {
   width: 100%;
 }
+
+.weather-carousel h3 {
+  margin-top: 10px;
+  margin-bottom: 0;
+  opacity: 0.5;
+}

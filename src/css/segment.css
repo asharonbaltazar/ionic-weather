@@ -1,8 +1,16 @@
 .segment {
-  width: 75%;
-  margin: 0 auto;
+  margin-top: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.segment ion-segment-button.md {
-  font-weight: bold;
+.segment ion-button.md {
+  text-transform: capitalize;
+}
+
+.next-7-days {
+  --padding-start: 1px;
+  --padding-end: 1px;
 }

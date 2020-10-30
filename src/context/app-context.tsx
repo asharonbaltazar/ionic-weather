@@ -2,7 +2,7 @@ import React, { createContext, ReactNode, useReducer } from "react";
 
 // Typescript declarations
 interface IStoreState {
-  segmentCarouselOption: string;
+  segmentCarouselOption: "today" | "tomorrow";
   toggleSegmentsCarousel: (segmentItem: any) => void;
 }
 
@@ -12,7 +12,7 @@ interface IProps {
 
 interface IToggleSegmentsCarousel {
   type: "TOGGLE_SEGMENTS_CAROUSEL";
-  payload: string;
+  payload: "today" | "tomorrow";
 }
 type Action = IToggleSegmentsCarousel;
 
@@ -43,7 +43,7 @@ const AppContext = createContext(initialState);
 const AppProvider = ({ children }: IProps) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const toggleSegmentsCarousel = (segmentItem: string) => {
+  const toggleSegmentsCarousel = (segmentItem: "today" | "tomorrow") => {
     dispatch({ type: "TOGGLE_SEGMENTS_CAROUSEL", payload: segmentItem });
   };
 

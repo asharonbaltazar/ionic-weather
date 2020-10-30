@@ -4,7 +4,6 @@ import Toolbar from "../components/Toolbar";
 import WeatherContent from "../components/WeatherContent";
 import MainPagePlaceholder from "../components/MainPagePlaceholder";
 import { RootStateOrAny, useSelector } from "react-redux";
-
 import "../css/main.css";
 
 const Main = () => {
@@ -13,7 +12,7 @@ const Main = () => {
   );
   return (
     <IonPage>
-      <Toolbar />
+      <Toolbar address={selectedWeather.address} />
       <IonContent>
         {selectedWeather.hasOwnProperty("weather") ? (
           <WeatherContent />

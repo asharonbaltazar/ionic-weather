@@ -1,5 +1,4 @@
 import React from "react";
-import { RootStateOrAny, useSelector } from "react-redux";
 import {
   IonToolbar,
   IonButtons,
@@ -10,11 +9,11 @@ import {
 } from "@ionic/react";
 import { searchSharp, search, settings, settingsSharp } from "ionicons/icons";
 
-const Toolbar = () => {
-  const { address } = useSelector(
-    (state: RootStateOrAny) => state.weather.selectedWeather
-  );
+interface IProps {
+  address: string;
+}
 
+const Toolbar = ({ address }: IProps) => {
   return (
     <IonHeader className="ion-no-border">
       <IonToolbar>

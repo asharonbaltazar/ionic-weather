@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, RootStateOrAny } from "react-redux";
-import { IonSlide, IonCard } from "@ionic/react";
+import { IonSlide } from "@ionic/react";
 import {
   formatTemp,
   formatIconTime,
@@ -19,14 +19,13 @@ interface IProps {
 const WeatherCarouselItem = ({
   time,
   temp,
-  weather: [{ description, id }],
+  weather: [{ id }],
   pop,
 }: IProps) => {
   // Temperature unit from settings
   const selectedTemp: "celsius" | "fahrenheit" | "kelvin" = useSelector(
     (state: RootStateOrAny) => state.settings.tempPreference
   );
-
   // Sunrise and sunset times for icon
   const { icon_times } = useSelector(
     (state: RootStateOrAny) => state.weather.selectedWeather
@@ -37,24 +36,15 @@ const WeatherCarouselItem = ({
 
   return (
     <IonSlide className="carousel-item">
-      <IonCard color="primary">
+      <div>
         <div>
-          <p>{dayjs(time).format("hh:mm a")}</p>
-          <p>{dayjs(time).format("dddd")}</p>
-        </div>
-        <div>
-          <h1>{formatTemp[selectedTemp](temp)}°</h1>
+          <h4>{formatTemp[selectedTemp](temp)}°</h4>
           <i className={`wi wi-owm-${icon}-${id} weather-icon`}></i>
         </div>
         <div>
-          {pop && pop > 0 ? (
-            <p className="pop">{Math.floor(pop * 100)}%</p>
-          ) : (
-            <div className="pop"></div>
-          )}
-          <p>{description.charAt(0).toUpperCase() + description.slice(1)}</p>
+          <p>{dayjs(time).format("hh:mm a")}</p>
         </div>
-      </IonCard>
+      </div>
     </IonSlide>
   );
 };
