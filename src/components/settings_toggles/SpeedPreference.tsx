@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
 import { IonItem, IonLabel, IonSelectOption, IonSelect } from "@ionic/react";
 import { changeWindSpeedPreference } from "../../slices/settingsSlice";
 
 const SpeedPreference = () => {
   const windSpeedPreference = useSelector(
-    (state: RootStateOrAny) => state.settings.windSpeedPreference
+    (state: RootState) => state.settings.windSpeedPreference
   );
 
   const dispatch = useDispatch();

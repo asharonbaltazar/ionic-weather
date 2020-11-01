@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { IonGrid, IonRow } from "@ionic/react";
 import MainWeatherCard from "./MainWeatherCard";
 import WeatherCarousel from "./WeatherCarousel";
@@ -10,7 +11,7 @@ import DaysSegment from "./DaysSegment";
 const WeatherContent = () => {
   const { segmentCarouselOption } = useContext(AppContext);
   const { details, hourly } = useSelector(
-    (state: RootStateOrAny) =>
+    (state: RootState) =>
       state.weather.selectedWeather.weather[segmentCarouselOption]
   );
 

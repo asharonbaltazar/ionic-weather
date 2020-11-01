@@ -1,21 +1,79 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { Geolocation } from "@ionic-native/geolocation";
 import { Vibration } from "@ionic-native/vibration";
-import { AppDispatch } from "../store";
+import { AppDispatch, RootState } from "../store";
 import { formatWeatherData } from "../utilities/format";
 import axios from "axios";
-import { RootStateOrAny } from "react-redux";
+
+interface today_tomorrow {
+  details: {
+    dt: string;
+    sunrise: string;
+    sunset: string;
+    temp: {
+      [key: string]: number;
+    };
+    feels_like: {
+      [key: string]: number;
+    };
+    pressure: number;
+    humidity: number;
+    wind_speed: number;
+    wind_deg: number;
+    weather: [
+      {
+        id: number;
+        main: string;
+        description: string;
+        icon: string;
+      }
+    ];
+    clouds: number;
+    pop: number;
+    rain: number;
+    uvi: number;
+  };
+  hourly: [
+    {
+      dt: string;
+      temp: number;
+      feels_like: number;
+      pressure: number;
+      humidity: number;
+      dew_point: number;
+      clouds: number;
+      visibility: number;
+      wind_speed: number;
+      wind_deg: number;
+      weather: [
+        {
+          id: number;
+          main: string;
+          description: string;
+          icon: string;
+        }
+      ];
+      pop: number;
+    }
+  ];
+}
 
 interface selectedWeather {
   address: string;
   weather: {
     current: object;
-    today: object[];
-    tomorrow: object[];
+    today: today_tomorrow;
+    tomorrow: today_tomorrow;
     next_week: object[];
     alerts?: object[];
     gId: string;
   };
+  icon_times: [
+    {
+      sunrise: string;
+      sunset: string;
+    }
+  ];
 }
 
 export const weatherSlice = createSlice({
@@ -39,7 +97,7 @@ export const weatherSlice = createSlice({
 // Thunk functions
 export const getWeather = (placeId: string) => async (
   dispatch: AppDispatch,
-  getState: RootStateOrAny
+  getState: () => RootState
 ) => {
   try {
     dispatch(setWeatherLoading(true));
@@ -74,7 +132,7 @@ export const getWeather = (placeId: string) => async (
 
 export const getWeatherByGeolocation = () => async (
   dispatch: AppDispatch,
-  getState: RootStateOrAny
+  getState: () => RootState
 ) => {
   try {
     dispatch(setWeatherLoading(true));

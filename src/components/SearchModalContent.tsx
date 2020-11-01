@@ -10,20 +10,19 @@ import { useHistory } from "react-router";
 import SkeletonResults from "./SkeletonResults";
 import SearchResult from "./SearchResult";
 import { locate, locateSharp } from "ionicons/icons";
-import { RootStateOrAny, useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
 
 const SearchModalContent = () => {
   const dispatch = useDispatch();
-  const searchResults = useSelector(
-    (state: RootStateOrAny) => state.search.queries
-  );
+  const searchResults = useSelector((state: RootState) => state.search.queries);
   const recentSearches = useSelector(
-    (state: RootStateOrAny) => state.search.recentQueries
+    (state: RootState) => state.search.recentQueries
   );
 
   const loading: boolean = useSelector(
-    (state: RootStateOrAny) => state.search.loading
+    (state: RootState) => state.search.loading
   );
 
   const history = useHistory();

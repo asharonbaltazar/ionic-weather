@@ -1,5 +1,6 @@
 import React from "react";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { formatTemp, formatSpeed } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
@@ -48,23 +49,24 @@ const MainWeatherCard = ({
     humidity,
     pressure,
     wind_speed,
+    wind_deg,
     weather: [{ id, description }],
   },
 }: IProps) => {
   // Temperature unit from settings
-  const selectedTemp: "celsius" | "fahrenheit" | "kelvin" = useSelector(
-    (state: RootStateOrAny) => state.settings.tempPreference
+  const selectedTemp = useSelector(
+    (state: RootState) => state.settings.tempPreference
   );
   // Windspeed unit from settings
-  const selectedSpeed: "miles" | "kilometers" = useSelector(
-    (state: RootStateOrAny) => state.settings.windSpeedPreference
+  const selectedSpeed = useSelector(
+    (state: RootState) => state.settings.windSpeedPreference
   );
-
   // Icon string
   const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
 
   return (
-    <div className="card ion-margin-start ion-margin-end" color="primary">
+    <div className="card ion-margin-start ion-margin-end">
+      <h5>{dayjs(dt).format("dddd, MMMM DD")}</h5>
       <div className="card-div">
         <div className="i-row">
           <i
@@ -82,7 +84,6 @@ const MainWeatherCard = ({
             {description.charAt(0).toUpperCase() + description.slice(1)}
           </h1>
         </div>
-        <div className="middle-row"></div>
         <div className="bottom-row">
           <div>
             <h5>Humidity</h5>
@@ -95,8 +96,11 @@ const MainWeatherCard = ({
           <div>
             <h5>Wind Speed</h5>
             <h5>
-              {formatSpeed[selectedSpeed](wind_speed)}{" "}
+              {formatSpeed[selectedSpeed](wind_speed)}
               {selectedSpeed === "kilometers" ? "km/h" : "mph"}
+              <p>
+                <i className={`wi wi-wind towards-${wind_deg}-deg`}></i>
+              </p>
             </h5>
           </div>
         </div>

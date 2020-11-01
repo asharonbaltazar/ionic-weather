@@ -3,6 +3,12 @@
   width: 100%;
 }
 
+.card > h5 {
+  font-size: 0.9rem;
+  margin: 0;
+  opacity: 0.5;
+}
+
 .card-div {
   display: flex;
   flex-direction: column;
@@ -40,7 +46,7 @@
   top: 2rem;
 }
 
-.card i {
+.i-row i {
   font-size: 7rem;
   line-height: 7rem;
   opacity: 0.1;
@@ -70,6 +76,18 @@
   justify-content: space-between;
 }
 
+.bottom-row > div > h5:first-of-type {
+  font-weight: 400;
+  opacity: 0.5;
+}
+
 .bottom-row h5 {
   margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-row h5 > p {
+  margin-left: 4px;
+  opacity: 0.5;
 }

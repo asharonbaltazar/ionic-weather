@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector, RootStateOrAny } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 import { IonSlide } from "@ionic/react";
 import {
   formatTemp,
@@ -23,12 +24,16 @@ const WeatherCarouselItem = ({
   pop,
 }: IProps) => {
   // Temperature unit from settings
-  const selectedTemp: "celsius" | "fahrenheit" | "kelvin" = useSelector(
-    (state: RootStateOrAny) => state.settings.tempPreference
+  const selectedTemp = useSelector(
+    (state: RootState) => state.settings.tempPreference
+  );
+  // Time unit from settings
+  const selectedTime = useSelector(
+    (state: RootState) => state.settings.timePreference
   );
   // Sunrise and sunset times for icon
   const { icon_times } = useSelector(
-    (state: RootStateOrAny) => state.weather.selectedWeather
+    (state: RootState) => state.weather.selectedWeather
   );
 
   // Icon string
@@ -42,7 +47,7 @@ const WeatherCarouselItem = ({
           <i className={`wi wi-owm-${icon}-${id} weather-icon`}></i>
         </div>
         <div>
-          <p>{dayjs(time).format("hh:mm a")}</p>
+          <p>{dayjs(time).format(selectedTime)}</p>
         </div>
       </div>
     </IonSlide>

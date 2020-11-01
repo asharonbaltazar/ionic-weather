@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
 import { IonItem, IonLabel, IonSelectOption, IonSelect } from "@ionic/react";
 import { changeTempPreference } from "../../slices/settingsSlice";
 
 const TempPreference = () => {
   const selectedTemp = useSelector(
-    (state: RootStateOrAny) => state.settings.tempPreference
+    (state: RootState) => state.settings.tempPreference
   );
 
   const dispatch = useDispatch();

@@ -1,9 +1,10 @@
 import React from "react";
 import { IonLoading } from "@ionic/react";
-import { RootStateOrAny, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { RootState } from "../store";
 
 const ScreenLoader = () => {
-  const loading = useSelector((state: RootStateOrAny) => state.weather.loading);
+  const loading = useSelector((state: RootState) => state.weather.loading);
 
   return (
     <IonLoading

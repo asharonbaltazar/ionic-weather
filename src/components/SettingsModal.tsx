@@ -14,6 +14,7 @@ import {
 import TempPreference from "./settings_toggles/TempPreference";
 import SpeedPreference from "./settings_toggles/SpeedPreference";
 import VibationPreference from "./settings_toggles/VibationPreference";
+import TimePreference from "./settings_toggles/TimePreference";
 
 const SettingsModal = () => {
   return (
@@ -36,6 +37,7 @@ const SettingsModal = () => {
           </IonItemGroup>
           <IonItemGroup>
             <IonItemDivider>Application preferences: </IonItemDivider>
+            <TimePreference />
             <VibationPreference />
           </IonItemGroup>
         </IonList>

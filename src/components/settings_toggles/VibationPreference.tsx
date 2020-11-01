@@ -1,19 +1,20 @@
 import React from "react";
 import { IonItem, IonLabel, IonToggle } from "@ionic/react";
-import { useSelector, RootStateOrAny, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
 import { changeVibrationPreference } from "../../slices/settingsSlice";
 
 const VibationPreference = () => {
   const dispatch = useDispatch();
   const vibrationOption = useSelector(
-    (state: RootStateOrAny) => state.settings.vibrationPreference
+    (state: RootState) => state.settings.vibrationPreference
   );
   return (
     <IonItem>
       <IonLabel>Vibrate when weather loads:</IonLabel>
       <IonToggle
         checked={vibrationOption}
-        value={vibrationOption}
+        value={vibrationOption ? "on" : "off"}
         onIonChange={() => dispatch(changeVibrationPreference())}
       />
     </IonItem>

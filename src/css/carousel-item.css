@@ -9,6 +9,10 @@ p {
   margin: 0;
 }
 
+.carousel-item p:last-child {
+  opacity: 0.5;
+}
+
 .pop {
   margin: 5px;
   font-weight: 400;

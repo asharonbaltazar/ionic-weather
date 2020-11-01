@@ -2,24 +2,21 @@ import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
 import axios from "axios";
 
-interface recentQueries {
-  label: string;
-  position: object;
-  id: string;
-}
-
-interface queries {
-  [index: number]: { label: string; locationId: string };
+type query = { label: string; id: string };
+interface initialState {
+  queries: query[];
+  recentQueries: query[];
+  loading: boolean;
 }
 
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
   name: "search",
   initialState: {
-    queries: [] as queries[],
-    recentQueries: [] as recentQueries[],
+    queries: [],
+    recentQueries: [],
     loading: false,
-  },
+  } as initialState,
   reducers: {
     displaySearchQueries: (state, action) => {
       state.queries = action.payload;
