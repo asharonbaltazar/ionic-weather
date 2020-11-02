@@ -27,12 +27,10 @@ const DaysSegment = () => {
           Tomorrow
         </IonButton>
       </div>
-      <div>
-        <IonButton className="next-7-days" fill="clear">
-          Next 7 days
-          <IonIcon slot="end" ios={chevronForward} md={arrowForwardSharp} />
-        </IonButton>
-      </div>
+      <IonButton className="next-7-days" fill="clear" routerLink="/week">
+        Next 7 days
+        <IonIcon slot="end" ios={chevronForward} md={arrowForwardSharp} />
+      </IonButton>
     </div>
   );
 };

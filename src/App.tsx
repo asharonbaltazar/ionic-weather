@@ -1,14 +1,14 @@
 import React from "react";
-import { Route } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "./store";
+import { Redirect, Route } from "react-router-dom";
 import { IonApp, IonRouterOutlet } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import { Provider as ReduxProvider } from "react-redux";
-import { store } from "./store";
 import Main from "./pages/Main";
-import SettingsModal from "./components/SettingsModal";
-import SearchModal from "./components/SearchModal";
+import SettingsModal from "./pages/Settings";
+import SearchModal from "./pages/Search";
 import ScreenLoader from "./components/ScreenLoader";
-
+import Week from "./pages/Week";
 // React Context
 import { AppProvider as ContextProvider } from "./context/app-context";
 
@@ -31,8 +31,10 @@ import "@ionic/react/css/display.css";
 /* Theme variables */
 import "./theme/variables.css";
 
-const App = () => (
-  <ReduxProvider store={store}>
+const App = () => {
+  const { selectedWeather } = useSelector((state: RootState) => state.weather);
+
+  return (
     <ContextProvider>
       <IonApp>
         <IonReactRouter>
@@ -40,17 +42,19 @@ const App = () => (
             <Route exact path="/" component={Main} />
             <Route path="/search" component={SearchModal} />
             <Route path="/settings" component={SettingsModal} />
+            <Route path="/week">
+              {selectedWeather.hasOwnProperty("weather") ? (
+                <Week />
+              ) : (
+                <Redirect to="/" />
+              )}
+            </Route>
           </IonRouterOutlet>
           <ScreenLoader />
         </IonReactRouter>
       </IonApp>
     </ContextProvider>
-  </ReduxProvider>
-);
-
-// <Main />
-// <Saved />
-// <SettingsModal />
-// <SearchModal />
+  );
+};
 
 export default App;

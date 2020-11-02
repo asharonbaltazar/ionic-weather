@@ -4,9 +4,7 @@ import { RootState } from "../store";
 import { formatTemp, formatSpeed } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 import isBetween from "dayjs/plugin/isBetween";
-dayjs.extend(relativeTime);
 dayjs.extend(isBetween);
 
 interface IProps {
@@ -66,13 +64,10 @@ const MainWeatherCard = ({
 
   return (
     <div className="card ion-margin-start ion-margin-end">
-      <h5>{dayjs(dt).format("dddd, MMMM DD")}</h5>
+      <h5>{dayjs(dt).format("dddd, MMMM D")}</h5>
       <div className="card-div">
         <div className="i-row">
-          <i
-            className={`wi wi-owm-${icon}-${id} weather-icon`}
-            color="primary"
-          ></i>
+          <i className={`wi wi-owm-${icon}-${id} weather-icon`}></i>
         </div>
 
         <div className="top-row">
