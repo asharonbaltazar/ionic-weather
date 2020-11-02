@@ -1,0 +1,25 @@
+.next-week-title {
+  margin-bottom: 0;
+  opacity: 0.5;
+}
+
+.next-week-item h1 {
+  margin: 0;
+}
+
+.next-week-item ion-label.ios:last-child,
+.next-week-item ion-label.md:last-child {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.next-week-item-temps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.next-week-item i {
+  font-size: 1.5rem;
+}

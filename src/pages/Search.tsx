@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
-import Searchbar from "./Searchbar";
-import SearchModalContent from "./SearchModalContent";
+import Searchbar from "../components/Searchbar";
+import SearchModalContent from "../components/SearchModalContent";
 import {
   IonToolbar,
   IonPage,
