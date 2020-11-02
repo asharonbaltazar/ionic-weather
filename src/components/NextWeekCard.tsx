@@ -64,18 +64,20 @@ const NextWeekCard = ({
       >
         <IonLabel slot="start">
           <IonText>
-            {description.charAt(0).toUpperCase() + description.slice(1)}
+            <h2>
+              {description.charAt(0).toUpperCase() + description.slice(1)}
+            </h2>
           </IonText>
         </IonLabel>
 
         <IonLabel className="ion-text-wrap">
+          <i className={`wi wi-fw wi-owm-${icon}-${id} weather-icon`}></i>
           <div className="next-week-item-temps">
             <p>
               <b>{formatTemp[selectedTemp](temp.max)}°</b>
             </p>
             <p>{formatTemp[selectedTemp](temp.min)}°</p>
           </div>
-          <i className={`wi wi-fw wi-owm-${icon}-${id} weather-icon`}></i>
         </IonLabel>
       </IonItem>
     </>
