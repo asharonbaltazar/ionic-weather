@@ -6,16 +6,16 @@ import { useDispatch } from "react-redux";
 import { setRecentQuery } from "../slices/searchSlice";
 import { getWeather } from "../slices/weatherSlice";
 
-interface IProps {
-  text: text;
-  id: string;
-}
-interface text {
+interface Text {
   main_text: string;
   secondary_text: string;
 }
+interface IProps {
+  text: Text;
+  id: string;
+}
 
-const SearchResult: React.FC<IProps> = ({ text, id }) => {
+const SearchResult = ({ text, id }: IProps) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const getLatLong = () => {

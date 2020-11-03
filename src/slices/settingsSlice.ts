@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-interface initialState {
+interface InitialState {
   timePreference: "h a" | "HH:mm";
   vibrationPreference: boolean;
   tempPreference: "celsius" | "kelvin" | "fahrenheit";
@@ -14,7 +14,7 @@ export const settingsSlice = createSlice({
     vibrationPreference: false,
     tempPreference: "celsius",
     windSpeedPreference: "kilometers",
-  } as initialState,
+  } as InitialState,
   reducers: {
     changeTimePreference: (state, action) => {
       state.timePreference = action.payload;

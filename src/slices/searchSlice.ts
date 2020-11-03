@@ -3,7 +3,7 @@ import { AppDispatch } from "../store";
 import axios from "axios";
 
 type query = { label: string; id: string };
-interface initialState {
+interface InitialState {
   queries: query[];
   recentQueries: query[];
   loading: boolean;
@@ -16,7 +16,7 @@ export const searchSlice = createSlice({
     queries: [],
     recentQueries: [],
     loading: false,
-  } as initialState,
+  } as InitialState,
   reducers: {
     displaySearchQueries: (state, action) => {
       state.queries = action.payload;
