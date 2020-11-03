@@ -10,7 +10,7 @@ const NextWeek = () => {
   );
 
   return (
-    <IonContent className="ion-padding-start ion-padding-end">
+    <IonContent>
       <IonList>
         {nextWeeksWeather.map((element: any) => (
           <NextWeekCard

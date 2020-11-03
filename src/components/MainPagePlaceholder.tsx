@@ -17,7 +17,7 @@ const MainPagePlaceholder = () => {
       />
       <h2>Welcome to Ionic Weather</h2>
       <h3>
-        To begin, tap the <IonIcon md={searchSharp} ios={search} /> to search
+        To search, tap the <IonIcon md={searchSharp} ios={search} />
       </h3>
     </div>
   );

@@ -1,26 +1,29 @@
 .next-week-title {
-  margin-bottom: 0;
+  font-size: 0.9rem;
+  margin-bottom: 0px;
   opacity: 0.5;
-}
-
-ion-text h2 {
-  --margin: 0;
 }
 
 /* Remove stupid default padding */
 .next-week-item {
   display: flex;
   align-items: flex-start;
-  --padding-start: 0px;
-  --inner-padding-end: 0px;
+}
+
+.next-week-item h2 {
+  margin: 10px 0 5px 0;
+}
+
+.next-week-item .bottom-row {
+  margin: 15px 0 0 0;
+  display: none;
+}
+
+.next-week-item .bottom-row h5 {
+  font-weight: 400;
 }
 
 /* Selected class */
-.next-week-item .bottom-row {
-  margin: 0;
-  width: 100%;
-  display: none;
-}
 .pressed {
   display: block !important;
 }
@@ -31,16 +34,9 @@ ion-text h2 {
   justify-content: flex-end;
 }
 
-.next-week-item-temps h1 {
+.next-week-item-temps h2 {
   margin-right: 5px;
 }
 .next-week-item-temps p {
   opacity: 0.5;
 }
-
-/* .next-week-item i {
-  height: 3rem;
-  display: flex;
-  align-items: center;
-  font-size: 2rem;
-} */

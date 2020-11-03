@@ -5,7 +5,6 @@ import { IonGrid, IonRow } from "@ionic/react";
 import MainWeatherCard from "./MainWeatherCard";
 import WeatherCarousel from "./WeatherCarousel";
 import { AppContext } from "../context/app-context";
-import AdditionalInfo from "./AdditionalInfo";
 import DaysSegment from "./DaysSegment";
 
 const WeatherContent = () => {
@@ -23,9 +22,6 @@ const WeatherContent = () => {
       <IonRow>
         <DaysSegment />
         <WeatherCarousel key={segmentCarouselOption} hourly={hourly} />
-      </IonRow>
-      <IonRow>
-        <AdditionalInfo />
       </IonRow>
     </IonGrid>
   );
