@@ -41,6 +41,7 @@ interface today_tomorrow {
       pressure: number;
       humidity: number;
       dew_point: number;
+      compass: string;
       clouds: number;
       visibility: number;
       wind_speed: number;
@@ -58,7 +59,7 @@ interface today_tomorrow {
   ];
 }
 
-interface selectedWeather {
+export interface selectedWeather {
   address: string;
   weather: {
     current: object;
@@ -66,7 +67,7 @@ interface selectedWeather {
     tomorrow: today_tomorrow;
     next_week: object[];
     alerts?: object[];
-    gId: string;
+    gId?: string;
   };
   icon_times: [
     {

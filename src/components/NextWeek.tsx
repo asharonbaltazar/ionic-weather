@@ -24,6 +24,7 @@ const NextWeek = () => {
             humidity={element.humidity}
             wind_speed={element.wind_speed}
             weather={element.weather}
+            compass={element.compass}
             pop={element.pop}
             uvi={element.uvi}
           />

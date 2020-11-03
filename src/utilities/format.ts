@@ -1,5 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
+import { selectedWeather } from "../slices/weatherSlice";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import isBetween from "dayjs/plugin/isBetween";
@@ -9,24 +10,8 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isSameOrBefore);
 
-interface weatherObj {
-  address: string;
-  weather: {
-    current: {};
-    today: {
-      details: object;
-      hourly: [];
-    };
-    tomorrow: {
-      details: object;
-      hourly: [];
-    };
-    next_week: {}[];
-  };
-  gId: string;
-  icon_times: {}[];
-  updated: string;
-}
+// Compass directions
+const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
 
 export const formatTemp = {
   celsius: (value: number) => Math.ceil(value - 273.15),
@@ -49,13 +34,18 @@ export const timeIsWithinTimes = (
 ): boolean =>
   times.some(element => dayjs(time).isBetween(element.sunrise, element.sunset));
 
+const getDirection = (angle: number): string => {
+  const index = Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8;
+  return directions[index];
+};
+
 // Getting and formatting weather data
 export const formatWeatherData = async (
   lat: string,
   lng: string,
   formatted_address: string,
   placeId: string
-): Promise<weatherObj> => {
+): Promise<selectedWeather> => {
   // Grab weather data
   const { data } = await axios.get(
     process.env.REACT_APP_GET_WEATHER_VIA_COORDS + `/${lat}/${lng}`
@@ -86,6 +76,8 @@ export const formatWeatherData = async (
         element.dt = dayjs
           .tz(dayjs.unix(element.dt), data.timezone)
           .format("YYYY-MM-DDTHH:mm:ss");
+      if (element.hasOwnProperty("wind_deg"))
+        element.compass = getDirection(element.wind_deg);
 
       // Split into today and tomorrow
       dayjs(element.dt).isSameOrBefore(tom_morn) && acc[0].push(element);
@@ -109,6 +101,7 @@ export const formatWeatherData = async (
     sunset: dayjs
       .tz(dayjs.unix(element.sunset), data.timezone)
       .format("YYYY-MM-DDTHH:mm:ss"),
+    compass: getDirection(element.wind_deg),
   }));
 
   // Create weather object

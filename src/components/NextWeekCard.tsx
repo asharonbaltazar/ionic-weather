@@ -32,6 +32,7 @@ interface IProps {
   ];
   pop: number;
   uvi: number;
+  compass?: string;
 }
 
 const NextWeekCard = ({
@@ -39,12 +40,12 @@ const NextWeekCard = ({
   sunrise,
   sunset,
   temp,
-  feels_like,
   humidity,
   pressure,
   wind_speed,
   pop,
-  weather: [{ id, description }],
+  weather: [{ description }],
+  compass,
 }: IProps) => {
   const [pressed, setPressed] = useState(false);
 
@@ -100,6 +101,7 @@ const NextWeekCard = ({
               wind_speed={wind_speed}
               wind_deg={wind_speed}
               pop={pop}
+              compass={compass}
             />
           </IonCol>
         </IonRow>

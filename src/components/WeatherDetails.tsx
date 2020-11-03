@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatSpeed } from "../utilities/format";
 import dayjs from "dayjs";
+import { compass } from "ionicons/icons";
 
 interface IProps {
   class_name: string;
@@ -13,6 +14,7 @@ interface IProps {
   wind_speed: number;
   wind_deg?: number;
   pop?: number;
+  compass?: string;
 }
 
 const WeatherDetails = ({
@@ -24,6 +26,7 @@ const WeatherDetails = ({
   wind_speed,
   wind_deg,
   pop,
+  compass,
 }: IProps) => {
   // Windspeed unit from settings
   const selectedSpeed = useSelector(
@@ -50,10 +53,9 @@ const WeatherDetails = ({
         <h5>Wind</h5>
         <h5>
           {formatSpeed[selectedSpeed](wind_speed)}
-          {selectedSpeed === "kilometers" ? "km/h" : "mph"}
-          <p>
-            <i className={`wi wi-wind towards-${wind_deg}-deg`}></i>
-          </p>
+          {`${selectedSpeed === "kilometers" ? "km/h" : "mph"} ${
+            compass ? compass : ""
+          }`}
         </h5>
       </div>
       {pop && pop > 0 ? (
