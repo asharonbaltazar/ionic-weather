@@ -89,7 +89,7 @@ const MainWeatherCard = ({
             <h5>{pressure}</h5>
           </div>
           <div>
-            <h5>Wind Speed</h5>
+            <h5>Wind</h5>
             <h5>
               {formatSpeed[selectedSpeed](wind_speed)}
               {selectedSpeed === "kilometers" ? "km/h" : "mph"}
