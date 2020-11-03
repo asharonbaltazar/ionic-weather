@@ -76,7 +76,7 @@ const NextWeekCard = ({
         </IonRow>
         <IonRow>
           <IonCol>
-            <IonText>
+            <IonText className="ion-text-nowrap">
               <h2>
                 {description.charAt(0).toUpperCase() + description.slice(1)}
               </h2>
