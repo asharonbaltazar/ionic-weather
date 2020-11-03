@@ -1,6 +1,6 @@
 import axios from "axios";
 import dayjs from "dayjs";
-import { selectedWeather } from "../slices/weatherSlice";
+import { SelectedWeather } from "../slices/weatherSlice";
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import isBetween from "dayjs/plugin/isBetween";
@@ -45,7 +45,7 @@ export const formatWeatherData = async (
   lng: string,
   formatted_address: string,
   placeId: string
-): Promise<selectedWeather> => {
+): Promise<SelectedWeather> => {
   // Grab weather data
   const { data } = await axios.get(
     process.env.REACT_APP_GET_WEATHER_VIA_COORDS + `/${lat}/${lng}`

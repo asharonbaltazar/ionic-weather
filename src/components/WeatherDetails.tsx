@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatSpeed } from "../utilities/format";
 import dayjs from "dayjs";
-import { compass } from "ionicons/icons";
 
 interface IProps {
   class_name: string;
@@ -11,8 +10,7 @@ interface IProps {
   sunset?: string;
   humidity: number;
   pressure: number;
-  wind_speed: number;
-  wind_deg?: number;
+  wind_speed?: number;
   pop?: number;
   compass?: string;
 }
@@ -24,7 +22,6 @@ const WeatherDetails = ({
   humidity,
   pressure,
   wind_speed,
-  wind_deg,
   pop,
   compass,
 }: IProps) => {
@@ -37,7 +34,7 @@ const WeatherDetails = ({
     (state: RootState) => state.settings.timePreference
   );
   // Special time formatting for <WeatherDetails />
-  const exact_time = selectedTime === "h a" ? "h:mm a" : "HH:mm";
+  const exactTime = selectedTime === "h a" ? "h:mm a" : "HH:mm";
 
   return (
     <div className={class_name}>
@@ -49,15 +46,15 @@ const WeatherDetails = ({
         <h5>Pressure</h5>
         <h5>{pressure}</h5>
       </div>
-      <div>
-        <h5>Wind</h5>
-        <h5>
-          {formatSpeed[selectedSpeed](wind_speed)}
-          {`${selectedSpeed === "kilometers" ? "km/h" : "mph"} ${
-            compass ? compass : ""
-          }`}
-        </h5>
-      </div>
+      {wind_speed ? (
+        <div>
+          <h5>Wind</h5>
+          <h5>
+            {formatSpeed[selectedSpeed](wind_speed)}
+            {`${selectedSpeed === "kilometers" ? "km/h" : "mph"} ${compass}`}
+          </h5>
+        </div>
+      ) : null}
       {pop && pop > 0 ? (
         <div>
           <h5>Chance of rain</h5>
@@ -67,8 +64,8 @@ const WeatherDetails = ({
       {sunrise && sunset ? (
         <div>
           <h5>Sunrise/sunset</h5>
-          <h5>{`${dayjs(sunrise).format(exact_time)}, ${dayjs(sunset).format(
-            exact_time
+          <h5>{`${dayjs(sunrise).format(exactTime)}, ${dayjs(sunset).format(
+            exactTime
           )}`}</h5>
         </div>
       ) : null}

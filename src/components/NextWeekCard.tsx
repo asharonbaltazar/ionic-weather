@@ -47,14 +47,12 @@ const NextWeekCard = ({
   weather: [{ description }],
   compass,
 }: IProps) => {
+  // Expand-to-show-more-details state
   const [pressed, setPressed] = useState(false);
 
   const selectedTemp = useSelector(
     (state: RootState) => state.settings.tempPreference
   );
-
-  // Icon string
-  // const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
 
   return (
     <IonItem
@@ -99,7 +97,6 @@ const NextWeekCard = ({
               humidity={humidity}
               pressure={pressure}
               wind_speed={wind_speed}
-              wind_deg={wind_speed}
               pop={pop}
               compass={compass}
             />
@@ -109,7 +106,5 @@ const NextWeekCard = ({
     </IonItem>
   );
 };
-
-//<i className={`wi wi-fw wi-owm-${icon}-${id} weather-icon`}></i>
 
 export default NextWeekCard;

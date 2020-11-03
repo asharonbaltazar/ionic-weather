@@ -5,7 +5,7 @@ import { AppDispatch, RootState } from "../store";
 import { formatWeatherData } from "../utilities/format";
 import axios from "axios";
 
-interface today_tomorrow {
+export interface TodayTomorrow {
   details: {
     dt: string;
     sunrise: string;
@@ -58,13 +58,12 @@ interface today_tomorrow {
     }
   ];
 }
-
-export interface selectedWeather {
+export interface SelectedWeather {
   address: string;
   weather: {
     current: object;
-    today: today_tomorrow;
-    tomorrow: today_tomorrow;
+    today: TodayTomorrow;
+    tomorrow: TodayTomorrow;
     next_week: object[];
     alerts?: object[];
     gId?: string;
@@ -80,8 +79,8 @@ export interface selectedWeather {
 export const weatherSlice = createSlice({
   name: "weather",
   initialState: {
-    selectedWeather: {} as selectedWeather,
-    savedWeather: [] as Array<selectedWeather>,
+    selectedWeather: {} as SelectedWeather,
+    savedWeather: [] as SelectedWeather[],
     loading: false,
   },
   reducers: {

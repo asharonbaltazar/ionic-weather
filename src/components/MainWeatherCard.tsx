@@ -47,8 +47,6 @@ const MainWeatherCard = ({
     feels_like,
     humidity,
     pressure,
-    wind_speed,
-    wind_deg,
     weather: [{ id, description }],
   },
 }: IProps) => {
@@ -80,19 +78,11 @@ const MainWeatherCard = ({
           class_name={"bottom-row"}
           humidity={humidity}
           pressure={pressure}
-          wind_speed={wind_speed}
-          wind_deg={wind_deg}
         />
       </div>
       <div className="details-div"></div>
     </div>
   );
 };
-
-// {pop && pop > 0 ? (
-//   <p className="pop">{Math.floor(pop * 100)}%</p>
-// ) : (
-//   <div className="pop"></div>
-// )}
 
 export default MainWeatherCard;
