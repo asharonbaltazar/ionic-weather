@@ -1,0 +1,25 @@
+.bottom-row {
+  margin: 10px 0 5px 0;
+}
+
+.bottom-row div {
+  margin: 5px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.bottom-row > div > h5:first-of-type {
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+.bottom-row h5 {
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-row h5 > p {
+  margin-left: 4px;
+  opacity: 0.5;
+}

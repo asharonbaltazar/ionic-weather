@@ -13,14 +13,14 @@ const DaysSegment = () => {
     <div className="segment ion-padding-start ion-padding-end">
       <div>
         <IonButton
-          fill={segmentCarouselOption === "today" ? "solid" : "clear"}
+          fill={segmentCarouselOption === "today" ? "outline" : "clear"}
           color="primary"
           onClick={() => toggleSegmentsCarousel("today")}
         >
           Today
         </IonButton>
         <IonButton
-          fill={segmentCarouselOption === "tomorrow" ? "solid" : "clear"}
+          fill={segmentCarouselOption === "tomorrow" ? "outline" : "clear"}
           color="primary"
           onClick={() => toggleSegmentsCarousel("tomorrow")}
         >

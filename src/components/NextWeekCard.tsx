@@ -41,6 +41,7 @@ const NextWeekCard = ({
   sunset,
   temp,
   humidity,
+  uvi,
   pressure,
   wind_speed,
   pop,
@@ -98,6 +99,7 @@ const NextWeekCard = ({
               pressure={pressure}
               wind_speed={wind_speed}
               pop={pop}
+              uvi={uvi}
               compass={compass}
             />
           </IonCol>

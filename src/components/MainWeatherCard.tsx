@@ -1,11 +1,11 @@
 import React from "react";
+import WeatherDetails from "./WeatherDetails";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatTemp } from "../utilities/format";
 import "../css/weather-card.css";
 import dayjs from "dayjs";
 import isBetween from "dayjs/plugin/isBetween";
-import WeatherDetails from "./WeatherDetails";
 dayjs.extend(isBetween);
 
 interface IProps {
@@ -46,7 +46,9 @@ const MainWeatherCard = ({
     temp,
     feels_like,
     humidity,
+    uvi,
     pressure,
+    pop,
     weather: [{ id, description }],
   },
 }: IProps) => {
@@ -78,9 +80,9 @@ const MainWeatherCard = ({
           class_name={"bottom-row"}
           humidity={humidity}
           pressure={pressure}
+          uvi={uvi}
         />
       </div>
-      <div className="details-div"></div>
     </div>
   );
 };

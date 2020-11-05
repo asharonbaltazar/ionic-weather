@@ -2,9 +2,9 @@ import React from "react";
 import { IonIcon } from "@ionic/react";
 import {
   searchSharp,
-  search,
   cloudCircleSharp,
-  cloudCircle,
+  searchOutline,
+  cloudCircleOutline,
 } from "ionicons/icons";
 
 const MainPagePlaceholder = () => {
@@ -13,11 +13,11 @@ const MainPagePlaceholder = () => {
       <IonIcon
         className="placeholder-icon"
         md={cloudCircleSharp}
-        ios={cloudCircle}
+        ios={cloudCircleOutline}
       />
       <h2>Welcome to Ionic Weather</h2>
       <h3>
-        To search, tap the <IonIcon md={searchSharp} ios={search} />
+        To search, tap the <IonIcon md={searchSharp} ios={searchOutline} />
       </h3>
     </div>
   );

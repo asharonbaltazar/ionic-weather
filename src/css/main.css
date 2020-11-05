@@ -1,3 +1,17 @@
+/* Special styling for iOS header */
+.main .header-ios {
+  padding: 0 5px;
+}
+
+.main ion-toolbar {
+  padding-left: 16px;
+}
+
+.main ion-title {
+  padding: 0;
+  text-align: left;
+}
+
 .empty-placeholder {
   height: 100%;
   display: flex;

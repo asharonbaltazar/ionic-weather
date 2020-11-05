@@ -11,7 +11,7 @@ const NextWeek = () => {
 
   return (
     <IonContent>
-      <IonList>
+      <IonList className="ion-margin-top">
         {nextWeeksWeather.map((element: any) => (
           <NextWeekCard
             key={element.dt}

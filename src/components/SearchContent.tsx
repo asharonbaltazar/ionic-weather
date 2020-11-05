@@ -9,7 +9,7 @@ import {
 import { useHistory } from "react-router";
 import SkeletonResults from "./SkeletonResults";
 import SearchResult from "./SearchResult";
-import { locate, locateSharp } from "ionicons/icons";
+import { locateOutline, locateSharp } from "ionicons/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
@@ -38,7 +38,12 @@ const SearchModalContent = () => {
         }}
         detail={false}
       >
-        <IonIcon color={"primary"} ios={locate} md={locateSharp} slot="start" />
+        <IonIcon
+          color={"primary"}
+          ios={locateOutline}
+          md={locateSharp}
+          slot="start"
+        />
         <IonLabel>Use your current location</IonLabel>
       </IonItem>
       {searchResults.length ? (

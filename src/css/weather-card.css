@@ -35,7 +35,7 @@
 
 .temp-subtitle {
   margin: 0 0 5px 0;
-  opacity: 0.7;
+  opacity: 0.5;
 }
 
 .i-row {
@@ -47,13 +47,10 @@
 }
 
 .i-row i {
+  color: var(--ion-color-primary);
   font-size: 7rem;
   line-height: 7rem;
   opacity: 0.1;
-}
-
-.desc-icon {
-  font-size: 2rem;
 }
 
 .desc-title {
@@ -62,32 +59,19 @@
   line-height: 2rem;
 }
 
-.details-div h6 {
-  margin-top: 5px;
-}
-
-.bottom-row {
-  margin: 10px 0 5px 0;
-}
-
-.bottom-row div {
-  margin: 5px 0;
+.pop-chip {
+  margin: 0 auto;
   display: flex;
   justify-content: space-between;
+  width: 100%;
+  pointer-events: none;
 }
 
-.bottom-row > div > h5:first-of-type {
-  font-weight: 400;
-  opacity: 0.5;
-}
-
-.bottom-row h5 {
-  margin: 0;
+.pop-chip > div {
   display: flex;
   align-items: center;
 }
 
-.bottom-row h5 > p {
-  margin-left: 4px;
-  opacity: 0.5;
+.pop-chip h5 {
+  margin: 0 0 0 5px;
 }

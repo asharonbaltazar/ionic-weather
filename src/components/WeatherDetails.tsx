@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatSpeed } from "../utilities/format";
 import dayjs from "dayjs";
+import "../css/weather-details.css";
 
 interface IProps {
   class_name: string;
@@ -10,6 +11,7 @@ interface IProps {
   sunset?: string;
   humidity: number;
   pressure: number;
+  uvi?: number;
   wind_speed?: number;
   pop?: number;
   compass?: string;
@@ -21,6 +23,7 @@ const WeatherDetails = ({
   sunset,
   humidity,
   pressure,
+  uvi,
   wind_speed,
   pop,
   compass,
@@ -46,6 +49,12 @@ const WeatherDetails = ({
         <h5>Pressure</h5>
         <h5>{pressure}</h5>
       </div>
+      {uvi ? (
+        <div>
+          <h5>UVI index</h5>
+          <h5>{uvi}</h5>
+        </div>
+      ) : null}
       {wind_speed ? (
         <div>
           <h5>Wind</h5>

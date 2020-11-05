@@ -7,7 +7,13 @@ import {
   IonTitle,
   IonHeader,
 } from "@ionic/react";
-import { searchSharp, search, settings, settingsSharp } from "ionicons/icons";
+import {
+  searchSharp,
+  settingsSharp,
+  settingsOutline,
+  searchOutline,
+} from "ionicons/icons";
+// CSS for the toolbar is found in Main.css
 
 interface IProps {
   address: string;
@@ -23,7 +29,7 @@ const Toolbar = ({ address }: IProps) => {
             <IonIcon
               slot="icon-only"
               md={searchSharp}
-              ios={search}
+              ios={searchOutline}
               color="primary"
             />
           </IonButton>
@@ -31,7 +37,7 @@ const Toolbar = ({ address }: IProps) => {
             <IonIcon
               slot="icon-only"
               md={settingsSharp}
-              ios={settings}
+              ios={settingsOutline}
               color="primary"
             />
           </IonButton>
