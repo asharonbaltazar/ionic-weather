@@ -19,11 +19,15 @@ const WeatherContent = () => {
       <IonRow>
         <MainWeatherCard details={details} />
         {details.pop && details.pop > 0 ? (
-          <IonChip className="pop-chip" color="primary">
+          <IonChip
+            className="pop-chip ion-padding-start ion-padding-end"
+            color="primary"
+          >
             <h5>Chance of rain</h5>
             <h5>{Math.floor(details.pop * 100)}%</h5>
           </IonChip>
         ) : (
+          // Empty div
           <div style={{ height: "32px" }}></div>
         )}
       </IonRow>

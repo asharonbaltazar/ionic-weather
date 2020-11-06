@@ -6,8 +6,22 @@
   align-items: center;
 }
 
+.segment ion-button.ios {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
+}
+
+.segment ion-button.ios.button-clear {
+  border: 1px solid transparent;
+}
+
 .segment ion-button.md {
   text-transform: capitalize;
+}
+
+.segment ion-button.md.button-clear {
+  border: 2px solid transparent;
 }
 
 .next-7-days {
