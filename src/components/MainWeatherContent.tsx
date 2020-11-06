@@ -27,8 +27,7 @@ const WeatherContent = () => {
             <h5>{Math.floor(details.pop * 100)}%</h5>
           </IonChip>
         ) : (
-          // Empty div
-          <div style={{ height: "32px" }}></div>
+          <div style={{ height: "32px", margin: "10px 0" }}></div>
         )}
       </IonRow>
       <IonRow>

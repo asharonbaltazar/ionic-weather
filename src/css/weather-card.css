@@ -20,11 +20,9 @@
 }
 
 .top-row {
-  width: 100%;
-  margin: 5px 0;
+  margin: 10px 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 }
 
 .temp-title {
@@ -34,7 +32,7 @@
 }
 
 .temp-subtitle {
-  margin: 0 0 5px 0;
+  margin: 0;
   opacity: 0.5;
 }
 
@@ -60,18 +58,13 @@
 }
 
 .pop-chip {
-  margin: 0 auto;
+  margin: 10px 0;
   display: flex;
   justify-content: space-between;
   width: 100%;
   pointer-events: none;
 }
 
-.pop-chip > div {
-  display: flex;
-  align-items: center;
-}
-
 .pop-chip h5 {
-  margin: 0 0 0 5px;
+  margin: 0;
 }
