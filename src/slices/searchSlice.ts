@@ -24,13 +24,11 @@ export const searchSlice = createSlice({
     },
 
     setRecentQuery: (state, action) => {
-      const found = state.recentQueries.find(
-        element => element.id === action.payload.id
+      state.recentQueries = state.recentQueries.filter(
+        (element: any) => element.id !== action.payload.id
       );
-      if (!found) {
-        if (state.recentQueries.length >= 5) state.recentQueries.pop();
-        state.recentQueries.unshift(action.payload);
-      }
+      if (state.recentQueries.length >= 5) state.recentQueries.pop();
+      state.recentQueries.unshift(action.payload);
     },
 
     setLoading: (state, action) => {
@@ -47,7 +45,7 @@ export const getPlacesBySearch = (query: string) => async (
     if (query.length) {
       dispatch(setSearchLoading(true));
       const response = await axios.get(
-        `https://us-central1-ionic-weather-7b2ef.cloudfunctions.net/getGMapSuggestions/${query}`
+        `${process.env.REACT_APP_GET_GMAPS_SUGGESTIONS}/${query}`
       );
 
       if (response.data.status === "OK") {

@@ -1,5 +1,6 @@
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../../store";
 import { RootState } from "../../store";
 import { IonItem, IonLabel, IonSelectOption, IonSelect } from "@ionic/react";
 import { changeWindSpeedPreference } from "../../slices/settingsSlice";
@@ -9,7 +10,7 @@ const SpeedPreference = () => {
     (state: RootState) => state.settingsSlice.windSpeedPreference
   );
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <IonItem>

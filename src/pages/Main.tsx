@@ -8,13 +8,14 @@ import {
 import Toolbar from "../components/Toolbar";
 import MainWeatherContent from "../components/MainWeatherContent";
 import MainPagePlaceholder from "../components/MainPagePlaceholder";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useAppDispatch } from "../store";
 import { RootState } from "../store";
 import { refreshWeatherData } from "../slices/weatherSlice";
 import "../css/main.css";
 
 const Main = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const { selectedWeather } = useSelector(
     (state: RootState) => state.weatherSlice

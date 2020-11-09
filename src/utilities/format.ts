@@ -47,7 +47,7 @@ export const formatWeatherData = async (
 ): Promise<SelectedWeather> => {
   // Grab weather data
   const { data } = await axios.get(
-    process.env.REACT_APP_GET_WEATHER_VIA_COORDS + `/${lat}/${lng}`
+    `${process.env.REACT_APP_GET_WEATHER_VIA_COORDS}/${lat}/${lng}`
   );
 
   // tomorrow morning

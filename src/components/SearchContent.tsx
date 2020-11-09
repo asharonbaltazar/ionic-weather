@@ -10,12 +10,12 @@ import { useHistory } from "react-router";
 import SkeletonResults from "./SkeletonResults";
 import SearchResult from "./SearchResult";
 import { locateOutline, locateSharp } from "ionicons/icons";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
+import { useSelector } from "react-redux";
+import { RootState, useAppDispatch } from "../store";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
 
 const SearchModalContent = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const searchResults = useSelector(
     (state: RootState) => state.searchSlice.queries
   );

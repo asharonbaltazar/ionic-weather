@@ -104,7 +104,7 @@ export const getWeather = (placeId: string) => async (
   dispatch(setWeatherLoading(true));
   try {
     const response = await axios.get(
-      process.env.REACT_APP_GET_GPLACE_ID + placeId
+      `${process.env.REACT_APP_GET_GPLACE_ID}/${placeId}`
     );
 
     if (response.data.status === "OK") {
@@ -149,7 +149,7 @@ export const getWeatherByGeolocation = () => async (
         results: [{ formatted_address, place_id }],
       },
     } = await axios.get(
-      process.env.REACT_APP_GET_GEOLOCATION_DATA + `/${latitude}/${longitude}`
+      `${process.env.REACT_APP_GET_GEOLOCATION_DATA}/${latitude}/${longitude}`
     );
 
     if (formatted_address && place_id) {

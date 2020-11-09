@@ -1,11 +1,12 @@
 import React from "react";
 import { IonItem, IonLabel, IonToggle } from "@ionic/react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch } from "../../store";
+import { useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { changeVibrationPreference } from "../../slices/settingsSlice";
 
 const VibationPreference = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const vibrationOption = useSelector(
     (state: RootState) => state.settingsSlice.vibrationPreference
   );
