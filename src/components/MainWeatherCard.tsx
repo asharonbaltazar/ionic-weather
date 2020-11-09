@@ -21,6 +21,7 @@ interface IProps {
     };
     pressure: number;
     humidity: number;
+    dew_point: number;
     wind_speed: number;
     wind_deg: number;
     weather: [
@@ -48,13 +49,13 @@ const MainWeatherCard = ({
     humidity,
     uvi,
     pressure,
-    pop,
+    dew_point,
     weather: [{ id, description }],
   },
 }: IProps) => {
   // Temperature unit from settings
   const selectedTemp = useSelector(
-    (state: RootState) => state.settings.tempPreference
+    (state: RootState) => state.settingsSlice.tempPreference
   );
   // Icon string
   const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
@@ -81,6 +82,7 @@ const MainWeatherCard = ({
           humidity={humidity}
           pressure={pressure}
           uvi={uvi}
+          dew_point={dew_point}
         />
       </div>
     </div>

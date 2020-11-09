@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../store";
 
 const ScreenLoader = () => {
-  const loading = useSelector((state: RootState) => state.weather.loading);
+  const loading = useSelector((state: RootState) => state.weatherSlice.loading);
 
   return (
     <IonLoading

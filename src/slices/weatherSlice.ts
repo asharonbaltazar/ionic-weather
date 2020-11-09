@@ -18,6 +18,7 @@ export interface TodayTomorrow {
     };
     pressure: number;
     humidity: number;
+    dew_point: number;
     wind_speed: number;
     wind_deg: number;
     weather: [
@@ -122,7 +123,7 @@ export const getWeather = (placeId: string) => async (
       );
 
       dispatch(setWeatherData(weatherObj));
-      getState().settings.vibrationPreference && Vibration.vibrate(100);
+      getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));
@@ -163,7 +164,7 @@ export const getWeatherByGeolocation = () => async (
       );
 
       dispatch(setWeatherData(weatherObj));
-      getState().settings.vibrationPreference && Vibration.vibrate(100);
+      getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
     }
   } catch (error) {
     dispatch(setWeatherLoading(false));

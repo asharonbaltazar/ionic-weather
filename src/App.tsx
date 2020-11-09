@@ -32,7 +32,9 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 
 const App = () => {
-  const { selectedWeather } = useSelector((state: RootState) => state.weather);
+  const { selectedWeather } = useSelector(
+    (state: RootState) => state.weatherSlice
+  );
 
   return (
     <ContextProvider>

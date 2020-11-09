@@ -16,13 +16,15 @@ import { getWeatherByGeolocation } from "../slices/weatherSlice";
 
 const SearchModalContent = () => {
   const dispatch = useDispatch();
-  const searchResults = useSelector((state: RootState) => state.search.queries);
+  const searchResults = useSelector(
+    (state: RootState) => state.searchSlice.queries
+  );
   const recentSearches = useSelector(
-    (state: RootState) => state.search.recentQueries
+    (state: RootState) => state.searchSlice.recentQueries
   );
 
   const loading: boolean = useSelector(
-    (state: RootState) => state.search.loading
+    (state: RootState) => state.searchSlice.loading
   );
 
   const history = useHistory();

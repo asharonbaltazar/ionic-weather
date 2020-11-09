@@ -6,7 +6,7 @@ import { changeTimePreference } from "../../slices/settingsSlice";
 
 const TempPreference = () => {
   const timePreference = useSelector(
-    (state: RootState) => state.settings.timePreference
+    (state: RootState) => state.settingsSlice.timePreference
   );
   const dispatch = useDispatch();
 

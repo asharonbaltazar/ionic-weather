@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { formatSpeed } from "../utilities/format";
+import { formatSpeed, formatTemp } from "../utilities/format";
 import dayjs from "dayjs";
 import "../css/weather-details.css";
 
@@ -11,6 +11,7 @@ interface IProps {
   sunset?: string;
   humidity: number;
   pressure: number;
+  dew_point?: number;
   uvi?: number;
   wind_speed?: number;
   pop?: number;
@@ -22,6 +23,7 @@ const WeatherDetails = ({
   sunrise,
   sunset,
   humidity,
+  dew_point,
   pressure,
   uvi,
   wind_speed,
@@ -30,11 +32,15 @@ const WeatherDetails = ({
 }: IProps) => {
   // Windspeed unit from settings
   const selectedSpeed = useSelector(
-    (state: RootState) => state.settings.windSpeedPreference
+    (state: RootState) => state.settingsSlice.windSpeedPreference
+  );
+  // Temperature unit from settings
+  const selectedTemp = useSelector(
+    (state: RootState) => state.settingsSlice.tempPreference
   );
   // Time unit from settings
   const selectedTime = useSelector(
-    (state: RootState) => state.settings.timePreference
+    (state: RootState) => state.settingsSlice.timePreference
   );
   // Special time formatting for <WeatherDetails />
   const exactTime = selectedTime === "h a" ? "h:mm a" : "HH:mm";
@@ -49,6 +55,12 @@ const WeatherDetails = ({
         <h5>Pressure</h5>
         <h5>{pressure}</h5>
       </div>
+      {dew_point ? (
+        <div>
+          <h5>Dew point</h5>
+          <h5>{formatTemp[selectedTemp](dew_point)}°</h5>
+        </div>
+      ) : null}
       {uvi ? (
         <div>
           <h5>UVI index</h5>

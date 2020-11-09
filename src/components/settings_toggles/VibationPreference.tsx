@@ -7,7 +7,7 @@ import { changeVibrationPreference } from "../../slices/settingsSlice";
 const VibationPreference = () => {
   const dispatch = useDispatch();
   const vibrationOption = useSelector(
-    (state: RootState) => state.settings.vibrationPreference
+    (state: RootState) => state.settingsSlice.vibrationPreference
   );
   return (
     <IonItem>

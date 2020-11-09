@@ -6,7 +6,7 @@ import { changeTempPreference } from "../../slices/settingsSlice";
 
 const TempPreference = () => {
   const selectedTemp = useSelector(
-    (state: RootState) => state.settings.tempPreference
+    (state: RootState) => state.settingsSlice.tempPreference
   );
 
   const dispatch = useDispatch();

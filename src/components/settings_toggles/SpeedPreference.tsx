@@ -6,7 +6,7 @@ import { changeWindSpeedPreference } from "../../slices/settingsSlice";
 
 const SpeedPreference = () => {
   const windSpeedPreference = useSelector(
-    (state: RootState) => state.settings.windSpeedPreference
+    (state: RootState) => state.settingsSlice.windSpeedPreference
   );
 
   const dispatch = useDispatch();

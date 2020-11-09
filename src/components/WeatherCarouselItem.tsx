@@ -25,15 +25,15 @@ const WeatherCarouselItem = ({
 }: IProps) => {
   // Temperature unit from settings
   const selectedTemp = useSelector(
-    (state: RootState) => state.settings.tempPreference
+    (state: RootState) => state.settingsSlice.tempPreference
   );
   // Time unit from settings
   const selectedTime = useSelector(
-    (state: RootState) => state.settings.timePreference
+    (state: RootState) => state.settingsSlice.timePreference
   );
   // Sunrise and sunset times for icon
   const { icon_times } = useSelector(
-    (state: RootState) => state.weather.selectedWeather
+    (state: RootState) => state.weatherSlice.selectedWeather
   );
 
   // Icon string

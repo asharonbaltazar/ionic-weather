@@ -52,7 +52,7 @@ const NextWeekCard = ({
   const [pressed, setPressed] = useState(false);
 
   const selectedTemp = useSelector(
-    (state: RootState) => state.settings.tempPreference
+    (state: RootState) => state.settingsSlice.tempPreference
   );
 
   return (

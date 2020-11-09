@@ -8,7 +8,9 @@ import { RootState } from "../store";
 import "../css/main.css";
 
 const Main = () => {
-  const { selectedWeather } = useSelector((state: RootState) => state.weather);
+  const { selectedWeather } = useSelector(
+    (state: RootState) => state.weatherSlice
+  );
   return (
     <IonPage className="main">
       <Toolbar address={selectedWeather.address} />

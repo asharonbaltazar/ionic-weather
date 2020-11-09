@@ -6,7 +6,7 @@ import { RootState } from "../store";
 
 const NextWeek = () => {
   const nextWeeksWeather = useSelector(
-    (state: RootState) => state.weather.selectedWeather.weather.next_week
+    (state: RootState) => state.weatherSlice.selectedWeather.weather.next_week
   );
 
   return (

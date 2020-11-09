@@ -11,7 +11,7 @@ const WeatherContent = () => {
   const { segmentCarouselOption } = useContext(AppContext);
   const { details, hourly } = useSelector(
     (state: RootState) =>
-      state.weather.selectedWeather.weather[segmentCarouselOption]
+      state.weatherSlice.selectedWeather.weather[segmentCarouselOption]
   );
 
   return (
