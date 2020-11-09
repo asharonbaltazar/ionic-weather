@@ -43,8 +43,7 @@ const getDirection = (angle: number): string => {
 export const formatWeatherData = async (
   lat: string,
   lng: string,
-  formatted_address: string,
-  placeId: string
+  formatted_address: string
 ): Promise<SelectedWeather> => {
   // Grab weather data
   const { data } = await axios.get(
@@ -130,7 +129,6 @@ export const formatWeatherData = async (
       },
       next_week: daily.slice(1),
     },
-    gId: placeId,
     icon_times: data.daily.flatMap((element: any, index: any) =>
       index <= 2
         ? {

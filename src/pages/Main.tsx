@@ -8,18 +8,21 @@ import {
 import Toolbar from "../components/Toolbar";
 import MainWeatherContent from "../components/MainWeatherContent";
 import MainPagePlaceholder from "../components/MainPagePlaceholder";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
+import { refreshWeatherData } from "../slices/weatherSlice";
 import "../css/main.css";
 
 const Main = () => {
+  const dispatch = useDispatch();
+
   const { selectedWeather } = useSelector(
     (state: RootState) => state.weatherSlice
   );
 
   // refresher function
   const refreshWeather = (e: CustomEvent) => {
-    console.log("hello");
+    dispatch(refreshWeatherData());
     e.detail.complete();
   };
   return (

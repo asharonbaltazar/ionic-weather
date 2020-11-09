@@ -29,15 +29,17 @@ const SearchModalContent = () => {
 
   const history = useHistory();
 
+  const getLocation = () => {
+    dispatch(getWeatherByGeolocation());
+    history.goBack();
+  };
+
   return (
     <IonContent>
       <IonItem
         className="ion-margin-top ion-margin-bottom"
         button
-        onClick={() => {
-          dispatch(getWeatherByGeolocation());
-          history.goBack();
-        }}
+        onClick={() => getLocation()}
         detail={false}
       >
         <IonIcon

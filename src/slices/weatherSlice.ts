@@ -67,7 +67,6 @@ export interface SelectedWeather {
     tomorrow: TodayTomorrow;
     next_week: object[];
     alerts?: object[];
-    gId?: string;
   };
   icon_times: [
     {
@@ -75,6 +74,7 @@ export interface SelectedWeather {
       sunset: string;
     }
   ];
+  gId?: string;
   geolocation?: boolean;
 }
 
@@ -101,8 +101,8 @@ export const getWeather = (placeId: string) => async (
   dispatch: AppDispatch,
   getState: () => RootState
 ) => {
+  dispatch(setWeatherLoading(true));
   try {
-    dispatch(setWeatherLoading(true));
     const response = await axios.get(
       process.env.REACT_APP_GET_GPLACE_ID + placeId
     );
@@ -116,14 +116,10 @@ export const getWeather = (placeId: string) => async (
       } = response.data.results[0];
 
       // Format weather data
-      const weatherObj = await formatWeatherData(
-        lat,
-        lng,
-        formatted_address,
-        placeId
-      );
+      const weatherObj = await formatWeatherData(lat, lng, formatted_address);
 
       weatherObj.geolocation = false;
+      weatherObj.gId = placeId;
 
       dispatch(setWeatherData(weatherObj));
       getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
@@ -140,7 +136,6 @@ export const getWeatherByGeolocation = () => async (
 ) => {
   try {
     dispatch(setWeatherLoading(true));
-
     // geolocation coordinates
     const {
       coords: { latitude, longitude },
@@ -162,11 +157,11 @@ export const getWeatherByGeolocation = () => async (
       const weatherObj = await formatWeatherData(
         latitude.toString(),
         longitude.toString(),
-        formatted_address,
-        place_id
+        formatted_address
       );
 
       weatherObj.geolocation = true;
+      weatherObj.gId = place_id;
 
       dispatch(setWeatherData(weatherObj));
       getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
@@ -175,6 +170,15 @@ export const getWeatherByGeolocation = () => async (
     dispatch(setWeatherLoading(false));
     console.log(error.message);
   }
+};
+
+export const refreshWeatherData = () => async (
+  dispatch: AppDispatch,
+  getState: () => RootState
+) => {
+  getState().weatherSlice.selectedWeather.geolocation
+    ? dispatch(getWeatherByGeolocation())
+    : dispatch(getWeather(getState().weatherSlice.selectedWeather.gId ?? ""));
 };
 
 export const { setWeatherData, setWeatherLoading } = weatherSlice.actions;
