@@ -1,5 +1,10 @@
 import React from "react";
-import { IonContent, IonPage } from "@ionic/react";
+import {
+  IonContent,
+  IonPage,
+  IonRefresher,
+  IonRefresherContent,
+} from "@ionic/react";
 import Toolbar from "../components/Toolbar";
 import MainWeatherContent from "../components/MainWeatherContent";
 import MainPagePlaceholder from "../components/MainPagePlaceholder";
@@ -11,12 +16,23 @@ const Main = () => {
   const { selectedWeather } = useSelector(
     (state: RootState) => state.weatherSlice
   );
+
+  // refresher function
+  const refreshWeather = (e: CustomEvent) => {
+    console.log("hello");
+    e.detail.complete();
+  };
   return (
     <IonPage className="main">
       <Toolbar address={selectedWeather.address} />
       <IonContent>
         {selectedWeather.hasOwnProperty("weather") ? (
-          <MainWeatherContent />
+          <>
+            <IonRefresher slot="fixed" onIonRefresh={e => refreshWeather(e)}>
+              <IonRefresherContent />
+            </IonRefresher>
+            <MainWeatherContent />
+          </>
         ) : (
           <MainPagePlaceholder />
         )}

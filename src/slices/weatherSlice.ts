@@ -75,6 +75,7 @@ export interface SelectedWeather {
       sunset: string;
     }
   ];
+  geolocation?: boolean;
 }
 
 export const weatherSlice = createSlice({
@@ -122,6 +123,8 @@ export const getWeather = (placeId: string) => async (
         placeId
       );
 
+      weatherObj.geolocation = false;
+
       dispatch(setWeatherData(weatherObj));
       getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
     }
@@ -162,6 +165,8 @@ export const getWeatherByGeolocation = () => async (
         formatted_address,
         place_id
       );
+
+      weatherObj.geolocation = true;
 
       dispatch(setWeatherData(weatherObj));
       getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
