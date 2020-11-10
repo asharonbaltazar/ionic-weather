@@ -8,7 +8,7 @@ interface IProps {
 const RainChip = ({ pop }: IProps) => {
   return (
     <>
-      {pop && pop > 0 ? (
+      {pop && pop > 0.1 ? (
         <IonChip
           className="pop-chip ion-padding-start ion-padding-end"
           color="primary"

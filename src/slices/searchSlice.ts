@@ -43,7 +43,6 @@ export const getPlacesBySearch = (query: string) => async (
 ) => {
   try {
     if (query.length) {
-      dispatch(setSearchLoading(true));
       const response = await axios.get(
         `${process.env.REACT_APP_GET_GMAPS_SUGGESTIONS}/${query}`
       );

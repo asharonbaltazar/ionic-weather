@@ -76,7 +76,7 @@ const WeatherDetails = ({
           </h5>
         </div>
       ) : null}
-      {pop && pop > 0 ? (
+      {pop && pop > 0.1 ? (
         <div>
           <h5>Chance of rain</h5>
           <h5 className="pop">{Math.floor(pop * 100)}%</h5>

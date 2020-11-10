@@ -2,18 +2,30 @@ import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import { IonSearchbar, useIonViewDidEnter } from "@ionic/react";
 import { useDispatch } from "react-redux";
-import { getPlacesBySearch, displaySearchQueries } from "../slices/searchSlice";
+import {
+  getPlacesBySearch,
+  displaySearchQueries,
+  setSearchLoading,
+} from "../slices/searchSlice";
+import { useDebouncedCallback } from "use-debounce";
 import "../css/searchbar.css";
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
+  const debounced = useDebouncedCallback(() => {
+    dispatch(getPlacesBySearch(searchTerm));
+  }, 750);
+
   useEffect(() => {
     if (!searchTerm.length) dispatch(displaySearchQueries([]));
 
-    dispatch(getPlacesBySearch(searchTerm));
-  }, [searchTerm, dispatch]);
+    if (searchTerm.length) {
+      dispatch(setSearchLoading(true));
+      debounced.callback();
+    }
+  }, [searchTerm, dispatch, debounced]);
 
   // History
   const history = useHistory();
@@ -27,7 +39,6 @@ const Searchbar = () => {
       placeholder="Search cities"
       value={searchTerm}
       onIonChange={e => setSearchTerm(e.detail.value!)}
-      debounce={750}
       autoCorrect={"off"}
       enterkeyhint={"search"}
       showCancelButton="always"
