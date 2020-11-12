@@ -2,38 +2,13 @@ import React, { useState } from "react";
 import { IonCol, IonGrid, IonItem, IonRow, IonText } from "@ionic/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
+import { Details } from "../../interface";
 import "../css/next-week-card.css";
 import { formatTemp } from "../utilities/format";
 import isBetween from "dayjs/plugin/isBetween";
 import dayjs from "dayjs";
 import WeatherDetails from "./WeatherDetails";
 dayjs.extend(isBetween);
-
-interface IProps {
-  dt: string;
-  sunrise: string;
-  sunset: string;
-  temp: {
-    [key: string]: number;
-  };
-  feels_like: {
-    [key: string]: number;
-  };
-  pressure: number;
-  humidity: number;
-  wind_speed: number;
-  weather: [
-    {
-      id: number;
-      main: string;
-      description: string;
-      icon: string;
-    }
-  ];
-  pop: number;
-  uvi: number;
-  compass?: string;
-}
 
 const NextWeekCard = ({
   dt,
@@ -47,7 +22,7 @@ const NextWeekCard = ({
   pop,
   weather: [{ description }],
   compass,
-}: IProps) => {
+}: Details) => {
   // Expand-to-show-more-details state
   const [pressed, setPressed] = useState(false);
 
@@ -92,7 +67,7 @@ const NextWeekCard = ({
         <IonRow>
           <IonCol>
             <WeatherDetails
-              class_name={`bottom-row${pressed ? " pressed" : ""}`}
+              className={`bottom-row${pressed ? " pressed" : ""}`}
               sunrise={sunrise}
               sunset={sunset}
               humidity={humidity}

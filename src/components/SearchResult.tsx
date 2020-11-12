@@ -7,8 +7,8 @@ import { setRecentQuery } from "../slices/searchSlice";
 import { getWeather } from "../slices/weatherSlice";
 
 interface Text {
-  main_text: string;
-  secondary_text: string;
+  mainText: string;
+  secondaryText: string;
 }
 interface IProps {
   text: Text;
@@ -36,9 +36,9 @@ const SearchResult = ({ text, id }: IProps) => {
         slot="start"
       />
       <IonLabel>
-        {text.main_text}
+        {text.mainText}
         <br />
-        <IonNote>{text.secondary_text}</IonNote>
+        <IonNote>{text.secondaryText}</IonNote>
       </IonLabel>
     </IonItem>
   );

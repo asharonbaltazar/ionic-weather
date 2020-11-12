@@ -32,12 +32,12 @@ const WeatherCarouselItem = ({
     (state: RootState) => state.settingsSlice.timePreference
   );
   // Sunrise and sunset times for icon
-  const { icon_times } = useSelector(
+  const { iconTimes } = useSelector(
     (state: RootState) => state.weatherSlice.selectedWeather
   );
 
   // Icon string
-  const icon = formatIconTime(timeIsWithinTimes(time, icon_times));
+  const icon = formatIconTime(timeIsWithinTimes(time, iconTimes));
 
   return (
     <IonSlide className="carousel-item">

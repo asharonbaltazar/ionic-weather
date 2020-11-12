@@ -6,7 +6,7 @@ import dayjs from "dayjs";
 import "../css/weather-details.css";
 
 interface IProps {
-  class_name: string;
+  className: string;
   sunrise?: string;
   sunset?: string;
   humidity: number;
@@ -19,7 +19,7 @@ interface IProps {
 }
 
 const WeatherDetails = ({
-  class_name,
+  className,
   sunrise,
   sunset,
   humidity,
@@ -46,7 +46,7 @@ const WeatherDetails = ({
   const exactTime = selectedTime === "h a" ? "h:mm a" : "HH:mm";
 
   return (
-    <div className={class_name}>
+    <div className={className}>
       <div>
         <h5>Humidity</h5>
         <h5>{humidity}%</h5>

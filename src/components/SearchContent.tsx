@@ -14,7 +14,7 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../store";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
 
-const SearchModalContent = () => {
+const SearchContent = () => {
   const dispatch = useAppDispatch();
   const searchResults = useSelector(
     (state: RootState) => state.searchSlice.queries
@@ -34,6 +34,36 @@ const SearchModalContent = () => {
     history.goBack();
   };
 
+  const SearchItems = () => {
+    if (searchResults.length) {
+      return (
+        <>
+          {searchResults.map((element: any) => (
+            <SearchResult
+              key={element.place_id}
+              id={element.place_id}
+              text={element.text}
+            />
+          ))}
+        </>
+      );
+    } else if (recentSearches.length && !loading) {
+      return (
+        <>
+          <IonItemDivider>Recent searches</IonItemDivider>
+          {recentSearches.map((element: any) => (
+            <SearchResult
+              key={element.id}
+              id={element.id}
+              text={element.text}
+            />
+          ))}
+        </>
+      );
+    }
+    return loading ? <SkeletonResults /> : null;
+  };
+
   return (
     <IonContent>
       <IonItem
@@ -50,34 +80,9 @@ const SearchModalContent = () => {
         />
         <IonLabel>Use your current location</IonLabel>
       </IonItem>
-      {searchResults.length ? (
-        searchResults.map((element: any) => (
-          <SearchResult
-            key={element.place_id}
-            id={element.place_id}
-            text={element.text}
-          />
-        ))
-      ) : (
-        <>
-          {recentSearches.length && !loading ? (
-            <>
-              <IonItemDivider>Recent searches</IonItemDivider>
-              {recentSearches.map((element: any) => (
-                <SearchResult
-                  key={element.id}
-                  id={element.id}
-                  text={element.text}
-                />
-              ))}
-            </>
-          ) : (
-            <>{loading && <SkeletonResults />}</>
-          )}
-        </>
-      )}
+      <SearchItems />
     </IonContent>
   );
 };
 
-export default SearchModalContent;
+export default SearchContent;

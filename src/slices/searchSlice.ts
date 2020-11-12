@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AppDispatch } from "../store";
-import axios from "axios";
+import { fetchPlacesBySearch } from "../utilities/fetch";
 
 type query = { label: string; id: string };
 interface InitialState {
@@ -43,32 +43,11 @@ export const getPlacesBySearch = (query: string) => async (
 ) => {
   try {
     if (query.length) {
-      const response = await axios.get(
-        `${process.env.REACT_APP_GET_GMAPS_SUGGESTIONS}/${query}`
-      );
-
-      if (response.data.status === "OK") {
-        const formattedResults = response.data.predictions.map(
-          (element: any) => {
-            return {
-              text: {
-                main_text: element.structured_formatting.main_text,
-                secondary_text: element.structured_formatting.secondary_text,
-              },
-              place_id: element.place_id,
-            };
-          }
-        );
-
-        dispatch(displaySearchQueries(formattedResults));
-      } else {
-        dispatch(setSearchLoading(false));
-        console.log(response.data);
-      }
+      const formattedResults = await fetchPlacesBySearch(query);
+      dispatch(displaySearchQueries(formattedResults));
     }
   } catch (error) {
     console.log(error.message);
-
     dispatch(setSearchLoading(false));
   }
 };

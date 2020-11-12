@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import Searchbar from "../components/Searchbar";
-import SearchModalContent from "../components/SearchContent";
+import SearchContent from "../components/SearchContent";
 import {
   IonToolbar,
   IonPage,
@@ -19,7 +19,7 @@ const SearchModal = () => {
           <Searchbar />
         </IonToolbar>
       </IonHeader>
-      <SearchModalContent />
+      <SearchContent />
       <IonFooter className="ion-no-border">
         <IonToolbar>
           <IonTitle slot="end">
