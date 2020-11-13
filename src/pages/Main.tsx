@@ -30,7 +30,7 @@ const Main = () => {
     <IonPage className="main">
       <Toolbar address={selectedWeather.address} />
       <IonContent>
-        {selectedWeather.hasOwnProperty("weather") ? (
+        {"weather" in selectedWeather ? (
           <>
             <IonRefresher slot="fixed" onIonRefresh={e => refreshWeather(e)}>
               <IonRefresherContent />

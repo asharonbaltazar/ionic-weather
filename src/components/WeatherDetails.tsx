@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
-import { formatSpeed, formatTemp } from "../utilities/format";
+import { formatSpeed, formatTemp, getUviIndex } from "../utilities/format";
 import dayjs from "dayjs";
 import "../css/weather-details.css";
 
@@ -53,7 +53,7 @@ const WeatherDetails = ({
       </div>
       <div>
         <h5>Pressure</h5>
-        <h5>{pressure}</h5>
+        <h5>{pressure} mBar</h5>
       </div>
       {dew_point ? (
         <div>
@@ -64,7 +64,7 @@ const WeatherDetails = ({
       {uvi ? (
         <div>
           <h5>UVI index</h5>
-          <h5>{uvi}</h5>
+          <h5>{`${getUviIndex(uvi)}, ${Math.ceil(uvi)}`}</h5>
         </div>
       ) : null}
       {wind_speed ? (

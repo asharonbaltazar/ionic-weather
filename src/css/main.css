@@ -14,9 +14,9 @@
 
 .empty-placeholder {
   height: 100%;
+  padding-top: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   opacity: 0.5;
 }

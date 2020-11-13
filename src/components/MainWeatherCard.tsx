@@ -1,5 +1,6 @@
 import React from "react";
 import WeatherDetails from "./WeatherDetails";
+import WeatherAlertButton from "./WeatherAlertButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatTemp } from "../utilities/format";
@@ -36,6 +37,7 @@ const MainWeatherCard = ({
 
   return (
     <div className="card ion-margin-start ion-margin-end">
+      <WeatherAlertButton />
       <h5>{dayjs(dt).format("dddd, MMMM D")}</h5>
       <div className="card-div">
         <div className="i-row">

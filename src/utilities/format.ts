@@ -27,6 +27,22 @@ export const timeIsWithinTimes = (
   times.some(element => dayjs(time).isBetween(element.sunrise, element.sunset));
 
 export const getDirection = (angle: number): string => {
-  const index = Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8;
-  return directions[index];
+  return directions[
+    Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8
+  ];
+};
+
+export const getUviIndex = (uvi: number): string => {
+  switch (true) {
+    case uvi >= 0 && uvi <= 2:
+      return "Low";
+    case uvi >= 2 && uvi <= 4:
+      return "Moderate";
+    case uvi >= 4 && uvi <= 8:
+      return "High";
+    case uvi >= 8 && uvi <= 10:
+      return "Very high";
+    default:
+      return "";
+  }
 };

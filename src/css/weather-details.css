@@ -6,6 +6,7 @@
   margin: 5px 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .bottom-row > div > h5:first-of-type {
@@ -15,6 +16,7 @@
 
 .bottom-row h5 {
   margin: 0;
+  line-height: 1.5;
   display: flex;
   align-items: center;
 }

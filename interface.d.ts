@@ -58,11 +58,18 @@ export interface TodayTomorrow {
 export interface SelectedWeather {
   address: string;
   weather: {
-    current: object;
     today: TodayTomorrow;
     tomorrow: TodayTomorrow;
     nextWeek: object[];
-    alerts?: object[];
+    alerts?: [
+      {
+        description: string;
+        event: string;
+        sender_name: string;
+        start: number;
+        end: number;
+      }
+    ];
   };
   iconTimes: [
     {

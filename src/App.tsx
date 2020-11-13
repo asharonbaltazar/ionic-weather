@@ -45,11 +45,7 @@ const App = () => {
             <Route path="/search" component={SearchModal} />
             <Route path="/settings" component={SettingsModal} />
             <Route path="/week">
-              {selectedWeather.hasOwnProperty("weather") ? (
-                <Week />
-              ) : (
-                <Redirect to="/" />
-              )}
+              {"weather" in selectedWeather ? <Week /> : <Redirect to="/" />}
             </Route>
           </IonRouterOutlet>
           <ScreenLoader />

@@ -108,11 +108,11 @@ export const fetchWeatherData = async (
   const hourly = data.hourly.reduce(
     (acc: any, element: any) => {
       // Convert seconds to ISO format for readability
-      if (element.hasOwnProperty("dt"))
+      if ("dt" in element)
         element.dt = dayjs
           .tz(dayjs.unix(element.dt), data.timezone)
           .format("YYYY-MM-DDTHH:mm:ss");
-      if (element.hasOwnProperty("wind_deg"))
+      if ("wind_deg" in element)
         element.compass = getDirection(element.wind_deg);
 
       // Split into today and tomorrow
@@ -144,20 +144,25 @@ export const fetchWeatherData = async (
   const weatherObj = {
     address: formatted_address,
     weather: {
-      current: {
-        ...data.current,
-        dt: dayjs
-          .tz(dayjs.unix(data.current.dt), data.timezone)
-          .format("YYYY-MM-DDTHH:mm:ss"),
-        sunrise: dayjs
-          .tz(dayjs.unix(data.current.sunrise), data.timezone)
-          .format("YYYY-MM-DDTHH:mm:ss"),
-        sunset: dayjs
-          .tz(dayjs.unix(data.current.sunset), data.timezone)
-          .format("YYYY-MM-DDTHH:mm:ss"),
-      },
       today: {
-        details: { ...daily[0], dt: hourly[0][0].dt },
+        details: {
+          ...data.current,
+          dt: dayjs
+            .tz(dayjs.unix(data.current.dt), data.timezone)
+            .format("YYYY-MM-DDTHH:mm:ss"),
+          sunrise: dayjs
+            .tz(dayjs.unix(data.current.sunrise), data.timezone)
+            .format("YYYY-MM-DDTHH:mm:ss"),
+          sunset: dayjs
+            .tz(dayjs.unix(data.current.sunset), data.timezone)
+            .format("YYYY-MM-DDTHH:mm:ss"),
+          temp: {
+            day: data.current.temp,
+          },
+          feels_like: {
+            day: data.current.feels_like,
+          },
+        },
         hourly: hourly[0],
       },
       tomorrow: {
@@ -186,15 +191,15 @@ export const fetchWeatherData = async (
   // Conditionally assign alerts property if data.alerts exists
   Object.assign(
     weatherObj.weather,
-    data.hasOwnProperty("alerts")
+    "alerts" in data
       ? {
           alerts: data.alerts.map((element: any) => ({
             ...element,
             start: dayjs
-              .tz(dayjs(element.start), data.timezone)
+              .tz(dayjs.unix(element.start), data.timezone)
               .format("YYYY-MM-DDTHH:mm:ss"),
             end: dayjs
-              .tz(dayjs(element.end), data.timezone)
+              .tz(dayjs.unix(element.end), data.timezone)
               .format("YYYY-MM-DDTHH:mm:ss"),
           })),
         }
