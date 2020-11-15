@@ -12,20 +12,15 @@ import "../css/alert.css";
 
 const WeatherAlert = () => {
   // hidden alert state
-  const [alertDisplay, setAlertDisplay] = useState(false);
+  const [alertDisplay, setAlertDisplay] = useState(true);
   const weather = useSelector(
     (state: RootState) => state.weatherSlice.selectedWeather.weather
   );
 
   return (
     <>
-      {weather?.alerts && (
-        <IonItem
-          className={alertDisplay ? "alert-hidden" : ""}
-          color="danger"
-          button
-          detail={false}
-        >
+      {weather?.alerts && alertDisplay && (
+        <IonItem color="danger" button detail={false}>
           <IonIcon
             slot="start"
             md={alertCircleSharp}

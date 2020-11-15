@@ -17,7 +17,7 @@ const WeatherContent = () => {
 
   return (
     <IonGrid>
-      <IonRow>
+      <IonRow className="ion-margin-start ion-margin-end">
         <MainWeatherCard details={details} />
         <RainChip pop={details.pop} />
       </IonRow>

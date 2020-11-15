@@ -36,7 +36,7 @@ const MainWeatherCard = ({
   const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
 
   return (
-    <div className="card ion-margin-start ion-margin-end">
+    <div className="card">
       <WeatherAlertButton />
       <h5>{dayjs(dt).format("dddd, MMMM D")}</h5>
       <div className="card-div">
