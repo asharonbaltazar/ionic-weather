@@ -6,8 +6,9 @@ import {
   IonRefresherContent,
 } from "@ionic/react";
 import Toolbar from "../components/Toolbar";
-import MainWeatherContent from "../components/MainWeatherContent";
+import MainContent from "../components/MainContent";
 import MainPagePlaceholder from "../components/MainPagePlaceholder";
+import AlertModal from "../components/AlertModal";
 import { useSelector } from "react-redux";
 import { useAppDispatch } from "../store";
 import { RootState } from "../store";
@@ -30,16 +31,17 @@ const Main = () => {
     <IonPage className="main">
       <Toolbar address={selectedWeather.address} />
       <IonContent>
-        {"weather" in selectedWeather ? (
+        {selectedWeather?.weather ? (
           <>
             <IonRefresher slot="fixed" onIonRefresh={e => refreshWeather(e)}>
               <IonRefresherContent />
             </IonRefresher>
-            <MainWeatherContent />
+            <MainContent />
           </>
         ) : (
           <MainPagePlaceholder />
         )}
+        <AlertModal />
       </IonContent>
     </IonPage>
   );

@@ -1,8 +1,4 @@
 /* Special styling for iOS header */
-.main .header-ios {
-  padding: 0 5px;
-}
-
 .main ion-toolbar.ios {
   padding-left: 16px;
 }

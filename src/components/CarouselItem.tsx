@@ -17,12 +17,7 @@ interface IProps {
   pop?: number;
 }
 
-const WeatherCarouselItem = ({
-  time,
-  temp,
-  weather: [{ id }],
-  pop,
-}: IProps) => {
+const CarouselItem = ({ time, temp, weather: [{ id }], pop }: IProps) => {
   // Temperature unit from settings
   const selectedTemp = useSelector(
     (state: RootState) => state.settingsSlice.tempPreference
@@ -54,4 +49,4 @@ const WeatherCarouselItem = ({
   );
 };
 
-export default WeatherCarouselItem;
+export default CarouselItem;

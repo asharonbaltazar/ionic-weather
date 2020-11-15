@@ -45,7 +45,7 @@ const App = () => {
             <Route path="/search" component={SearchModal} />
             <Route path="/settings" component={SettingsModal} />
             <Route path="/week">
-              {"weather" in selectedWeather ? <Week /> : <Redirect to="/" />}
+              {selectedWeather?.weather ? <Week /> : <Redirect to="/" />}
             </Route>
           </IonRouterOutlet>
           <ScreenLoader />

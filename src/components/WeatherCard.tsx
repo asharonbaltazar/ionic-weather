@@ -1,6 +1,6 @@
 import React from "react";
 import WeatherDetails from "./WeatherDetails";
-import WeatherAlertButton from "./WeatherAlertButton";
+import AlertButton from "./AlertButton";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { formatTemp } from "../utilities/format";
@@ -14,7 +14,7 @@ interface IProps {
   details: Details;
 }
 
-const MainWeatherCard = ({
+const WeatherCard = ({
   details: {
     dt,
     sunrise,
@@ -37,7 +37,7 @@ const MainWeatherCard = ({
 
   return (
     <div className="card">
-      <WeatherAlertButton />
+      <AlertButton />
       <h5>{dayjs(dt).format("dddd, MMMM D")}</h5>
       <div className="card-div">
         <div className="i-row">
@@ -65,4 +65,4 @@ const MainWeatherCard = ({
   );
 };
 
-export default MainWeatherCard;
+export default WeatherCard;

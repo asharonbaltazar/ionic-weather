@@ -55,21 +55,22 @@ export interface TodayTomorrow {
     }
   ];
 }
+
+export interface Alert {
+  description: string;
+  event: string;
+  sender_name: string;
+  start: string;
+  end: string;
+}
+
 export interface SelectedWeather {
   address: string;
   weather: {
     today: TodayTomorrow;
     tomorrow: TodayTomorrow;
     nextWeek: object[];
-    alerts?: [
-      {
-        description: string;
-        event: string;
-        sender_name: string;
-        start: number;
-        end: number;
-      }
-    ];
+    alerts?: Alert[];
   };
   iconTimes: [
     {

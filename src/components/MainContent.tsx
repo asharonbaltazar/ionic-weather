@@ -2,13 +2,13 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 import { IonGrid, IonRow } from "@ionic/react";
-import MainWeatherCard from "./MainWeatherCard";
-import WeatherCarousel from "./WeatherCarousel";
+import WeatherCard from "./WeatherCard";
+import Carousel from "./Carousel";
 import { AppContext } from "../context/app-context";
 import DaysSegment from "./DaysSegment";
 import RainChip from "./RainChip";
 
-const WeatherContent = () => {
+const MainContent = () => {
   const { segmentCarouselOption } = useContext(AppContext);
   const { details, hourly } = useSelector(
     (state: RootState) =>
@@ -18,15 +18,15 @@ const WeatherContent = () => {
   return (
     <IonGrid>
       <IonRow className="ion-margin-start ion-margin-end">
-        <MainWeatherCard details={details} />
+        <WeatherCard details={details} />
         <RainChip pop={details.pop} />
       </IonRow>
       <IonRow>
         <DaysSegment />
-        <WeatherCarousel key={segmentCarouselOption} hourly={hourly} />
+        <Carousel key={segmentCarouselOption} hourly={hourly} />
       </IonRow>
     </IonGrid>
   );
 };
 
-export default WeatherContent;
+export default MainContent;

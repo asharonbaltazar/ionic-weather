@@ -1,13 +1,13 @@
 import React from "react";
 import { IonSlides } from "@ionic/react";
-import WeatherCarouselItem from "./WeatherCarouselItem";
+import CarouselItem from "./CarouselItem";
 import "../css/weather-carousel.css";
 
 interface IProps {
   hourly: {}[];
 }
 
-const WeatherCarousel = ({ hourly }: IProps) => {
+const Carousel = ({ hourly }: IProps) => {
   // Carousel init options
   const slideOptions = {
     initialSlide: 0,
@@ -43,7 +43,7 @@ const WeatherCarousel = ({ hourly }: IProps) => {
         key={hourly.map((element: any) => element.dt).join("_")}
       >
         {hourly.map((element: any, index: number) => (
-          <WeatherCarouselItem
+          <CarouselItem
             key={index}
             time={element.dt}
             temp={element.temp}
@@ -56,4 +56,4 @@ const WeatherCarousel = ({ hourly }: IProps) => {
   );
 };
 
-export default WeatherCarousel;
+export default Carousel;
