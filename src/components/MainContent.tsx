@@ -19,6 +19,8 @@ const MainContent = () => {
     <IonGrid>
       <IonRow className="ion-margin-start ion-margin-end">
         <WeatherCard details={details} />
+      </IonRow>
+      <IonRow>
         <RainChip pop={details.pop} />
       </IonRow>
       <IonRow>

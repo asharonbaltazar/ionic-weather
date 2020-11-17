@@ -28,7 +28,6 @@ const reducers = combineReducers({
 // redux-persist config
 const persistConfig = {
   key: "ionic-weather",
-  version: 1,
   storage,
 };
 

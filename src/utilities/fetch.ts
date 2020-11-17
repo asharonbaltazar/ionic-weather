@@ -18,7 +18,7 @@ export const fetchPlacesBySearch = async (query: string) => {
   const response = await axios.get(
     `${process.env.REACT_APP_GET_GMAPS_SUGGESTIONS}/${query}`
   );
-  if (response.data.status === "OK") {
+  if (response.data.status === "OK" && response.data.predictions.length) {
     const formattedResults = response.data.predictions.map((element: any) => {
       return {
         text: {
@@ -29,9 +29,7 @@ export const fetchPlacesBySearch = async (query: string) => {
       };
     });
     return formattedResults;
-  } else {
-    console.log(response.data);
-  }
+  } else return response.data;
 };
 
 // Google Places ID

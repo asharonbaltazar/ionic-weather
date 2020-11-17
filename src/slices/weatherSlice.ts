@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Vibration } from "@ionic-native/vibration";
 import { AppDispatch, RootState } from "../store";
 import { SelectedWeather } from "../../interface";
@@ -9,79 +9,89 @@ import {
 } from "../utilities/fetch";
 import { geolocation } from "../utilities/geolocation";
 
+export const getWeather = createAsyncThunk<
+  SelectedWeather,
+  string,
+  { state: RootState }
+>("weather/getWeather", async (placeId, thunkApi) => {
+  const { lat, lng, formattedAddress } = await fetchGooglePlacesById(placeId);
+
+  // Format weather data
+  const weatherObj = await fetchWeatherData(
+    lat,
+    lng,
+    formattedAddress,
+    placeId,
+    false
+  );
+
+  // Vibration settings
+  thunkApi.getState().settingsSlice.vibrationPreference &&
+    Vibration.vibrate(100);
+  return weatherObj;
+});
+
+export const getWeatherByGeolocation = createAsyncThunk<
+  SelectedWeather,
+  void,
+  { state: RootState }
+>("weather/getWeatherByGeolocation", async (_, thunkApi) => {
+  // geolocation coordinates
+  const { latitude, longitude } = await geolocation();
+
+  const { formattedAddress, placeId } = await fetchGooglePlacesByCoordinates(
+    latitude,
+    longitude
+  );
+
+  // Format weather data
+  const weatherObj = await fetchWeatherData(
+    latitude.toString(),
+    longitude.toString(),
+    formattedAddress,
+    placeId,
+    true
+  );
+
+  // Vibration settings
+  thunkApi.getState().settingsSlice.vibrationPreference &&
+    Vibration.vibrate(100);
+  return weatherObj;
+});
+
+interface InitialState {
+  selectedWeather: SelectedWeather;
+  savedWeather: SelectedWeather[];
+  errors: string[];
+  loading: boolean;
+}
+
 export const weatherSlice = createSlice({
   name: "weather",
   initialState: {
     selectedWeather: {} as SelectedWeather,
     savedWeather: [] as SelectedWeather[],
+    errors: [],
     loading: false,
-  },
-  reducers: {
-    setWeatherData: (state, action) => {
+  } as InitialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(getWeather.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(getWeather.fulfilled, (state, action) => {
       state.selectedWeather = action.payload;
       state.loading = false;
-    },
-    setWeatherLoading: (state, action) => {
-      state.loading = action.payload;
-    },
+    });
+    builder.addCase(getWeatherByGeolocation.pending, state => {
+      state.loading = true;
+    });
+    builder.addCase(getWeatherByGeolocation.fulfilled, (state, action) => {
+      state.selectedWeather = action.payload;
+      state.loading = false;
+    });
   },
 });
-
-// Thunk functions
-export const getWeather = (placeId: string) => async (
-  dispatch: AppDispatch,
-  getState: () => RootState
-) => {
-  dispatch(setWeatherLoading(true));
-  try {
-    const { lat, lng, formattedAddress } = await fetchGooglePlacesById(placeId);
-
-    // Format weather data
-    const weatherObj = await fetchWeatherData(
-      lat,
-      lng,
-      formattedAddress,
-      placeId,
-      false
-    );
-
-    dispatch(setWeatherData(weatherObj));
-    getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
-  } catch (error) {
-    dispatch(setWeatherLoading(false));
-    console.error(error.message);
-  }
-};
-
-export const getWeatherByGeolocation = () => async (
-  dispatch: AppDispatch,
-  getState: () => RootState
-) => {
-  try {
-    dispatch(setWeatherLoading(true));
-    // geolocation coordinates
-    const { latitude, longitude } = await geolocation();
-
-    const { formattedAddress, placeId } = await fetchGooglePlacesByCoordinates(
-      latitude,
-      longitude
-    );
-
-    const weatherObj = await fetchWeatherData(
-      latitude.toString(),
-      longitude.toString(),
-      formattedAddress,
-      placeId,
-      true
-    );
-
-    dispatch(setWeatherData(weatherObj));
-    getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
-  } catch (error) {
-    dispatch(setWeatherLoading(false));
-    console.log(error.message);
-  }
-};
 
 export const refreshWeatherData = () => async (
   dispatch: AppDispatch,
@@ -92,5 +102,4 @@ export const refreshWeatherData = () => async (
     : dispatch(getWeather(getState().weatherSlice.selectedWeather.gId ?? ""));
 };
 
-export const { setWeatherData, setWeatherLoading } = weatherSlice.actions;
 export default weatherSlice.reducer;

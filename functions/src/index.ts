@@ -20,8 +20,6 @@ export const getGMapSuggestions = functions.https.onRequest(
           response.send(data);
         } else if (data.status === "ZERO_RESULTS") {
           response.send("No city found");
-        } else {
-          response.send(data);
         }
       } catch (error) {
         response.send("Internal Server Error");
@@ -43,7 +41,13 @@ export const getGPlaceId = functions.https.onRequest((request, response) => {
         }`
       );
 
-      response.send(data);
+      if (data.status === "OK") {
+        response.send(data);
+      } else if (data.status === "ZERO_RESULTS") {
+        response.send("No city found");
+      } else {
+        response.send("Please contact the developer");
+      }
     } catch (error) {
       response.send("Internal Server Error");
     }
@@ -84,7 +88,13 @@ export const getGeolocationPlaceData = functions.https.onRequest(
           }`
         );
 
-        response.send(data);
+        if (data.status === "OK") {
+          response.send(data);
+        } else if (data.status === "ZERO_RESULTS") {
+          response.send("No city found");
+        } else {
+          response.send("Please contact the developer");
+        }
       } catch (error) {
         response.send("Internal Server Error");
       }

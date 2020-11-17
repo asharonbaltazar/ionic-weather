@@ -13,14 +13,13 @@ import { locateOutline, locateSharp } from "ionicons/icons";
 import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../store";
 import { getWeatherByGeolocation } from "../slices/weatherSlice";
+import Toast from "./Toast";
 
 const SearchContent = () => {
   const dispatch = useAppDispatch();
-  const searchResults = useSelector(
-    (state: RootState) => state.searchSlice.queries
-  );
-  const recentSearches = useSelector(
-    (state: RootState) => state.searchSlice.recentQueries
+
+  const { queries, recentQueries, errors } = useSelector(
+    (state: RootState) => state.searchSlice
   );
 
   const loading: boolean = useSelector(
@@ -35,10 +34,10 @@ const SearchContent = () => {
   };
 
   const SearchItems = () => {
-    if (searchResults.length) {
+    if (queries.length) {
       return (
         <>
-          {searchResults.map((element: any) => (
+          {queries.map((element: any) => (
             <SearchResult
               key={element.place_id}
               id={element.place_id}
@@ -47,11 +46,11 @@ const SearchContent = () => {
           ))}
         </>
       );
-    } else if (recentSearches.length && !loading) {
+    } else if (recentQueries.length && !loading) {
       return (
         <>
           <IonItemDivider>Recent searches</IonItemDivider>
-          {recentSearches.map((element: any) => (
+          {recentQueries.map((element: any) => (
             <SearchResult
               key={element.id}
               id={element.id}
@@ -81,6 +80,9 @@ const SearchContent = () => {
         <IonLabel>Use your current location</IonLabel>
       </IonItem>
       <SearchItems />
+      {errors.map((element, index) => (
+        <Toast key={index} error={element} slice={"search"} />
+      ))}
     </IonContent>
   );
 };

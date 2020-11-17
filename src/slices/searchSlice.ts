@@ -1,13 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { AppDispatch } from "../store";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchPlacesBySearch } from "../utilities/fetch";
 
-type query = { label: string; id: string };
+type query = {
+  label: string;
+  id: string;
+};
 interface InitialState {
   queries: query[];
   recentQueries: query[];
+  errors: string[];
   loading: boolean;
 }
+
+// Thunk functions
+export const getPlacesBySearch = createAsyncThunk(
+  "search/fetchSearch",
+  async (query: string, { rejectWithValue }) => {
+    const formattedResults = await fetchPlacesBySearch(query);
+    if (typeof formattedResults === "string")
+      return rejectWithValue(formattedResults);
+    return formattedResults;
+  }
+);
 
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
@@ -15,12 +29,17 @@ export const searchSlice = createSlice({
   initialState: {
     queries: [],
     recentQueries: [],
+    errors: [],
     loading: false,
   } as InitialState,
   reducers: {
-    displaySearchQueries: (state, action) => {
-      state.queries = action.payload;
+    resetQueries: state => {
+      state.queries = [];
       state.loading = false;
+    },
+
+    dismissSearchErrors: state => {
+      state.errors = [];
     },
 
     setRecentQuery: (state, action) => {
@@ -35,26 +54,23 @@ export const searchSlice = createSlice({
       state.loading = action.payload;
     },
   },
+  extraReducers(builder) {
+    builder.addCase(getPlacesBySearch.fulfilled, (state, action) => {
+      state.queries = action.payload;
+      state.loading = false;
+    });
+    builder.addCase(getPlacesBySearch.rejected, (state, action) => {
+      state.queries = [];
+      state.loading = false;
+      typeof action.payload === "string" && state.errors.push(action.payload);
+    });
+  },
 });
 
-// Thunk functions
-export const getPlacesBySearch = (query: string) => async (
-  dispatch: AppDispatch
-) => {
-  try {
-    if (query.length) {
-      const formattedResults = await fetchPlacesBySearch(query);
-      dispatch(displaySearchQueries(formattedResults));
-    }
-  } catch (error) {
-    console.log(error.message);
-    dispatch(setSearchLoading(false));
-  }
-};
-
 export const {
-  displaySearchQueries,
+  resetQueries,
   setRecentQuery,
   setLoading: setSearchLoading,
+  dismissSearchErrors,
 } = searchSlice.actions;
 export default searchSlice.reducer;

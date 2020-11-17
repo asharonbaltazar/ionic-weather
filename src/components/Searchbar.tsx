@@ -4,7 +4,7 @@ import { IonSearchbar, useIonViewDidEnter } from "@ionic/react";
 import { useDispatch } from "react-redux";
 import {
   getPlacesBySearch,
-  displaySearchQueries,
+  resetQueries,
   setSearchLoading,
 } from "../slices/searchSlice";
 import { useDebouncedCallback } from "use-debounce";
@@ -14,14 +14,16 @@ const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
 
+  // Debounce function for queries
   const debounced = useDebouncedCallback(() => {
-    dispatch(getPlacesBySearch(searchTerm));
+    searchTerm.length && dispatch(getPlacesBySearch(searchTerm));
   }, 750);
 
   useEffect(() => {
-    if (!searchTerm.length) dispatch(displaySearchQueries([]));
+    if (!searchTerm.length) dispatch(resetQueries());
 
-    if (searchTerm.length) {
+    // Second condtional tests for whitespace
+    if (searchTerm.length && /\S/.test(searchTerm)) {
       dispatch(setSearchLoading(true));
       debounced.callback();
     }
@@ -29,7 +31,7 @@ const Searchbar = () => {
 
   // History
   const history = useHistory();
-  // Component ref
+  // Ref required for focusing on <Searchbar />
   const keyboard = useRef<HTMLIonSearchbarElement>(null);
   // Lifecycle method for setFocus for the keyboard
   useIonViewDidEnter(() => keyboard.current?.setFocus());
@@ -38,7 +40,7 @@ const Searchbar = () => {
     <IonSearchbar
       placeholder="Search cities"
       value={searchTerm}
-      onIonChange={e => setSearchTerm(e.detail.value!)}
+      onInput={e => setSearchTerm(e.currentTarget.value!)}
       autoCorrect={"off"}
       enterkeyhint={"search"}
       showCancelButton="always"
