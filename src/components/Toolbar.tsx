@@ -12,18 +12,35 @@ import {
   settingsSharp,
   settingsOutline,
   searchOutline,
+  navigateSharp,
+  navigateOutline,
 } from "ionicons/icons";
 // CSS for the toolbar is found in Main.css
 
 interface IProps {
   address: string;
+  geolocation: boolean;
 }
 
-const Toolbar = ({ address }: IProps) => {
+const Toolbar = ({ address, geolocation }: IProps) => {
   return (
     <IonHeader className="ion-no-border">
       <IonToolbar>
-        {address && <IonTitle>{address}</IonTitle>}
+        {address && (
+          <IonTitle>
+            <h5>
+              {address}{" "}
+              {geolocation && (
+                <IonIcon
+                  color="primary"
+                  size="small"
+                  md={navigateSharp}
+                  ios={navigateOutline}
+                />
+              )}
+            </h5>
+          </IonTitle>
+        )}
         <IonButtons slot="end">
           <IonButton routerLink="/search">
             <IonIcon

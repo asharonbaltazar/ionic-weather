@@ -160,6 +160,7 @@ export const fetchWeatherData = async (
           feels_like: {
             day: data.current.feels_like,
           },
+          pop: daily[0].pop,
         },
         hourly: hourly[0],
       },

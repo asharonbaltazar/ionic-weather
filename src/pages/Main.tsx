@@ -28,7 +28,10 @@ const Main = () => {
   };
   return (
     <IonPage className="main">
-      <Toolbar address={weather.selectedWeather.address} />
+      <Toolbar
+        address={weather.selectedWeather.address}
+        geolocation={weather.selectedWeather.geolocation}
+      />
       <IonContent>
         {weather.selectedWeather?.weather ? (
           <>

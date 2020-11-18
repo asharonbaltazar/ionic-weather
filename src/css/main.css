@@ -8,6 +8,15 @@
   text-align: left;
 }
 
+.main ion-title h5 {
+  margin: 0;
+  display: flex;
+}
+
+.main ion-title ion-icon {
+  margin-left: 10px;
+}
+
 .empty-placeholder {
   height: 100%;
   padding-top: 40%;
