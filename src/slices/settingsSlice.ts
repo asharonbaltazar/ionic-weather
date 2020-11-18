@@ -5,6 +5,7 @@ interface InitialState {
   vibrationPreference: boolean;
   tempPreference: "celsius" | "kelvin" | "fahrenheit";
   windSpeedPreference: "miles" | "kilometers";
+  colorPreference: "primary" | "green" | "red" | "yellow";
 }
 
 export const settingsSlice = createSlice({
@@ -14,6 +15,7 @@ export const settingsSlice = createSlice({
     vibrationPreference: false,
     tempPreference: "celsius",
     windSpeedPreference: "kilometers",
+    colorPreference: "primary",
   } as InitialState,
   reducers: {
     changeTimePreference: (state, action) => {
@@ -28,6 +30,9 @@ export const settingsSlice = createSlice({
     changeWindSpeedPreference: (state, action) => {
       state.windSpeedPreference = action.payload;
     },
+    changeColorPreference: (state, action) => {
+      state.colorPreference = action.payload;
+    },
   },
 });
 
@@ -36,5 +41,6 @@ export const {
   changeWindSpeedPreference,
   changeVibrationPreference,
   changeTimePreference,
+  changeColorPreference,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;

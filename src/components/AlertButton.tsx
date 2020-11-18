@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import { IonIcon, IonItem, IonLabel } from "@ionic/react";
 import {
   alertCircleOutline,
@@ -13,20 +13,21 @@ import "../css/alert.css";
 
 const AlertButton = () => {
   // hidden alert state
-  const [alertDisplay, setAlertDisplay] = useState(true);
   const weather = useSelector(
     (state: RootState) => state.weatherSlice.selectedWeather.weather
   );
-  const { toggleAlertModal } = useContext(AppContext);
+  const { toggleAlertModal, toggleAlertButton, alertButtonState } = useContext(
+    AppContext
+  );
 
   const closeAlert = (e: React.MouseEvent<HTMLIonIconElement, MouseEvent>) => {
-    setAlertDisplay(prevState => !prevState);
+    toggleAlertButton();
     e.stopPropagation();
   };
 
   return (
     <>
-      {weather?.alerts && alertDisplay && (
+      {weather?.alerts && alertButtonState && (
         <IonItem
           color="danger"
           button

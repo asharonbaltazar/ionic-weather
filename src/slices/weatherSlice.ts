@@ -13,51 +13,76 @@ export const getWeather = createAsyncThunk<
   SelectedWeather,
   string,
   { state: RootState }
->("weather/getWeather", async (placeId, thunkApi) => {
-  const { lat, lng, formattedAddress } = await fetchGooglePlacesById(placeId);
+>("weather/getWeather", async (placeId, { rejectWithValue, getState }) => {
+  try {
+    const place = await fetchGooglePlacesById(placeId);
 
-  // Format weather data
-  const weatherObj = await fetchWeatherData(
-    lat,
-    lng,
-    formattedAddress,
-    placeId,
-    false
-  );
+    if (typeof place === "string") return rejectWithValue(place);
 
-  // Vibration settings
-  thunkApi.getState().settingsSlice.vibrationPreference &&
-    Vibration.vibrate(100);
-  return weatherObj;
+    const { lat, lng, formattedAddress } = place;
+
+    // Format weather data
+    const weatherObj = await fetchWeatherData(
+      lat,
+      lng,
+      formattedAddress,
+      placeId,
+      false
+    );
+
+    if (typeof weatherObj === "string") return rejectWithValue(weatherObj);
+
+    // Vibration settings
+    getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
+    return weatherObj;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
 });
 
 export const getWeatherByGeolocation = createAsyncThunk<
   SelectedWeather,
   void,
   { state: RootState }
->("weather/getWeatherByGeolocation", async (_, thunkApi) => {
-  // geolocation coordinates
-  const { latitude, longitude } = await geolocation();
+>(
+  "weather/getWeatherByGeolocation",
+  async (_, { rejectWithValue, getState }) => {
+    // geolocation coordinates
+    try {
+      const geo = await geolocation();
 
-  const { formattedAddress, placeId } = await fetchGooglePlacesByCoordinates(
-    latitude,
-    longitude
-  );
+      if (typeof geo === "string")
+        return rejectWithValue(
+          "Please allow geolocation permissions to use this feature"
+        );
 
-  // Format weather data
-  const weatherObj = await fetchWeatherData(
-    latitude.toString(),
-    longitude.toString(),
-    formattedAddress,
-    placeId,
-    true
-  );
+      const { latitude, longitude } = geo;
 
-  // Vibration settings
-  thunkApi.getState().settingsSlice.vibrationPreference &&
-    Vibration.vibrate(100);
-  return weatherObj;
-});
+      const place = await fetchGooglePlacesByCoordinates(latitude, longitude);
+
+      if (typeof place === "string") return rejectWithValue(place);
+
+      const { formattedAddress, placeId } = place;
+
+      // Format weather data
+      const weatherObj = await fetchWeatherData(
+        latitude.toString(),
+        longitude.toString(),
+        formattedAddress,
+        placeId,
+        true
+      );
+
+      if (typeof weatherObj === "string") return rejectWithValue(weatherObj);
+
+      // Vibration settings
+      getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
+      return weatherObj;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
 
 interface InitialState {
   selectedWeather: SelectedWeather;
@@ -74,7 +99,11 @@ export const weatherSlice = createSlice({
     errors: [],
     loading: false,
   } as InitialState,
-  reducers: {},
+  reducers: {
+    dismissWeatherErrors: state => {
+      state.errors = [];
+    },
+  },
   extraReducers(builder) {
     builder.addCase(getWeather.pending, state => {
       state.loading = true;
@@ -90,6 +119,10 @@ export const weatherSlice = createSlice({
       state.selectedWeather = action.payload;
       state.loading = false;
     });
+    builder.addCase(getWeatherByGeolocation.rejected, (state, action) => {
+      typeof action.payload === "string" && state.errors.push(action.payload);
+      state.loading = false;
+    });
   },
 });
 
@@ -102,4 +135,5 @@ export const refreshWeatherData = () => async (
     : dispatch(getWeather(getState().weatherSlice.selectedWeather.gId ?? ""));
 };
 
+export const { dismissWeatherErrors } = weatherSlice.actions;
 export default weatherSlice.reducer;

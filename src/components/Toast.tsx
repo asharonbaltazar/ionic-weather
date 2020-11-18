@@ -1,26 +1,28 @@
 import React from "react";
 import { IonToast } from "@ionic/react";
 import { dismissSearchErrors } from "../slices/searchSlice";
+import { dismissWeatherErrors } from "../slices/weatherSlice";
 import { useDispatch } from "react-redux";
 
 interface IProps {
   error: string;
-  slice: "search" | "weather";
+  time: number;
+  slice?: "search" | "weather";
 }
 
 const dismissErrorsMap = {
   search: dismissSearchErrors,
-  weather: () => {},
+  weather: dismissWeatherErrors,
 };
 
-const Toast = ({ error, slice }: IProps) => {
+const Toast = ({ error, time, slice }: IProps) => {
   const dispatch = useDispatch();
   return (
     <IonToast
       isOpen={true}
-      onDidDismiss={() => dispatch(dismissErrorsMap[slice]())}
+      onDidDismiss={() => slice && dispatch(dismissErrorsMap[slice]())}
       position="bottom"
-      duration={2000}
+      duration={time}
       message={error}
     />
   );

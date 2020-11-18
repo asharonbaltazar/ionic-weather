@@ -3,8 +3,10 @@ import React, { createContext, ReactNode, useReducer } from "react";
 // Typescript declarations
 interface IStoreState {
   alertModalState: boolean;
+  alertButtonState: boolean;
   segmentCarouselOption: "today" | "tomorrow";
   toggleAlertModal: (toggleOption?: boolean) => void;
+  toggleAlertButton: () => void;
   toggleSegmentsCarousel: (segmentItem: "today" | "tomorrow") => void;
 }
 interface IProps {
@@ -18,13 +20,20 @@ interface IToggleAlertModal {
   type: "TOGGLE_ALERT_MODAL";
   payload?: boolean;
 }
-type Action = IToggleSegmentsCarousel | IToggleAlertModal;
+interface IToggleAlertBanner {
+  type: "TOGGLE_ALERT_BUTTON";
+}
+type Action = IToggleSegmentsCarousel | IToggleAlertModal | IToggleAlertBanner;
 
 // Initial state
 const initialState: IStoreState = {
   alertModalState: false,
+  alertButtonState: true,
   segmentCarouselOption: "today",
   toggleAlertModal: () => {
+    return;
+  },
+  toggleAlertButton: () => {
     return;
   },
   toggleSegmentsCarousel: () => {
@@ -49,6 +58,11 @@ const reducer = (state: IStoreState, action: Action): IStoreState => {
             : !state.alertModalState,
       };
 
+    case "TOGGLE_ALERT_BUTTON":
+      return {
+        ...state,
+        alertButtonState: !state.alertButtonState,
+      };
     default:
       return state;
   }
@@ -70,12 +84,18 @@ const AppProvider = ({ children }: IProps) => {
     else dispatch({ type: "TOGGLE_ALERT_MODAL" });
   };
 
+  const toggleAlertButton = () => {
+    dispatch({ type: "TOGGLE_ALERT_BUTTON" });
+  };
+
   return (
     <AppContext.Provider
       value={{
         segmentCarouselOption: state.segmentCarouselOption,
         alertModalState: state.alertModalState,
+        alertButtonState: state.alertButtonState,
         toggleAlertModal,
+        toggleAlertButton,
         toggleSegmentsCarousel,
       }}
     >

@@ -14,13 +14,12 @@ import { useAppDispatch } from "../store";
 import { RootState } from "../store";
 import { refreshWeatherData } from "../slices/weatherSlice";
 import "../css/main.css";
+import Toast from "../components/Toast";
 
 const Main = () => {
   const dispatch = useAppDispatch();
 
-  const { selectedWeather } = useSelector(
-    (state: RootState) => state.weatherSlice
-  );
+  const weather = useSelector((state: RootState) => state.weatherSlice);
 
   // refresher function
   const refreshWeather = (e: CustomEvent) => {
@@ -29,9 +28,9 @@ const Main = () => {
   };
   return (
     <IonPage className="main">
-      <Toolbar address={selectedWeather.address} />
+      <Toolbar address={weather.selectedWeather.address} />
       <IonContent>
-        {selectedWeather?.weather ? (
+        {weather.selectedWeather?.weather ? (
           <>
             <IonRefresher slot="fixed" onIonRefresh={e => refreshWeather(e)}>
               <IonRefresherContent />
@@ -42,6 +41,9 @@ const Main = () => {
           <MainPagePlaceholder />
         )}
         <AlertModal />
+        {weather.errors.map((element, index) => (
+          <Toast key={index} error={element} time={3000} slice="weather" />
+        ))}
       </IonContent>
     </IonPage>
   );

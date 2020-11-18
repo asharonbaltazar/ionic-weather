@@ -81,7 +81,7 @@ const SearchContent = () => {
       </IonItem>
       <SearchItems />
       {errors.map((element, index) => (
-        <Toast key={index} error={element} slice={"search"} />
+        <Toast key={index} error={element} time={2000} slice={"search"} />
       ))}
     </IonContent>
   );
