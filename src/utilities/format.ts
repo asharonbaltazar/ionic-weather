@@ -42,6 +42,8 @@ export const getUviIndex = (uvi: number): string => {
       return "High";
     case uvi >= 8 && uvi <= 10:
       return "Very high";
+    case uvi >= 10: 
+      return "Extreme";
     default:
       return "";
   }

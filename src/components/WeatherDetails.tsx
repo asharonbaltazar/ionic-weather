@@ -61,12 +61,12 @@ const WeatherDetails = ({
           <h5>{formatTemp[selectedTemp](dew_point)}°</h5>
         </div>
       ) : null}
-      {uvi ? (
+      {typeof uvi === 'number' && (
         <div>
           <h5>UVI index</h5>
           <h5>{`${getUviIndex(uvi)}, ${Math.ceil(uvi)}`}</h5>
         </div>
-      ) : null}
+      )}
       {wind_speed ? (
         <div>
           <h5>Wind</h5>
