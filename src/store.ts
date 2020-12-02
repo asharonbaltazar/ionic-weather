@@ -18,6 +18,8 @@ import { useDispatch } from "react-redux";
 import searchSlice from "./slices/searchSlice";
 import weatherSlice from "./slices/weatherSlice";
 import settingsSlice from "./slices/settingsSlice";
+import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
+import { PersistPartial } from 'redux-persist/es/persistReducer'
 
 const reducers = combineReducers({
   searchSlice,
@@ -29,10 +31,14 @@ const reducers = combineReducers({
 const persistConfig = {
   key: "ionic-weather",
   version: 0,
+  stateReconciler: autoMergeLevel2,
   storage,
 };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+const persistedReducer = (persistReducer(
+  persistConfig,
+  reducers as any
+) as any) as typeof reducers & PersistPartial;
 
 export const store = configureStore({
   reducer: persistedReducer,
