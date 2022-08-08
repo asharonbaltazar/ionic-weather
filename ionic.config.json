@@ -1,7 +1,0 @@
-{
-  "name": "weather-ionic",
-  "integrations": {
-    "capacitor": {}
-  },
-  "type": "react"
-}
