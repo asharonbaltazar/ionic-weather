@@ -6,15 +6,11 @@
     "plugin:jest/recommended",
     "plugin:prettier/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "jest"],
+  "plugins": ["react", "@typescript-eslint", "jest", "import"],
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
-  },
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -24,5 +20,8 @@
     "ecmaVersion": 2018,
     "sourceType": "module",
     "project": "./tsconfig.json"
+  },
+  "rules": {
+    "arrow-body-style": ["error", "as-needed"]
   }
 }
