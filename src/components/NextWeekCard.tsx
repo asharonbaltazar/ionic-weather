@@ -1,13 +1,13 @@
-import React, { useState } from "react";
-import { IonCol, IonGrid, IonItem, IonRow, IonText } from "@ionic/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { Details } from "../../interface";
-import "../css/next-week-card.css";
-import { formatTemp } from "../utilities/format";
-import isBetween from "dayjs/plugin/isBetween";
-import dayjs from "dayjs";
-import WeatherDetails from "./WeatherDetails";
+import React, { useState } from 'react';
+import { IonCol, IonGrid, IonItem, IonRow, IonText } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { Details } from '../../interface';
+import '../css/next-week-card.css';
+import { formatTemp } from '../utilities/format';
+import isBetween from 'dayjs/plugin/isBetween';
+import dayjs from 'dayjs';
+import WeatherDetails from './WeatherDetails';
 dayjs.extend(isBetween);
 
 const NextWeekCard = ({
@@ -37,14 +37,14 @@ const NextWeekCard = ({
       detail={false}
       slot="start"
       lines="full"
-      onClick={() => setPressed(prevState => !prevState)}
+      onClick={() => setPressed((prevState) => !prevState)}
     >
       <IonGrid className="ion-no-padding">
         <IonRow>
           <IonCol>
             <IonText>
               <h5 className="next-week-title">
-                {dayjs(dt).format("dddd, MMMM D")}
+                {dayjs(dt).format('dddd, MMMM D')}
               </h5>
             </IonText>
           </IonCol>
@@ -67,7 +67,7 @@ const NextWeekCard = ({
         <IonRow>
           <IonCol>
             <WeatherDetails
-              className={`bottom-row${pressed ? " pressed" : ""}`}
+              className={`bottom-row${pressed ? ' pressed' : ''}`}
               sunrise={sunrise}
               sunset={sunset}
               humidity={humidity}

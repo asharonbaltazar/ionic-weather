@@ -1,31 +1,35 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchPlacesBySearch } from "../utilities/fetch";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { fetchPlacesBySearch } from '../utilities/fetch';
 
-type query = {
+type SearchQuery = {
   label: string;
   id: string;
 };
+
 interface InitialState {
-  queries: query[];
-  recentQueries: query[];
+  queries: SearchQuery[];
+  recentQueries: SearchQuery[];
   errors: string[];
   loading: boolean;
 }
 
 // Thunk functions
 export const getPlacesBySearch = createAsyncThunk(
-  "search/fetchSearch",
+  'search/fetchSearch',
   async (query: string, { rejectWithValue }) => {
     const formattedResults = await fetchPlacesBySearch(query);
-    if (typeof formattedResults === "string")
+
+    if (typeof formattedResults === 'string') {
       return rejectWithValue(formattedResults);
+    }
+
     return formattedResults;
   }
 );
 
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
-  name: "search",
+  name: 'search',
   initialState: {
     queries: [],
     recentQueries: [],
@@ -33,20 +37,24 @@ export const searchSlice = createSlice({
     loading: false,
   } as InitialState,
   reducers: {
-    resetQueries: state => {
+    resetQueries: (state) => {
       state.queries = [];
       state.loading = false;
     },
 
-    dismissSearchErrors: state => {
+    dismissSearchErrors: (state) => {
       state.errors = [];
     },
 
     setRecentQuery: (state, action) => {
       state.recentQueries = state.recentQueries.filter(
-        (element: any) => element.id !== action.payload.id
+        (element) => element.id !== action.payload.id
       );
-      if (state.recentQueries.length >= 5) state.recentQueries.pop();
+
+      if (state.recentQueries.length >= 5) {
+        state.recentQueries.pop();
+      }
+
       state.recentQueries.unshift(action.payload);
     },
 
@@ -60,9 +68,12 @@ export const searchSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(getPlacesBySearch.rejected, (state, action) => {
-      state.queries = [];
+      if (typeof action.payload === 'string') {
+        state.errors.push(action.payload);
+      }
+
       state.loading = false;
-      typeof action.payload === "string" && state.errors.push(action.payload);
+      state.queries = [];
     });
   },
 });

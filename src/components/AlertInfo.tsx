@@ -1,8 +1,8 @@
-import React from "react";
-import { IonCol, IonGrid, IonItem, IonRow } from "@ionic/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import dayjs from "dayjs";
+import React from 'react';
+import { IonCol, IonGrid, IonItem, IonRow } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import dayjs from 'dayjs';
 
 interface IProps {
   sender: string;
@@ -18,7 +18,7 @@ const AlertInfo = ({ sender, event, start, end, description }: IProps) => {
     (state: RootState) => state.settingsSlice.timePreference
   );
   // Special time formatting for <WeatherDetails />
-  const exactTime = selectedTime === "h a" ? "h:mm a" : "HH:mm";
+  const exactTime = selectedTime === 'h a' ? 'h:mm a' : 'HH:mm';
 
   return (
     <IonItem lines="none">
@@ -26,7 +26,7 @@ const AlertInfo = ({ sender, event, start, end, description }: IProps) => {
         <IonRow>
           <IonCol>
             <b>{event}</b> <br />
-            {dayjs(start).format(`MMM DD ${exactTime}`)} –{" "}
+            {dayjs(start).format(`MMM DD ${exactTime}`)} –{' '}
             {dayjs(end).format(`MMM DD ${exactTime}`)}
           </IonCol>
         </IonRow>

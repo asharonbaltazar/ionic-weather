@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext } from 'react';
 import {
   IonButton,
   IonButtons,
@@ -7,11 +7,11 @@ import {
   IonModal,
   IonTitle,
   IonToolbar,
-} from "@ionic/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { AppContext } from "../context/app-context";
-import AlertInfo from "./AlertInfo";
+} from '@ionic/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { AppContext } from '../context/app-context';
+import AlertInfo from './AlertInfo';
 
 const AlertModal = () => {
   const { alertModalState, toggleAlertModal } = useContext(AppContext);

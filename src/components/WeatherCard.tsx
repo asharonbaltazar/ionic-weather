@@ -1,13 +1,13 @@
-import React from "react";
-import WeatherDetails from "./WeatherDetails";
-import AlertButton from "./AlertButton";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { formatTemp } from "../utilities/format";
-import { Details } from "../../interface";
-import "../css/weather-card.css";
-import dayjs from "dayjs";
-import isBetween from "dayjs/plugin/isBetween";
+import React from 'react';
+import WeatherDetails from './WeatherDetails';
+import AlertButton from './AlertButton';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { formatTemp } from '../utilities/format';
+import { Details } from '../../interface';
+import '../css/weather-card.css';
+import dayjs from 'dayjs';
+import isBetween from 'dayjs/plugin/isBetween';
 dayjs.extend(isBetween);
 
 interface IProps {
@@ -33,12 +33,12 @@ const WeatherCard = ({
     (state: RootState) => state.settingsSlice.tempPreference
   );
   // Icon string
-  const icon = dayjs(dt).isBetween(sunrise, sunset) ? "day" : "night";
+  const icon = dayjs(dt).isBetween(sunrise, sunset) ? 'day' : 'night';
 
   return (
     <div className="card">
       <AlertButton />
-      <h5>{dayjs(dt).format("dddd, MMMM D")}</h5>
+      <h5>{dayjs(dt).format('dddd, MMMM D')}</h5>
       <div className="card-div">
         <div className="i-row">
           <i className={`wi wi-owm-${icon}-${id} weather-icon`}></i>
@@ -54,7 +54,7 @@ const WeatherCard = ({
           </h1>
         </div>
         <WeatherDetails
-          className={"bottom-row"}
+          className={'bottom-row'}
           humidity={humidity}
           pressure={pressure}
           uvi={uvi}

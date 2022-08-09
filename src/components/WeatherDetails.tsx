@@ -1,9 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { formatSpeed, formatTemp, getUviIndex } from "../utilities/format";
-import dayjs from "dayjs";
-import "../css/weather-details.css";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { formatSpeed, formatTemp, getUviIndex } from '../utilities/format';
+import dayjs from 'dayjs';
+import '../css/weather-details.css';
 
 interface IProps {
   className: string;
@@ -43,7 +43,7 @@ const WeatherDetails = ({
     (state: RootState) => state.settingsSlice.timePreference
   );
   // Special time formatting for <WeatherDetails />
-  const exactTime = selectedTime === "h a" ? "h:mm a" : "HH:mm";
+  const exactTime = selectedTime === 'h a' ? 'h:mm a' : 'HH:mm';
 
   return (
     <div className={className}>
@@ -72,7 +72,7 @@ const WeatherDetails = ({
           <h5>Wind</h5>
           <h5>
             {formatSpeed[selectedSpeed](wind_speed)}
-            {`${selectedSpeed === "kilometers" ? "km/h" : "mph"} ${compass}`}
+            {`${selectedSpeed === 'kilometers' ? 'km/h' : 'mph'} ${compass}`}
           </h5>
         </div>
       ) : null}

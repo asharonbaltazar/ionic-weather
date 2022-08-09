@@ -1,10 +1,10 @@
-import React from "react";
-import { IonItem, IonLabel, IonIcon, IonNote } from "@ionic/react";
-import { locationSharp, locationOutline } from "ionicons/icons";
-import { useHistory } from "react-router-dom";
-import { useAppDispatch } from "../store";
-import { setRecentQuery } from "../slices/searchSlice";
-import { getWeather } from "../slices/weatherSlice";
+import React from 'react';
+import { IonItem, IonLabel, IonIcon, IonNote } from '@ionic/react';
+import { locationSharp, locationOutline } from 'ionicons/icons';
+import { useHistory } from 'react-router-dom';
+import { useAppDispatch } from '../store';
+import { setRecentQuery } from '../slices/searchSlice';
+import { getWeather } from '../slices/weatherSlice';
 
 interface Text {
   mainText: string;
@@ -30,7 +30,7 @@ const SearchResult = ({ text, id }: IProps) => {
   return (
     <IonItem button onClick={getLatLong} detail={false}>
       <IonIcon
-        color={"primary"}
+        color={'primary'}
         ios={locationOutline}
         md={locationSharp}
         slot="start"

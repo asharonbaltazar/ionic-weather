@@ -1,7 +1,7 @@
-import React from "react";
-import { IonLoading } from "@ionic/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import React from 'react';
+import { IonLoading } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const ScreenLoader = () => {
   const loading = useSelector((state: RootState) => state.weatherSlice.loading);

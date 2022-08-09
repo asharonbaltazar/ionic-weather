@@ -1,14 +1,14 @@
-import React from "react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
-import { IonSlide } from "@ionic/react";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { IonSlide } from '@ionic/react';
 import {
   formatTemp,
   formatIconTime,
   timeIsWithinTimes,
-} from "../utilities/format";
-import dayjs from "dayjs";
-import "../css/carousel-item.css";
+} from '../utilities/format';
+import dayjs from 'dayjs';
+import '../css/carousel-item.css';
 
 interface IProps {
   time: string;
@@ -17,7 +17,7 @@ interface IProps {
   pop?: number;
 }
 
-const CarouselItem = ({ time, temp, weather: [{ id }], pop }: IProps) => {
+const CarouselItem = ({ time, temp, weather: [{ id }] }: IProps) => {
   // Temperature unit from settings
   const selectedTemp = useSelector(
     (state: RootState) => state.settingsSlice.tempPreference

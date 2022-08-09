@@ -1,23 +1,23 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Vibration } from "@ionic-native/vibration";
-import { AppDispatch, RootState } from "../store";
-import { SelectedWeather } from "../../interface";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Vibration } from '@ionic-native/vibration';
+import { AppDispatch, RootState } from '../store';
+import { SelectedWeather } from '../../interface';
 import {
   fetchGooglePlacesByCoordinates,
   fetchWeatherData,
   fetchGooglePlacesById,
-} from "../utilities/fetch";
-import { geolocation } from "../utilities/geolocation";
+} from '../utilities/fetch';
+import { geolocation } from '../utilities/geolocation';
 
 export const getWeather = createAsyncThunk<
   SelectedWeather,
   string,
   { state: RootState }
->("weather/getWeather", async (placeId, { rejectWithValue, getState }) => {
+>('weather/getWeather', async (placeId, { rejectWithValue, getState }) => {
   try {
     const place = await fetchGooglePlacesById(placeId);
 
-    if (typeof place === "string") return rejectWithValue(place);
+    if (typeof place === 'string') return rejectWithValue(place);
 
     const { lat, lng, formattedAddress } = place;
 
@@ -30,10 +30,19 @@ export const getWeather = createAsyncThunk<
       false
     );
 
-    if (typeof weatherObj === "string") return rejectWithValue(weatherObj);
+    if (typeof weatherObj === 'string') {
+      return rejectWithValue(weatherObj);
+    }
 
     // Vibration settings
-    getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
+    const {
+      settingsSlice: { vibrationPreference },
+    } = getState();
+
+    if (vibrationPreference) {
+      Vibration.vibrate(100);
+    }
+
     return weatherObj;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -45,22 +54,24 @@ export const getWeatherByGeolocation = createAsyncThunk<
   void,
   { state: RootState }
 >(
-  "weather/getWeatherByGeolocation",
+  'weather/getWeatherByGeolocation',
   async (_, { rejectWithValue, getState }) => {
     // geolocation coordinates
     try {
       const geo = await geolocation();
 
-      if (typeof geo === "string")
+      if (typeof geo === 'string')
         return rejectWithValue(
-          "Please allow geolocation permissions to use this feature"
+          'Please allow geolocation permissions to use this feature'
         );
 
       const { latitude, longitude } = geo;
 
       const place = await fetchGooglePlacesByCoordinates(latitude, longitude);
 
-      if (typeof place === "string") return rejectWithValue(place);
+      if (typeof place === 'string') {
+        return rejectWithValue(place);
+      }
 
       const { formattedAddress, placeId } = place;
 
@@ -73,10 +84,17 @@ export const getWeatherByGeolocation = createAsyncThunk<
         true
       );
 
-      if (typeof weatherObj === "string") return rejectWithValue(weatherObj);
+      if (typeof weatherObj === 'string') {
+        return rejectWithValue(weatherObj);
+      }
 
       // Vibration settings
-      getState().settingsSlice.vibrationPreference && Vibration.vibrate(100);
+      const { settingsSlice } = getState();
+
+      if (settingsSlice.vibrationPreference) {
+        Vibration.vibrate(100);
+      }
+
       return weatherObj;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -92,7 +110,7 @@ interface InitialState {
 }
 
 export const weatherSlice = createSlice({
-  name: "weather",
+  name: 'weather',
   initialState: {
     selectedWeather: {} as SelectedWeather,
     savedWeather: [] as SelectedWeather[],
@@ -100,19 +118,19 @@ export const weatherSlice = createSlice({
     loading: false,
   } as InitialState,
   reducers: {
-    dismissWeatherErrors: state => {
+    dismissWeatherErrors: (state) => {
       state.errors = [];
     },
   },
   extraReducers(builder) {
-    builder.addCase(getWeather.pending, state => {
+    builder.addCase(getWeather.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(getWeather.fulfilled, (state, action) => {
       state.selectedWeather = action.payload;
       state.loading = false;
     });
-    builder.addCase(getWeatherByGeolocation.pending, state => {
+    builder.addCase(getWeatherByGeolocation.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(getWeatherByGeolocation.fulfilled, (state, action) => {
@@ -120,20 +138,27 @@ export const weatherSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(getWeatherByGeolocation.rejected, (state, action) => {
-      typeof action.payload === "string" && state.errors.push(action.payload);
+      if (typeof action.payload === 'string') {
+        state.errors.push(action.payload);
+      }
+
       state.loading = false;
     });
   },
 });
 
-export const refreshWeatherData = () => async (
-  dispatch: AppDispatch,
-  getState: () => RootState
-) => {
-  getState().weatherSlice.selectedWeather.geolocation
-    ? dispatch(getWeatherByGeolocation())
-    : dispatch(getWeather(getState().weatherSlice.selectedWeather.gId ?? ""));
-};
+export const refreshWeatherData =
+  () => async (dispatch: AppDispatch, getState: () => RootState) => {
+    const {
+      weatherSlice: { selectedWeather },
+    } = getState();
+
+    if (selectedWeather.geolocation) {
+      return dispatch(getWeatherByGeolocation());
+    }
+
+    return dispatch(getWeather(selectedWeather.gId ?? ''));
+  };
 
 export const { dismissWeatherErrors } = weatherSlice.actions;
 export default weatherSlice.reducer;

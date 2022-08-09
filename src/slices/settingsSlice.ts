@@ -1,27 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
 
 interface InitialState {
-  timePreference: "h a" | "HH:mm";
+  timePreference: 'h a' | 'HH:mm';
   vibrationPreference: boolean;
-  tempPreference: "celsius" | "kelvin" | "fahrenheit";
-  windSpeedPreference: "miles" | "kilometers";
-  colorPreference: "primary" | "green" | "red" | "yellow";
+  tempPreference: 'celsius' | 'kelvin' | 'fahrenheit';
+  windSpeedPreference: 'miles' | 'kilometers';
+  colorPreference: 'primary' | 'green' | 'red' | 'yellow';
 }
 
 export const settingsSlice = createSlice({
-  name: "settings",
+  name: 'settings',
   initialState: {
-    timePreference: "h a",
+    timePreference: 'h a',
     vibrationPreference: false,
-    tempPreference: "celsius",
-    windSpeedPreference: "kilometers",
-    colorPreference: "primary",
+    tempPreference: 'celsius',
+    windSpeedPreference: 'kilometers',
+    colorPreference: 'primary',
   } as InitialState,
   reducers: {
     changeTimePreference: (state, action) => {
       state.timePreference = action.payload;
     },
-    changeVibrationPreference: state => {
+    changeVibrationPreference: (state) => {
       state.vibrationPreference = !state.vibrationPreference;
     },
     changeTempPreference: (state, action) => {

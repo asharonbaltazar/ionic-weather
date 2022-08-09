@@ -1,19 +1,19 @@
-import React from "react";
+import React from 'react';
 import {
   IonItem,
   IonIcon,
   IonLabel,
   IonContent,
   IonItemDivider,
-} from "@ionic/react";
-import { useHistory } from "react-router";
-import SkeletonResults from "./SkeletonResults";
-import SearchResult from "./SearchResult";
-import { locateOutline, locateSharp } from "ionicons/icons";
-import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../store";
-import { getWeatherByGeolocation } from "../slices/weatherSlice";
-import Toast from "./Toast";
+} from '@ionic/react';
+import { useHistory } from 'react-router';
+import SkeletonResults from './SkeletonResults';
+import SearchResult from './SearchResult';
+import { locateOutline, locateSharp } from 'ionicons/icons';
+import { useSelector } from 'react-redux';
+import { RootState, useAppDispatch } from '../store';
+import { getWeatherByGeolocation } from '../slices/weatherSlice';
+import Toast from './Toast';
 
 const SearchContent = () => {
   const dispatch = useAppDispatch();
@@ -72,7 +72,7 @@ const SearchContent = () => {
         detail={false}
       >
         <IonIcon
-          color={"primary"}
+          color={'primary'}
           ios={locateOutline}
           md={locateSharp}
           slot="start"
@@ -81,7 +81,7 @@ const SearchContent = () => {
       </IonItem>
       <SearchItems />
       {errors.map((element, index) => (
-        <Toast key={index} error={element} time={2000} slice={"search"} />
+        <Toast key={index} error={element} time={2000} slice={'search'} />
       ))}
     </IonContent>
   );
