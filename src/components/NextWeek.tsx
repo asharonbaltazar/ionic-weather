@@ -1,8 +1,8 @@
-import React from "react";
-import NextWeekCard from "./NextWeekCard";
-import { IonContent, IonList } from "@ionic/react";
-import { useSelector } from "react-redux";
-import { RootState } from "../store";
+import React from 'react';
+import NextWeekCard from './NextWeekCard';
+import { IonContent, IonList } from '@ionic/react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../store';
 
 const NextWeek = () => {
   const nextWeeksWeather = useSelector(

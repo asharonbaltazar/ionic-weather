@@ -1,20 +1,20 @@
-import React from "react";
+import React from 'react';
 import {
   IonContent,
   IonPage,
   IonRefresher,
   IonRefresherContent,
-} from "@ionic/react";
-import Toolbar from "../components/Toolbar";
-import MainContent from "../components/MainContent";
-import MainPagePlaceholder from "../components/MainPagePlaceholder";
-import AlertModal from "../components/AlertModal";
-import { useSelector } from "react-redux";
-import { useAppDispatch } from "../store";
-import { RootState } from "../store";
-import { refreshWeatherData } from "../slices/weatherSlice";
-import "../css/main.css";
-import Toast from "../components/Toast";
+} from '@ionic/react';
+import Toolbar from '../components/Toolbar';
+import MainContent from '../components/MainContent';
+import MainPagePlaceholder from '../components/MainPagePlaceholder';
+import AlertModal from '../components/AlertModal';
+import { useSelector } from 'react-redux';
+import { useAppDispatch } from '../store';
+import { RootState } from '../store';
+import { refreshWeatherData } from '../slices/weatherSlice';
+import '../css/main.css';
+import Toast from '../components/Toast';
 
 const Main = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +35,7 @@ const Main = () => {
       <IonContent>
         {weather.selectedWeather?.weather ? (
           <>
-            <IonRefresher slot="fixed" onIonRefresh={e => refreshWeather(e)}>
+            <IonRefresher slot="fixed" onIonRefresh={(e) => refreshWeather(e)}>
               <IonRefresherContent />
             </IonRefresher>
             <MainContent />

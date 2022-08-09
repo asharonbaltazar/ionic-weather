@@ -1,7 +1,7 @@
-import React from "react";
-import { IonSlides } from "@ionic/react";
-import CarouselItem from "./CarouselItem";
-import "../css/weather-carousel.css";
+import React from 'react';
+import { IonSlides } from '@ionic/react';
+import CarouselItem from './CarouselItem';
+import '../css/weather-carousel.css';
 
 interface IProps {
   hourly: {}[];
@@ -40,7 +40,7 @@ const Carousel = ({ hourly }: IProps) => {
         options={slideOptions}
         mode="ios"
         scrollbar={true}
-        key={hourly.map((element: any) => element.dt).join("_")}
+        key={hourly.map((element: any) => element.dt).join('_')}
       >
         {hourly.map((element: any, index: number) => (
           <CarouselItem
