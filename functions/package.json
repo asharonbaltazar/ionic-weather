@@ -1,25 +1,25 @@
 {
   "name": "functions",
   "scripts": {
-    "build": "tsc",
-    "serve": "npm run build && firebase emulators:start --only functions",
-    "shell": "npm run build && firebase functions:shell",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outdir=dist --keep-names",
+    "dev": "concurrently \"npm run build -- --watch\" \"firebase emulators:start --only functions\"",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "10"
+    "node": "16"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "dependencies": {
     "axios": "^0.20.0",
     "cors": "^2.8.5",
+    "esbuild": "^0.15.0",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1"
   },
   "devDependencies": {
-    "typescript": "^3.8.0",
+    "concurrently": "^7.3.0",
     "firebase-functions-test": "^0.2.0"
   },
   "private": true
