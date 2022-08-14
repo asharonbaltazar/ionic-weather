@@ -67,9 +67,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.30.1",
     "eslint-plugin-react-hooks": "^4.6.0",
-    "firebase-admin": "^9.2.0",
-    "firebase-functions": "^3.11.0",
-    "firebase-tools": "^8.12.1",
     "prettier": "^2.7.1",
     "vite": "^2.7.0",
     "vite-tsconfig-paths": "^3.5.0"
