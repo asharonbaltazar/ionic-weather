@@ -16,7 +16,7 @@ dayjs.extend(isSameOrBefore);
 // Search queries
 export const fetchPlacesBySearch = async (query: string) => {
   const { data } = await axios.get(
-    `${process.env.REACT_APP_GET_GMAPS_SUGGESTIONS}?query=${query}`
+    `${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`
   );
 
   if (data.status === 'OK' && data.predictions.length) {
@@ -39,7 +39,7 @@ export const fetchGooglePlacesById = async (
   placeId: string
 ): Promise<GooglePlaceData> => {
   const { data } = await axios.get(
-    `${process.env.REACT_APP_GET_GPLACE_ID}?id=${placeId}`
+    `${import.meta.env.VITE_GET_GPLACE_ID}?id=${placeId}`
   );
 
   const {
@@ -61,7 +61,9 @@ export const fetchGooglePlacesByCoordinates = async (
   longitude: number
 ): Promise<GoogleCoordinatesData> => {
   const { data } = await axios.get(
-    `${process.env.REACT_APP_GET_GEOLOCATION_DATA}?lat=${latitude}&lon=${longitude}`
+    `${
+      import.meta.env.VITE_GET_GEOLOCATION_DATA
+    }?lat=${latitude}&lon=${longitude}`
   );
 
   const {
@@ -84,7 +86,9 @@ export const fetchWeatherData = async (
 ): Promise<SelectedWeather> => {
   // Grab weather data
   const { data } = await axios.get(
-    `${process.env.REACT_APP_GET_WEATHER_VIA_COORDS}?lat=${latitude}&lon=${longitude}`
+    `${
+      import.meta.env.VITE_GET_WEATHER_VIA_COORDS
+    }?lat=${latitude}&lon=${longitude}`
   );
 
   const tomorrowMorning = dayjs()
