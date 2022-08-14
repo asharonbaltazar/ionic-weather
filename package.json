@@ -51,6 +51,7 @@
   },
   "devDependencies": {
     "@capacitor/cli": "2.4.2",
+    "@types/google__maps": "^0.5.16",
     "@types/jest": "^24.0.25",
     "@types/node": "^12.12.24",
     "@types/react": "^16.9.17",
