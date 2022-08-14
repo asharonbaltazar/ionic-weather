@@ -85,11 +85,11 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.send(data);
+    return response.status(200).send(data);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.send('No city found');
+    return response.status(200).send('No city found');
   }
 
   return response.status(200).send({ results: [] });
