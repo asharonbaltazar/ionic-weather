@@ -13,7 +13,7 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
 
   const { data } = await axios.get<PlaceAutocompleteResponse>(
     `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&types=(cities)&language=en&key=${
-      config().googlemaps.key
+      config().gmaps.key
     }`
   );
 
@@ -38,7 +38,7 @@ export const getGPlaceId = onRequest(async (request, response) => {
 
   const { data } = await axios.get<GeocodingResponse>(
     `https://maps.googleapis.com/maps/api/geocode/json?place_id=${id}&key=${
-      config().googlemaps.key
+      config().gmaps.key
     }`
   );
 
@@ -80,7 +80,7 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
 
   const { data } = await axios.get<GeocodingResponse>(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
-      config().googlemaps.key
+      config().gmaps.key
     }`
   );
 
