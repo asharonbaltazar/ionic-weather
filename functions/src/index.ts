@@ -1,103 +1,96 @@
-import * as functions from "firebase-functions";
-import axios from "axios";
-const cors = require("cors")({ origin: true });
+import { config } from 'firebase-functions';
+import axios from 'axios';
+import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
+import { onRequest } from './api';
 
-// This is for the Google Places suggestions
-export const getGMapSuggestions = functions.https.onRequest(
-  (request, response) => {
-    cors(request, response, async () => {
-      try {
-        // Split query from the url
-        const query = request.url.split("/")[1];
+// GOOGLE PLACES AUTOCOMPLETE
+export const getGMapSuggestions = onRequest(async (request, response) => {
+  const { query = '' } = request.query;
 
-        const { data } = await axios.get(
-          `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&types=(cities)&language=en&key=${
-            functions.config().googlemaps.key
-          }`
-        );
-
-        if (data.status === "OK") {
-          response.send(data);
-        } else if (data.status === "ZERO_RESULTS") {
-          response.send("No city found");
-        }
-      } catch (error) {
-        response.send("Internal Server Error");
-      }
-    });
+  if (query === '') {
+    return response.status(400).send('City query has no length');
   }
-);
 
-// This is for the coordinates of the selected place via Google Geocoding
-export const getGPlaceId = functions.https.onRequest((request, response) => {
-  cors(request, response, async () => {
-    try {
-      // Split query from the url
-      const id = request.url.split("/")[1];
+  const { data } = await axios.get<PlaceAutocompleteResponse>(
+    `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${query}&types=(cities)&language=en&key=${
+      config().googlemaps.key
+    }`
+  );
 
-      const { data } = await axios.get(
-        `https://maps.googleapis.com/maps/api/geocode/json?place_id=${id}&key=${
-          functions.config().googlemaps.key
-        }`
-      );
+  if (data.status === 'OK') {
+    return response.status(200).send(data);
+  }
 
-      if (data.status === "OK") {
-        response.send(data);
-      } else if (data.status === "ZERO_RESULTS") {
-        response.send("No city found");
-      } else {
-        response.send("Please contact the developer");
-      }
-    } catch (error) {
-      response.send("Internal Server Error");
-    }
-  });
+  if (data.status === 'ZERO_RESULTS') {
+    return response.status(200).send('No city found');
+  }
+
+  return response.status(200).send({ predictions: [] });
 });
 
-// This is for the weather via coordinates
-export const getWeatherViaCoordinates = functions.https.onRequest(
-  (request, response) => {
-    cors(request, response, async () => {
-      try {
-        const [, lat, lon] = request.url.split("/");
+// COORDINATES VIA GOOGLE PLACE ID
+export const getGPlaceId = onRequest(async (request, response) => {
+  const { id = '' } = request.query;
 
-        const { data } = await axios.get(
-          `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
-            functions.config().openweatherapi.key
-          }`
-        );
-
-        response.send(data);
-      } catch (error) {
-        response.send("Internal Server Error");
-      }
-    });
+  if (id === '') {
+    return response.status(400).send('Geocoding ID has no length');
   }
-);
 
-// This is for the geolocation function
-export const getGeolocationPlaceData = functions.https.onRequest(
-  (request, response) => {
-    cors(request, response, async () => {
-      try {
-        const [, lat, lon] = request.url.split("/");
+  const { data } = await axios.get<GeocodingResponse>(
+    `https://maps.googleapis.com/maps/api/geocode/json?place_id=${id}&key=${
+      config().googlemaps.key
+    }`
+  );
 
-        const { data } = await axios.get(
-          `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
-            functions.config().googlemaps.key
-          }`
-        );
-
-        if (data.status === "OK") {
-          response.send(data);
-        } else if (data.status === "ZERO_RESULTS") {
-          response.send("No city found");
-        } else {
-          response.send("Please contact the developer");
-        }
-      } catch (error) {
-        response.send("Internal Server Error");
-      }
-    });
+  if (data.status === 'OK') {
+    return response.status(200).send(data);
   }
-);
+
+  if (data.status === 'ZERO_RESULTS') {
+    return response.status(200).send('No city found');
+  }
+
+  return response.status(200).send({ results: [] });
+});
+
+// WEATHER VIA COORDINATES
+export const getWeatherViaCoordinates = onRequest(async (request, response) => {
+  const { lat = '', lon = '' } = request.query;
+
+  if (lat === '' || lon === '') {
+    return response.status(400).send('Latitude or longitude has no length');
+  }
+
+  const { data } = await axios.get(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
+      config().openweatherapi.key
+    }`
+  );
+
+  return response.status(200).send(data);
+});
+
+// GEOLOCATION
+export const getGeolocationPlaceData = onRequest(async (request, response) => {
+  const { lat = '', lon = '' } = request.query;
+
+  if (lat === '' || lon === '') {
+    return response.status(400).send('Latitude or longitude has no length');
+  }
+
+  const { data } = await axios.get<GeocodingResponse>(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
+      config().googlemaps.key
+    }`
+  );
+
+  if (data.status === 'OK') {
+    return response.send(data);
+  }
+
+  if (data.status === 'ZERO_RESULTS') {
+    return response.send('No city found');
+  }
+
+  return response.status(200).send({ results: [] });
+});
