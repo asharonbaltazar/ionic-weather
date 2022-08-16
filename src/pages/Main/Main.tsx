@@ -1,11 +1,6 @@
 import React from 'react';
-import {
-  IonContent,
-  IonPage,
-  IonRefresher,
-  IonRefresherContent,
-} from '@ionic/react';
-import Toolbar from '@components/Toolbar';
+import { IonContent, IonRefresher, IonRefresherContent } from '@ionic/react';
+import { Header } from 'src/pages/Main/Header';
 import MainContent from '@components/MainContent';
 import MainPagePlaceholder from '@components/MainPagePlaceholder';
 import AlertModal from '@components/AlertModal';
@@ -13,26 +8,29 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, RootState } from '@store';
 import { refreshWeatherData } from '@slices/weatherSlice';
 import '../css/main.css';
-import Toast from '@components/Toast';
+import { AppShell } from '@mantine/core';
 
 const Main = () => {
   const dispatch = useAppDispatch();
 
-  const weather = useSelector((state: RootState) => state.weatherSlice);
+  const { selectedWeather } = useSelector(
+    (state: RootState) => state.weatherSlice
+  );
 
   // refresher function
   const refreshWeather = (e: CustomEvent) => {
     dispatch(refreshWeatherData());
     e.detail.complete();
   };
+
   return (
-    <IonPage className="main">
-      <Toolbar
-        address={weather.selectedWeather.address}
-        geolocation={weather.selectedWeather.geolocation}
+    <AppShell>
+      <Header
+        address={selectedWeather.address}
+        geolocation={selectedWeather.geolocation}
       />
       <IonContent>
-        {weather.selectedWeather?.weather ? (
+        {selectedWeather?.weather ? (
           <>
             <IonRefresher slot="fixed" onIonRefresh={(e) => refreshWeather(e)}>
               <IonRefresherContent />
@@ -43,11 +41,8 @@ const Main = () => {
           <MainPagePlaceholder />
         )}
         <AlertModal />
-        {weather.errors.map((element, index) => (
-          <Toast key={index} error={element} time={3000} slice="weather" />
-        ))}
       </IonContent>
-    </IonPage>
+    </AppShell>
   );
 };
 
