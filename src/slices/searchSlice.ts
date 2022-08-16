@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchPlacesBySearch } from '../utilities/fetch';
+import { fetchPlacesBySearch } from '@utilities/fetch';
 
 type SearchQuery = {
   label: string;

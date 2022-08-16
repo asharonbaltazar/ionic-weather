@@ -6,7 +6,7 @@ import {
   getPlacesBySearch,
   resetQueries,
   setSearchLoading,
-} from '../slices/searchSlice';
+} from '@slices/searchSlice';
 import { useDebouncedCallback } from 'use-debounce';
 import '../css/searchbar.css';
 

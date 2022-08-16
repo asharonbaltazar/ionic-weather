@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '@store';
+import { AppContext } from '@context/app-context';
 import { IonGrid, IonRow } from '@ionic/react';
-import WeatherCard from './WeatherCard';
-import Carousel from './Carousel';
-import { AppContext } from '../context/app-context';
-import DaysSegment from './DaysSegment';
-import RainChip from './RainChip';
+import WeatherCard from '@components/WeatherCard';
+import Carousel from '@components/Carousel';
+import DaysSegment from '@components/DaysSegment';
+import RainChip from '@components/RainChip';
 
 const MainContent = () => {
   const { segmentCarouselOption } = useContext(AppContext);

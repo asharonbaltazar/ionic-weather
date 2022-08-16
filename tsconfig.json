@@ -2,6 +2,16 @@
   "compilerOptions": {
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
+    "baseUrl": "./",
+    "paths": {
+      "src/*": ["src/*"],
+      "@store": ["src/store"],
+      "@components/*": ["src/components/*"],
+      "@slices/*": ["src/slices/*"],
+      "@pages/*": ["src/pages/*"],
+      "@utilities/*": ["src/utilities/*"],
+      "@context/*": ["src/context/*"]
+    },
     /* Type Checking */
     "strict": true,
     "noImplicitAny": true,

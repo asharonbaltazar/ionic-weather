@@ -1,9 +1,9 @@
 import React from 'react';
-import WeatherDetails from './WeatherDetails';
-import AlertButton from './AlertButton';
+import WeatherDetails from '@components/WeatherDetails';
+import AlertButton from '@components/AlertButton';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { formatTemp } from '../utilities/format';
+import { RootState } from '@store';
+import { formatTemp } from '@utilities/format';
 import { Details } from '../../interface';
 import '../css/weather-card.css';
 import dayjs from 'dayjs';

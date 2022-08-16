@@ -7,7 +7,7 @@ import {
   IonBackButton,
   IonTitle,
 } from '@ionic/react';
-import NextWeek from '../components/NextWeek';
+import NextWeek from '@components/NextWeek';
 
 const Week = () => (
   <IonPage>

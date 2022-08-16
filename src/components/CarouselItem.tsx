@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '@store';
 import { IonSlide } from '@ionic/react';
 import {
   formatTemp,
   formatIconTime,
   timeIsWithinTimes,
-} from '../utilities/format';
+} from '@utilities/format';
 import dayjs from 'dayjs';
 import '../css/carousel-item.css';
 

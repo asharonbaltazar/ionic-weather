@@ -1,6 +1,6 @@
 import React from 'react';
 import { IonSlides } from '@ionic/react';
-import CarouselItem from './CarouselItem';
+import CarouselItem from '@components/CarouselItem';
 import '../css/weather-carousel.css';
 
 interface IProps {
