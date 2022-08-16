@@ -1,16 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from './store';
+import { RootState } from 'src/store';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Main from './pages/Main';
-import SettingsModal from './pages/Settings';
-import SearchModal from './pages/Search';
-import ScreenLoader from './components/ScreenLoader';
-import Week from './pages/Week';
-// React Context
-import { AppProvider as ContextProvider } from './context/app-context';
+
+import ScreenLoader from '@components/ScreenLoader';
+import Main from '@pages/Main';
+import SettingsModal from '@pages/Settings';
+import SearchModal from '@pages/Search';
+import Week from '@pages/Week';
+import { AppProvider as ContextProvider } from '@context/app-context';
 
 setupIonicReact();
 const App = () => {

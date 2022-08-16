@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { IonCol, IonGrid, IonItem, IonRow, IonText } from '@ionic/react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '@store';
 import { Details } from '../../interface';
 import '../css/next-week-card.css';
-import { formatTemp } from '../utilities/format';
+import { formatTemp } from '@utilities/format';
 import isBetween from 'dayjs/plugin/isBetween';
 import dayjs from 'dayjs';
-import WeatherDetails from './WeatherDetails';
+import WeatherDetails from '@components/WeatherDetails';
 dayjs.extend(isBetween);
 
 const NextWeekCard = ({

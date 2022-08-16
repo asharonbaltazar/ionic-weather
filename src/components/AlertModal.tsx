@@ -9,8 +9,8 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { AppContext } from '../context/app-context';
+import { RootState } from '@store';
+import { AppContext } from '@context/app-context';
 import AlertInfo from './AlertInfo';
 
 const AlertModal = () => {

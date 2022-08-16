@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { formatSpeed, formatTemp, getUviIndex } from '../utilities/format';
+import { RootState } from '@store';
+import { formatSpeed, formatTemp, getUviIndex } from '@utilities/format';
 import dayjs from 'dayjs';
 import '../css/weather-details.css';
 

@@ -11,10 +11,10 @@ import {
   IonItemGroup,
   IonItemDivider,
 } from '@ionic/react';
-import TempPreference from '../components/settings_toggles/TempPreference';
-import SpeedPreference from '../components/settings_toggles/SpeedPreference';
-import VibationPreference from '../components/settings_toggles/VibationPreference';
-import TimePreference from '../components/settings_toggles/TimePreference';
+import TempPreference from '@components/settings_toggles/TempPreference';
+import SpeedPreference from '@components/settings_toggles/SpeedPreference';
+import VibationPreference from '@components/settings_toggles/VibationPreference';
+import TimePreference from '@components/settings_toggles/TimePreference';
 
 const SettingsModal = () => (
   <IonPage>

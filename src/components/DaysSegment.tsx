@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { IonButton, IonIcon } from '@ionic/react';
-import { AppContext } from '../context/app-context';
+import { AppContext } from '@context/app-context';
 import { arrowForwardSharp, chevronForward } from 'ionicons/icons';
 import '../css/segment.css';
 

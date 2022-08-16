@@ -1,7 +1,7 @@
 import React from 'react';
 import { IonCol, IonGrid, IonItem, IonRow } from '@ionic/react';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
+import { RootState } from '@store';
 import dayjs from 'dayjs';
 
 interface IProps {

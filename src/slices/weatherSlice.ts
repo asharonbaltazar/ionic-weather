@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Vibration } from '@ionic-native/vibration';
-import { AppDispatch, RootState } from '../store';
+import { AppDispatch, RootState } from '@store';
 import { SelectedWeather } from '../../interface';
 import {
   fetchGooglePlacesByCoordinates,

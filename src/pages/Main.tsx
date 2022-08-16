@@ -5,16 +5,15 @@ import {
   IonRefresher,
   IonRefresherContent,
 } from '@ionic/react';
-import Toolbar from '../components/Toolbar';
-import MainContent from '../components/MainContent';
-import MainPagePlaceholder from '../components/MainPagePlaceholder';
-import AlertModal from '../components/AlertModal';
+import Toolbar from '@components/Toolbar';
+import MainContent from '@components/MainContent';
+import MainPagePlaceholder from '@components/MainPagePlaceholder';
+import AlertModal from '@components/AlertModal';
 import { useSelector } from 'react-redux';
-import { useAppDispatch } from '../store';
-import { RootState } from '../store';
-import { refreshWeatherData } from '../slices/weatherSlice';
+import { useAppDispatch, RootState } from '@store';
+import { refreshWeatherData } from '@slices/weatherSlice';
 import '../css/main.css';
-import Toast from '../components/Toast';
+import Toast from '@components/Toast';
 
 const Main = () => {
   const dispatch = useAppDispatch();

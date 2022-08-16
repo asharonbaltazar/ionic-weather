@@ -7,8 +7,8 @@ import {
   closeSharp,
 } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
-import { RootState } from '../store';
-import { AppContext } from '../context/app-context';
+import { RootState } from '@store';
+import { AppContext } from '@context/app-context';
 import '../css/alert.css';
 
 const AlertButton = () => {

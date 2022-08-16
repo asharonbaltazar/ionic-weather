@@ -7,13 +7,13 @@ import {
   IonItemDivider,
 } from '@ionic/react';
 import { useHistory } from 'react-router';
-import SkeletonResults from './SkeletonResults';
-import SearchResult from './SearchResult';
+import SkeletonResults from '@components/SkeletonResults';
+import SearchResult from '@components/SearchResult';
 import { locateOutline, locateSharp } from 'ionicons/icons';
 import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '../store';
-import { getWeatherByGeolocation } from '../slices/weatherSlice';
-import Toast from './Toast';
+import { RootState, useAppDispatch } from '@store';
+import { getWeatherByGeolocation } from '@slices/weatherSlice';
+import Toast from '@components/Toast';
 
 const SearchContent = () => {
   const dispatch = useAppDispatch();
