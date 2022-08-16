@@ -1,7 +1,7 @@
 import { config } from 'firebase-functions';
 import axios from 'axios';
 import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
-import { onRequest } from './api';
+import { onRequest } from '@api';
 
 // GOOGLE PLACES AUTOCOMPLETE
 export const getGMapSuggestions = onRequest(async (request, response) => {
