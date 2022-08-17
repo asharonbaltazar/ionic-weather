@@ -1,13 +1,21 @@
 import React from 'react';
 import { IonSlides } from '@ionic/react';
-import CarouselItem from '@components/CarouselItem';
-import '../css/weather-carousel.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store';
 
-interface IProps {
-  hourly: {}[];
+import CarouselItem from '@components/CarouselItem';
+
+interface WeatherTimelineProps {
+  day: 'today' | 'tomorrow';
 }
 
-const Carousel = ({ hourly }: IProps) => {
+export const WeatherTimeline = ({ day }: WeatherTimelineProps) => {
+  const { weather } = useSelector(
+    (state: RootState) => state.weatherSlice.selectedWeather
+  );
+
+  const { hourly } = weather[day];
+
   // Carousel init options
   const slideOptions = {
     initialSlide: 0,
@@ -55,5 +63,3 @@ const Carousel = ({ hourly }: IProps) => {
     </div>
   );
 };
-
-export default Carousel;
