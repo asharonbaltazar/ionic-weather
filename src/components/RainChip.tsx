@@ -1,23 +1,33 @@
 import React from 'react';
-import { IonChip } from '@ionic/react';
+import { Badge } from '@mantine/core';
+import { useSelector } from 'react-redux';
+import { RootState } from '@store';
 
-interface IProps {
-  pop: number;
+interface RainChipProps {
+  day: 'today' | 'tomorrow';
 }
 
-const RainChip = ({ pop }: IProps) => {
-  if (pop && pop > 0.1) {
-    return (
-      <IonChip
-        className="pop-chip ion-padding-start ion-padding-end"
-        color="primary"
-      >
-        <h5>{Math.floor(pop * 100)}% chance of rain</h5>
-      </IonChip>
-    );
+export const RainChip = ({ day }: RainChipProps) => {
+  const { weather } = useSelector(
+    (state: RootState) => state.weatherSlice.selectedWeather
+  );
+
+  const {
+    details: { pop },
+  } = weather[day];
+
+  if (pop && pop < 0.1) {
+    return null;
   }
 
-  return <div style={{ height: '32px', margin: '10px 0' }} />;
+  return (
+    <Badge
+      className="w-full justify-start"
+      variant="outline"
+      size="lg"
+      fullWidth
+    >
+      {Math.floor(pop * 100)}% chance of rain
+    </Badge>
+  );
 };
-
-export default RainChip;
