@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from 'src/pages/Main/Header';
-import { Content } from 'src/pages/Main/Content';
+import { Header } from '@pages/Main/Header';
+import { Content } from '@pages/Main/Content';
 import { AppShell } from '@mantine/core';
 
 const Main = () => (

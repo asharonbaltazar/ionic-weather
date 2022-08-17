@@ -1,7 +1,7 @@
 import React from 'react';
-import { IonButton, IonIcon } from '@ionic/react';
-import { arrowForwardSharp, chevronForward } from 'ionicons/icons';
 import { Button } from '@mantine/core';
+import { Icon } from '@iconify/react';
+import { Link } from 'react-router-dom';
 
 interface DaysToggleProps {
   day: 'today' | 'tomorrow';
@@ -11,7 +11,7 @@ interface DaysToggleProps {
 export const DaysToggle = ({ day, setDay }: DaysToggleProps) => {
   return (
     <div className="flex items-center justify-between">
-      <div>
+      <div className="space-x-2">
         <Button
           variant={day === 'today' ? 'outline' : 'subtle'}
           onClick={() => setDay('today')}
@@ -25,10 +25,16 @@ export const DaysToggle = ({ day, setDay }: DaysToggleProps) => {
           Tomorrow
         </Button>
       </div>
-      <IonButton className="next-7-days" fill="clear" routerLink="/week">
-        Next 7 days
-        <IonIcon slot="end" ios={chevronForward} md={arrowForwardSharp} />
-      </IonButton>
+      <Button
+        variant="subtle"
+        rightIcon={
+          <Icon className="text-2xl" icon="tabler:arrow-narrow-right" />
+        }
+        component={Link}
+        to="/week"
+      >
+        Next 7 Days
+      </Button>
     </div>
   );
 };
