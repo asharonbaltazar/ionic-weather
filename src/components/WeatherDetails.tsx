@@ -3,10 +3,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { formatSpeed, formatTemp, getUviIndex } from '@utilities/format';
 import dayjs from 'dayjs';
-import '../css/weather-details.css';
 
 interface IProps {
-  className: string;
   sunrise?: string;
   sunset?: string;
   humidity: number;
@@ -19,7 +17,6 @@ interface IProps {
 }
 
 const WeatherDetails = ({
-  className,
   sunrise,
   sunset,
   humidity,
@@ -30,66 +27,65 @@ const WeatherDetails = ({
   pop,
   compass,
 }: IProps) => {
-  // Windspeed unit from settings
   const selectedSpeed = useSelector(
     (state: RootState) => state.settingsSlice.windSpeedPreference
   );
-  // Temperature unit from settings
+
   const selectedTemp = useSelector(
     (state: RootState) => state.settingsSlice.tempPreference
   );
-  // Time unit from settings
+
   const selectedTime = useSelector(
     (state: RootState) => state.settingsSlice.timePreference
   );
-  // Special time formatting for <WeatherDetails />
+
   const exactTime = selectedTime === 'h a' ? 'h:mm a' : 'HH:mm';
 
   return (
-    <div className={className}>
-      <div>
-        <h5>Humidity</h5>
-        <h5>{humidity}%</h5>
-      </div>
-      <div>
-        <h5>Pressure</h5>
-        <h5>{pressure} mBar</h5>
-      </div>
-      {dew_point ? (
-        <div>
+    <div className="grid grid-cols-2 gap-y-1">
+      <h5>Humidity</h5>
+      <h5 className="place-self-end">{humidity}%</h5>
+      <h5>Pressure</h5>
+      <h5 className="place-self-end">{pressure} mBar</h5>
+      {dew_point && (
+        <>
           <h5>Dew point</h5>
-          <h5>{formatTemp[selectedTemp](dew_point)}°</h5>
-        </div>
-      ) : null}
-      {typeof uvi === 'number' && (
-        <div>
-          <h5>UVI index</h5>
-          <h5>{`${getUviIndex(uvi)}, ${Math.ceil(uvi)}`}</h5>
-        </div>
+          <h5 className="place-self-end">
+            {formatTemp[selectedTemp](dew_point)}°
+          </h5>
+        </>
       )}
-      {wind_speed ? (
-        <div>
+      {typeof uvi === 'number' && (
+        <>
+          <h5>UVI index</h5>
+          <h5 className="place-self-end">{`${getUviIndex(uvi)}, ${Math.ceil(
+            uvi
+          )}`}</h5>
+        </>
+      )}
+      {wind_speed && (
+        <>
           <h5>Wind</h5>
-          <h5>
+          <h5 className="place-self-end">
             {formatSpeed[selectedSpeed](wind_speed)}
             {`${selectedSpeed === 'kilometers' ? 'km/h' : 'mph'} ${compass}`}
           </h5>
-        </div>
-      ) : null}
+        </>
+      )}
       {pop && pop > 0.1 ? (
-        <div>
+        <>
           <h5>Chance of rain</h5>
-          <h5 className="pop">{Math.floor(pop * 100)}%</h5>
-        </div>
+          <h5 className="place-self-end">{Math.floor(pop * 100)}%</h5>
+        </>
       ) : null}
-      {sunrise && sunset ? (
-        <div>
+      {sunrise && sunset && (
+        <>
           <h5>Sunrise/sunset</h5>
-          <h5>{`${dayjs(sunrise).format(exactTime)}, ${dayjs(sunset).format(
+          <h5 className="place-self-end">{`${dayjs(sunrise).format(
             exactTime
-          )}`}</h5>
-        </div>
-      ) : null}
+          )}, ${dayjs(sunset).format(exactTime)}`}</h5>
+        </>
+      )}
     </div>
   );
 };

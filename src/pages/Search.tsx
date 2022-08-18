@@ -1,4 +1,4 @@
-import React, { CSSProperties } from 'react';
+import React from 'react';
 import Searchbar from '@components/Searchbar';
 import SearchContent from '@components/SearchContent';
 import {
@@ -8,14 +8,8 @@ import {
   IonFooter,
   IonTitle,
 } from '@ionic/react';
-import lightLogo from '../assets/google_light.png';
-import darkLogo from '../assets/google_dark.png';
-
-const imgStyle: CSSProperties = {
-  height: '25px',
-  width: '150px',
-  objectFit: 'contain',
-};
+import lightLogo from 'src/assets/google_light.png';
+import darkLogo from 'src/assets/google_dark.png';
 
 const SearchModal = () => (
   <IonPage>
@@ -30,7 +24,11 @@ const SearchModal = () => (
         <IonTitle slot="end">
           <picture>
             <source srcSet={darkLogo} media="(prefers-color-scheme: dark)" />
-            <img style={imgStyle} src={lightLogo} alt={'google logo'} />
+            <img
+              className="h-6 w-36 object-contain"
+              src={lightLogo}
+              alt="google logo"
+            />
           </picture>
         </IonTitle>
       </IonToolbar>

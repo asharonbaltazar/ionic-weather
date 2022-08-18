@@ -1,18 +1,28 @@
-import React, { useState } from 'react';
-import { Weather } from '@components/WeatherCard';
+import React from 'react';
+import { Tabs } from '@mantine/core';
 import { WeatherTimeline } from '@components/WeatherTimeline';
-import { DaysToggle } from 'src/components/DaysToggle';
-import { RainChip } from '@components/RainChip';
+import { NextSevenDays } from '@components/NextSevenDays';
 
-export const Content = () => {
-  const [day, setDay] = useState<'today' | 'tomorrow'>('today');
+export const Content = () => (
+  <Tabs className="px-3 mt-14" variant="pills" radius="xl" defaultValue="today">
+    <Tabs.List>
+      <Tabs.Tab value="today">Today</Tabs.Tab>
+      <Tabs.Tab value="tomorrow">Tomorrow</Tabs.Tab>
+      <Tabs.Tab className="ml-auto" value="nextSevenDays">
+        Next 7 Days
+      </Tabs.Tab>
+    </Tabs.List>
 
-  return (
-    <div className="mt-16 px-3">
-      <Weather day={day} />
-      <RainChip day={day} />
-      <DaysToggle day={day} setDay={setDay} />
-      <WeatherTimeline day={day} />
-    </div>
-  );
-};
+    <Tabs.Panel value="today">
+      <WeatherTimeline day="today" />
+    </Tabs.Panel>
+
+    <Tabs.Panel value="tomorrow">
+      <WeatherTimeline day="tomorrow" />
+    </Tabs.Panel>
+
+    <Tabs.Panel value="nextSevenDays">
+      <NextSevenDays />
+    </Tabs.Panel>
+  </Tabs>
+);

@@ -22,7 +22,7 @@ export const RainChip = ({ day }: RainChipProps) => {
 
   return (
     <Badge
-      className="w-full justify-start"
+      className="w-full justify-start mt-4"
       variant="outline"
       size="lg"
       fullWidth

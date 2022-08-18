@@ -4,7 +4,7 @@ import { Content } from '@pages/Main/Content';
 import { AppShell } from '@mantine/core';
 
 const Main = () => (
-  <AppShell header={<Header />} padding={0}>
+  <AppShell header={<Header />} padding={0} className="bg-white">
     <Content />
   </AppShell>
 );
