@@ -1,19 +1,13 @@
 import React from 'react';
-import {
-  IonItem,
-  IonIcon,
-  IonLabel,
-  IonContent,
-  IonItemDivider,
-} from '@ionic/react';
 import { useHistory } from 'react-router';
 import SkeletonResults from '@components/SkeletonResults';
-import SearchResult from '@components/SearchResult';
-import { locateOutline, locateSharp } from 'ionicons/icons';
+import { SearchResult } from '@components/SearchResult';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { getWeatherByGeolocation } from '@slices/weatherSlice';
 import Toast from '@components/Toast';
+import { Button, Divider } from '@mantine/core';
+import { Icon } from '@iconify/react';
 
 const SearchContent = () => {
   const dispatch = useAppDispatch();
@@ -36,7 +30,7 @@ const SearchContent = () => {
   const SearchItems = () => {
     if (queries.length) {
       return (
-        <>
+        <div className="flex flex-col items-start gap-y-2">
           {queries.map((element: any) => (
             <SearchResult
               key={element.place_id}
@@ -44,12 +38,13 @@ const SearchContent = () => {
               text={element.text}
             />
           ))}
-        </>
+        </div>
       );
     } else if (recentQueries.length && !loading) {
       return (
         <>
-          <IonItemDivider>Recent searches</IonItemDivider>
+          Recent searches
+          <Divider />
           {recentQueries.map((element: any) => (
             <SearchResult
               key={element.id}
@@ -64,26 +59,21 @@ const SearchContent = () => {
   };
 
   return (
-    <IonContent>
-      <IonItem
-        className="ion-margin-top ion-margin-bottom"
-        button
-        onClick={() => getLocation()}
-        detail={false}
+    <div>
+      <Button
+        className="p-0"
+        onClick={getLocation}
+        leftIcon={<Icon icon="tabler:current-location" />}
+        variant="white"
       >
-        <IonIcon
-          color={'primary'}
-          ios={locateOutline}
-          md={locateSharp}
-          slot="start"
-        />
-        <IonLabel>Use your current location</IonLabel>
-      </IonItem>
+        Use your current location
+      </Button>
+      <Divider />
       <SearchItems />
       {errors.map((element, index) => (
         <Toast key={index} error={element} time={2000} slice={'search'} />
       ))}
-    </IonContent>
+    </div>
   );
 };
 

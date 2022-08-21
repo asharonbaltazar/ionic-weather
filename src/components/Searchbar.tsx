@@ -1,6 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router-dom';
-import { IonSearchbar, useIonViewDidEnter } from '@ionic/react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   getPlacesBySearch,
@@ -8,7 +6,7 @@ import {
   setSearchLoading,
 } from '@slices/searchSlice';
 import { useDebouncedCallback } from 'use-debounce';
-import '../css/searchbar.css';
+import { Loader, TextInput } from '@mantine/core';
 
 const Searchbar = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,22 +29,12 @@ const Searchbar = () => {
     }
   }, [searchTerm, dispatch, debounced]);
 
-  const history = useHistory();
-
-  // Ref required for focusing on <Searchbar />
-  const keyboard = useRef<HTMLIonSearchbarElement>(null);
-  useIonViewDidEnter(() => keyboard.current?.setFocus());
-
   return (
-    <IonSearchbar
+    <TextInput
       placeholder="Search cities"
       value={searchTerm}
-      onInput={(e) => setSearchTerm(e.currentTarget.value ?? '')}
-      autoCorrect={'off'}
-      enterkeyhint={'search'}
-      showCancelButton="always"
-      onIonCancel={() => history.goBack()}
-      ref={keyboard}
+      onChange={(e) => setSearchTerm(e.currentTarget.value ?? '')}
+      rightSection={<Loader size="xs" />}
     />
   );
 };

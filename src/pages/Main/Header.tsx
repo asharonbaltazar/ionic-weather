@@ -5,7 +5,11 @@ import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 
-export const Header = () => {
+interface HeaderProps {
+  setDrawerState: (newDrawerState: boolean) => void;
+}
+
+export const Header = ({ setDrawerState }: HeaderProps) => {
   const { selectedWeather } = useSelector(
     (state: RootState) => state.weatherSlice
   );
@@ -28,11 +32,9 @@ export const Header = () => {
         </div>
       )}
       <div className="flex items-center gap-x-3">
-        <Link to="/search">
-          <ActionIcon>
-            <Icon className="text-xl text-gray-900" icon="tabler:search" />
-          </ActionIcon>
-        </Link>
+        <ActionIcon onClick={() => setDrawerState(true)}>
+          <Icon className="text-xl text-gray-900" icon="tabler:search" />
+        </ActionIcon>
         <Link to="/settings">
           <ActionIcon>
             <Icon className="text-xl text-gray-900" icon="tabler:settings" />

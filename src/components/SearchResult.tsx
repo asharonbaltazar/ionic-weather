@@ -1,10 +1,10 @@
 import React from 'react';
-import { IonItem, IonLabel, IonIcon, IonNote } from '@ionic/react';
-import { locationSharp, locationOutline } from 'ionicons/icons';
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch } from '@store';
 import { setRecentQuery } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice';
+import { Button } from '@mantine/core';
+import { Icon } from '@iconify/react';
 
 interface Text {
   mainText: string;
@@ -15,7 +15,7 @@ interface IProps {
   id: string;
 }
 
-const SearchResult = ({ text, id }: IProps) => {
+export const SearchResult = ({ text, id }: IProps) => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const getLatLong = () => {
@@ -28,20 +28,15 @@ const SearchResult = ({ text, id }: IProps) => {
   };
 
   return (
-    <IonItem button onClick={getLatLong} detail={false}>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        {text.mainText}
-        <br />
-        <IonNote>{text.secondaryText}</IonNote>
-      </IonLabel>
-    </IonItem>
+    <Button
+      className="p-0"
+      onClick={getLatLong}
+      leftIcon={<Icon icon="tabler:map-pin" />}
+      variant="white"
+    >
+      {text.mainText}
+      <br />
+      {text.secondaryText}
+    </Button>
   );
 };
-
-export default SearchResult;
