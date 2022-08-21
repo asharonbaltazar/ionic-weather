@@ -1,7 +1,7 @@
 import React from 'react';
 import { useHistory } from 'react-router';
-import SkeletonResults from '@components/SkeletonResults';
-import { SearchResult } from '@components/SearchResult';
+import SkeletonResults from 'src/pages/Main/SearchDrawer/SkeletonResults';
+import { SearchResult } from 'src/pages/Main/SearchDrawer/SearchResult';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { getWeatherByGeolocation } from '@slices/weatherSlice';
@@ -16,9 +16,7 @@ const SearchContent = () => {
     (state: RootState) => state.searchSlice
   );
 
-  const loading: boolean = useSelector(
-    (state: RootState) => state.searchSlice.loading
-  );
+  const { loading } = useSelector((state: RootState) => state.searchSlice);
 
   const history = useHistory();
 

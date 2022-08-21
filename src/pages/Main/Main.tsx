@@ -2,7 +2,7 @@ import React from 'react';
 import { Header } from '@pages/Main/Header';
 import { Content } from '@pages/Main/Content';
 import { AppShell } from '@mantine/core';
-import { SearchDrawer } from '@pages/SearchDrawer';
+import { SearchDrawer } from 'src/pages/Main/SearchDrawer/SearchDrawer';
 import { State } from '@components/State';
 
 export const Main = () => (

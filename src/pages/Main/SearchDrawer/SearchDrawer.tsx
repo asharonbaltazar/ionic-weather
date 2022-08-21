@@ -1,6 +1,6 @@
 import React from 'react';
-import Searchbar from '@components/Searchbar';
-import SearchContent from '@components/SearchContent';
+import Searchbar from 'src/pages/Main/SearchDrawer/Searchbar';
+import SearchContent from 'src/pages/Main/SearchDrawer/SearchContent';
 import lightLogo from 'src/assets/google_light.png';
 import darkLogo from 'src/assets/google_dark.png';
 import { ActionIcon, Drawer } from '@mantine/core';
@@ -19,13 +19,13 @@ export const SearchDrawer = ({
 
   return (
     <Drawer
-      className="h-full px-3"
+      className="h-full px-3 m-0"
       opened={drawerState}
       onClose={onSearchDrawerClose}
       position="top"
       title={
-        <h1 className="text-3xl text-gray-900 pt-16 font-medium">
-          Search Locations
+        <h1 className="text-3xl text-gray-900 mt-16 font-medium">
+          Add a New Location
         </h1>
       }
       withCloseButton={false}
