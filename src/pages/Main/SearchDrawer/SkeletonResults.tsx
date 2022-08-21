@@ -1,70 +1,45 @@
 import React from 'react';
-import { IonLabel, IonItem, IonIcon, IonSkeletonText } from '@ionic/react';
-import { locationSharp, locationOutline } from 'ionicons/icons';
+import { Icon } from '@iconify/react';
+import { Skeleton } from '@mantine/core';
 
 const SkeletonResults = () => (
-  <>
-    <IonItem>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        <IonSkeletonText animated style={{ width: '40%' }} />
-        <IonSkeletonText animated style={{ width: '20%' }} />
-      </IonLabel>
-    </IonItem>
-    <IonItem>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        <IonSkeletonText animated style={{ width: '40%' }} />
-        <IonSkeletonText animated style={{ width: '20%' }} />
-      </IonLabel>
-    </IonItem>
-    <IonItem>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        <IonSkeletonText animated style={{ width: '40%' }} />
-        <IonSkeletonText animated style={{ width: '20%' }} />
-      </IonLabel>
-    </IonItem>
-    <IonItem>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        <IonSkeletonText animated style={{ width: '40%' }} />
-        <IonSkeletonText animated style={{ width: '20%' }} />
-      </IonLabel>
-    </IonItem>
-    <IonItem>
-      <IonIcon
-        color={'primary'}
-        ios={locationOutline}
-        md={locationSharp}
-        slot="start"
-      />
-      <IonLabel>
-        <IonSkeletonText animated style={{ width: '40%' }} />
-        <IonSkeletonText animated style={{ width: '20%' }} />
-      </IonLabel>
-    </IonItem>
-  </>
+  <ul className="space-y-3">
+    <li className="flex items-center gap-x-1">
+      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
+      <div className="w-full space-y-1">
+        <Skeleton className="h-2 w-9/12" />
+        <Skeleton className="h-2 w-5/12" />
+      </div>
+    </li>
+    <li className="flex items-center gap-x-1">
+      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
+      <div className="w-full space-y-1">
+        <Skeleton className="h-2 w-9/12" />
+        <Skeleton className="h-2 w-5/12" />
+      </div>
+    </li>
+    <li className="flex items-center gap-x-1">
+      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
+      <div className="w-full space-y-1">
+        <Skeleton className="h-2 w-9/12" />
+        <Skeleton className="h-2 w-5/12" />
+      </div>
+    </li>
+    <li className="flex items-center gap-x-1">
+      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
+      <div className="w-full space-y-1">
+        <Skeleton className="h-2 w-9/12" />
+        <Skeleton className="h-2 w-5/12" />
+      </div>
+    </li>
+    <li className="flex items-center gap-x-1">
+      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
+      <div className="w-full space-y-1">
+        <Skeleton className="h-2 w-9/12" />
+        <Skeleton className="h-2 w-5/12" />
+      </div>
+    </li>
+  </ul>
 );
 
 export default SkeletonResults;
