@@ -9,7 +9,7 @@ import { Loader, TextInput } from '@mantine/core';
 import { useDebouncedState } from '@mantine/hooks';
 import { RootState } from '@store';
 
-export const Searchbar = () => {
+export const SearchInput = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state: RootState) => state.searchSlice);
 
