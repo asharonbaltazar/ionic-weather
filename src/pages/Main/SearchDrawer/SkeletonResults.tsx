@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { Skeleton } from '@mantine/core';
 
-const SkeletonResults = () => (
+export const SkeletonResults = () => (
   <ul className="space-y-3">
     <li className="flex items-center gap-x-1">
       <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
@@ -41,5 +41,3 @@ const SkeletonResults = () => (
     </li>
   </ul>
 );
-
-export default SkeletonResults;
