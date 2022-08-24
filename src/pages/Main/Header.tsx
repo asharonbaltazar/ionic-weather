@@ -33,11 +33,10 @@ export const Header = ({ setDrawerState }: HeaderProps) => {
         <ActionIcon onClick={() => setDrawerState(true)}>
           <Icon className="text-3xl text-gray-900" icon="tabler:search" />
         </ActionIcon>
-        <Link to="/settings">
-          <ActionIcon>
-            <Icon className="text-3xl text-gray-900" icon="tabler:settings" />
-          </ActionIcon>
-        </Link>
+
+        <ActionIcon component={Link} to="/settings">
+          <Icon className="text-3xl text-gray-900" icon="tabler:settings" />
+        </ActionIcon>
       </div>
     </MantineHeader>
   );
