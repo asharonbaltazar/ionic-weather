@@ -2,14 +2,16 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import { Main } from '@pages/Main/Main';
-import SettingsModal from '@pages/Settings';
+import { Settings } from '@pages/Settings';
 import { AppProvider as ContextProvider } from '@context/app-context';
+import { Search } from '@pages/Main/SearchDrawer/Search';
 
 const App = () => (
   <ContextProvider>
     <BrowserRouter>
       <Switch>
-        <Route path="/settings" component={SettingsModal} />
+        <Route path="/settings" component={Settings} />
+        <Route path="/search" component={Search} />
         <Route path="/" exact component={Main} />
       </Switch>
     </BrowserRouter>

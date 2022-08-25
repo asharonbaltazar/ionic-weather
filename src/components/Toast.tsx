@@ -1,8 +1,8 @@
 import React from 'react';
-import { IonToast } from '@ionic/react';
 import { dismissSearchErrors } from '@slices/searchSlice';
 import { dismissWeatherErrors } from '@slices/weatherSlice';
 import { useDispatch } from 'react-redux';
+import { Notification } from '@mantine/core';
 
 interface IProps {
   error: string;
@@ -15,15 +15,13 @@ const dismissErrorsMap = {
   weather: dismissWeatherErrors,
 };
 
-const Toast = ({ error, time, slice }: IProps) => {
+const Toast = ({ error, slice }: IProps) => {
   const dispatch = useDispatch();
+
   return (
-    <IonToast
-      isOpen={true}
-      onDidDismiss={() => slice && dispatch(dismissErrorsMap[slice]())}
-      position="bottom"
-      duration={time}
-      message={error}
+    <Notification
+      title={error}
+      onClose={() => slice && dispatch(dismissErrorsMap[slice]())}
     />
   );
 };

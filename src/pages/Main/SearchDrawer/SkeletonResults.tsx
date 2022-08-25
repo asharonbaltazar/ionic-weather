@@ -1,43 +1,32 @@
-import React from 'react';
-import { Icon } from '@iconify/react';
-import { Skeleton } from '@mantine/core';
+import React, { Fragment } from 'react';
+import { ButtonWithIcon } from 'src/components/ButtonWithIcon';
 
 export const SkeletonResults = () => (
-  <ul className="space-y-3">
-    <li className="flex items-center gap-x-1">
-      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
-      <div className="w-full space-y-1">
-        <Skeleton className="h-2 w-9/12" />
-        <Skeleton className="h-2 w-5/12" />
-      </div>
+  <Fragment>
+    <li className="w-full">
+      <ButtonWithIcon icon="tabler:map-pin">
+        <span className="block h-2 w-4/12 animate-pulse bg-slate-400 rounded-sm" />
+      </ButtonWithIcon>
     </li>
-    <li className="flex items-center gap-x-1">
-      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
-      <div className="w-full space-y-1">
-        <Skeleton className="h-2 w-9/12" />
-        <Skeleton className="h-2 w-5/12" />
-      </div>
+    <li className="w-full">
+      <ButtonWithIcon icon="tabler:map-pin">
+        <span className="block h-2 w-4/12 animate-pulse bg-slate-400 rounded-sm" />
+      </ButtonWithIcon>
     </li>
-    <li className="flex items-center gap-x-1">
-      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
-      <div className="w-full space-y-1">
-        <Skeleton className="h-2 w-9/12" />
-        <Skeleton className="h-2 w-5/12" />
-      </div>
+    <li className="w-full">
+      <ButtonWithIcon icon="tabler:map-pin">
+        <span className="block h-2 w-4/12 animate-pulse bg-slate-400 rounded-sm" />
+      </ButtonWithIcon>
     </li>
-    <li className="flex items-center gap-x-1">
-      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
-      <div className="w-full space-y-1">
-        <Skeleton className="h-2 w-9/12" />
-        <Skeleton className="h-2 w-5/12" />
-      </div>
+    <li className="w-full">
+      <ButtonWithIcon icon="tabler:map-pin">
+        <span className="block h-2 w-4/12 animate-pulse bg-slate-400 rounded-sm" />
+      </ButtonWithIcon>
     </li>
-    <li className="flex items-center gap-x-1">
-      <Icon className="text-3xl text-blue-500" icon="tabler:map-pin" />
-      <div className="w-full space-y-1">
-        <Skeleton className="h-2 w-9/12" />
-        <Skeleton className="h-2 w-5/12" />
-      </div>
+    <li className="w-full">
+      <ButtonWithIcon icon="tabler:map-pin">
+        <span className="block h-2 w-4/12 animate-pulse bg-slate-400 rounded-sm" />
+      </ButtonWithIcon>
     </li>
-  </ul>
+  </Fragment>
 );

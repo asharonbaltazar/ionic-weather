@@ -1,19 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Vibration } from '@ionic-native/vibration';
 import { AppDispatch, RootState } from '@store';
 import { SelectedWeather } from '../../interface';
 import {
   fetchGooglePlacesByCoordinates,
   fetchWeatherData,
   fetchGooglePlacesById,
-} from '../utilities/fetch';
-import { geolocation } from '../utilities/geolocation';
+} from '@utilities/fetch';
+import { geolocation } from '@utilities/geolocation';
 
 export const getWeather = createAsyncThunk<
   SelectedWeather,
   string,
   { state: RootState }
->('weather/getWeather', async (placeId, { rejectWithValue, getState }) => {
+>('weather/getWeather', async (placeId, { rejectWithValue }) => {
   try {
     const place = await fetchGooglePlacesById(placeId);
 
@@ -34,15 +33,6 @@ export const getWeather = createAsyncThunk<
       return rejectWithValue(weatherObj);
     }
 
-    // Vibration settings
-    const {
-      settingsSlice: { vibrationPreference },
-    } = getState();
-
-    if (vibrationPreference) {
-      Vibration.vibrate(100);
-    }
-
     return weatherObj;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -53,54 +43,44 @@ export const getWeatherByGeolocation = createAsyncThunk<
   SelectedWeather,
   void,
   { state: RootState }
->(
-  'weather/getWeatherByGeolocation',
-  async (_, { rejectWithValue, getState }) => {
-    // geolocation coordinates
-    try {
-      const geo = await geolocation();
+>('weather/getWeatherByGeolocation', async (_, { rejectWithValue }) => {
+  // geolocation coordinates
+  try {
+    const { coords } = await geolocation();
 
-      if (typeof geo === 'string')
-        return rejectWithValue(
-          'Please allow geolocation permissions to use this feature'
-        );
-
-      const { latitude, longitude } = geo;
-
-      const place = await fetchGooglePlacesByCoordinates(latitude, longitude);
-
-      if (typeof place === 'string') {
-        return rejectWithValue(place);
-      }
-
-      const { formattedAddress, placeId } = place;
-
-      // Format weather data
-      const weatherObj = await fetchWeatherData(
-        latitude.toString(),
-        longitude.toString(),
-        formattedAddress,
-        placeId,
-        true
+    if (typeof coords === 'string')
+      return rejectWithValue(
+        'Please allow geolocation permissions to use this feature'
       );
 
-      if (typeof weatherObj === 'string') {
-        return rejectWithValue(weatherObj);
-      }
+    const { latitude, longitude } = coords;
 
-      // Vibration settings
-      const { settingsSlice } = getState();
+    const place = await fetchGooglePlacesByCoordinates(latitude, longitude);
 
-      if (settingsSlice.vibrationPreference) {
-        Vibration.vibrate(100);
-      }
-
-      return weatherObj;
-    } catch (error) {
-      return rejectWithValue(error.message);
+    if (typeof place === 'string') {
+      return rejectWithValue(place);
     }
+
+    const { formattedAddress, placeId } = place;
+
+    // Format weather data
+    const weatherObj = await fetchWeatherData(
+      latitude.toString(),
+      longitude.toString(),
+      formattedAddress,
+      placeId,
+      true
+    );
+
+    if (typeof weatherObj === 'string') {
+      return rejectWithValue(weatherObj);
+    }
+
+    return weatherObj;
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
-);
+});
 
 interface InitialState {
   selectedWeather: SelectedWeather;

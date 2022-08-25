@@ -5,9 +5,9 @@ import {
   resetQueries,
   setSearchLoading,
 } from '@slices/searchSlice';
-import { TextInput } from '@mantine/core';
 import { useDebouncedValue, useDidUpdate } from '@mantine/hooks';
-import { RootState } from 'src/store';
+import { RootState } from '@store';
+import { Input } from '@components/Input';
 
 export const LocationInput = () => {
   const [locationQuery, setLocationQuery] = useState('');
@@ -33,17 +33,13 @@ export const LocationInput = () => {
   };
 
   return (
-    <label className="space-y-2">
-      <h1 className="text-3xl text-gray-900 mt-16 font-semibold">
-        Search Locations
-      </h1>
-      <TextInput
+    <div className="px-3 mt-4">
+      <Input
         placeholder="e.g. Baltimore"
-        value={locationQuery}
+        label="City Name"
         onChange={(e) => onSearch(e.currentTarget.value)}
-        size="md"
-        type="text"
+        value={locationQuery}
       />
-    </label>
+    </div>
   );
 };

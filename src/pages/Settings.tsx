@@ -2,30 +2,31 @@ import React from 'react';
 import { TempPreference } from '@components/settings_toggles/TempPreference';
 import { SpeedPreference } from '@components/settings_toggles/SpeedPreference';
 import { TimePreference } from '@components/settings_toggles/TimePreference';
-import { ActionIcon, Header } from '@mantine/core';
-import { Link } from 'react-router-dom';
-import { Icon } from '@iconify/react';
+import { HeaderWithBackButton } from 'src/components/HeaderWithBackButton';
 
-export const SettingsModal = () => (
-  <div className="bg-white">
-    <Header className="flex items-center p-3 gap-x-2" height="auto">
-      <ActionIcon component={Link} to="/">
-        <Icon className="text-3xl text-gray-900" icon="tabler:arrow-back-up" />
-      </ActionIcon>
-      <span className="text-gray-900 font-medium">Settings</span>
-    </Header>
+export const Settings = () => (
+  <div className="h-screen">
+    <HeaderWithBackButton title="Settings" />
 
-    <div>
-      <span>Weather preferences: </span>
-      <TempPreference />
-      <SpeedPreference />
-    </div>
+    <div className="space-y-6 px-3 mt-4">
+      <div className="flex flex-col gap-y-2">
+        <span className="text-gray-900 dark:text-stone-300 font-medium text-sm md:text-xs mb-1 pl-1">
+          Weather preferences:
+        </span>
+        <div className="bg-slate-100 dark:bg-zinc-800 space-y-2 py-2 rounded">
+          <TempPreference />
+          <SpeedPreference />
+        </div>
+      </div>
 
-    <div>
-      <span>Application preferences: </span>
-      <TimePreference />
+      <div className="flex flex-col gap-y-2">
+        <span className="text-gray-900 dark:text-stone-300 font-medium text-sm md:text-xs mb-1 pl-1">
+          Application preferences:
+        </span>
+        <div className="bg-slate-100 dark:bg-zinc-800 space-y-2 py-2 rounded">
+          <TimePreference />
+        </div>
+      </div>
     </div>
   </div>
 );
-
-export default SettingsModal;

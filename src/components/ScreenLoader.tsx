@@ -1,18 +1,13 @@
 import React from 'react';
-import { IonLoading } from '@ionic/react';
+
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
+import { LoadingOverlay } from '@mantine/core';
 
 const ScreenLoader = () => {
-  const loading = useSelector((state: RootState) => state.weatherSlice.loading);
+  const { loading } = useSelector((state: RootState) => state.weatherSlice);
 
-  return (
-    <IonLoading
-      isOpen={loading}
-      message="Loading your weather..."
-      translucent={false}
-    />
-  );
+  return <LoadingOverlay visible={loading} overlayBlur={2} />;
 };
 
 export default ScreenLoader;

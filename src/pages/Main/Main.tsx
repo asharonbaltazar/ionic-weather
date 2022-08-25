@@ -1,24 +1,10 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Header } from '@pages/Main/Header';
 import { Content } from '@pages/Main/Content';
-import { AppShell } from '@mantine/core';
-import { SearchDrawer } from 'src/pages/Main/SearchDrawer/SearchDrawer';
-import { State } from '@components/State';
 
 export const Main = () => (
-  <State state={false}>
-    {([drawerState, setDrawerState]) => (
-      <AppShell
-        header={<Header setDrawerState={setDrawerState} />}
-        padding={0}
-        className="bg-white"
-      >
-        <SearchDrawer
-          drawerState={drawerState}
-          setDrawerState={setDrawerState}
-        />
-        <Content />
-      </AppShell>
-    )}
-  </State>
+  <Fragment>
+    <Header />
+    <Content />
+  </Fragment>
 );

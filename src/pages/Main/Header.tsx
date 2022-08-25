@@ -1,15 +1,10 @@
 import React from 'react';
-import { ActionIcon, Header as MantineHeader } from '@mantine/core';
-import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
+import { LinkWithIcon } from 'src/components/LinkWithIcon';
 
-interface HeaderProps {
-  setDrawerState: (newDrawerState: boolean) => void;
-}
-
-export const Header = ({ setDrawerState }: HeaderProps) => {
+export const Header = () => {
   const { selectedWeather } = useSelector(
     (state: RootState) => state.weatherSlice
   );
@@ -17,27 +12,22 @@ export const Header = ({ setDrawerState }: HeaderProps) => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <MantineHeader
-      className="flex items-center p-3 justify-between"
-      height="auto"
-    >
+    <header className="flex items-center p-3 justify-between sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
       {address && (
         <div className="flex items-center justify-center gap-x-2">
-          <h5 className="text-gray-900 font-medium">{address}</h5>
+          <h5 className="text-gray-900 font-medium dark:text-stone-200">
+            {address}
+          </h5>
           {geolocation && (
             <Icon className="text-sm text-blue-600" icon="tabler:location" />
           )}
         </div>
       )}
-      <div className="ml-auto flex items-center gap-x-5">
-        <ActionIcon onClick={() => setDrawerState(true)}>
-          <Icon className="text-3xl text-gray-900" icon="tabler:search" />
-        </ActionIcon>
 
-        <ActionIcon component={Link} to="/settings">
-          <Icon className="text-3xl text-gray-900" icon="tabler:settings" />
-        </ActionIcon>
+      <div className="ml-auto flex items-center gap-x-3">
+        <LinkWithIcon href="/search" icon="tabler:search" />
+        <LinkWithIcon href="/settings" icon="tabler:settings" />
       </div>
-    </MantineHeader>
+    </header>
   );
 };
