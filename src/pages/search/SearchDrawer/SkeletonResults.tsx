@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { ButtonWithIcon } from 'src/components/ButtonWithIcon';
+import { ButtonWithIcon } from '@components/ButtonWithIcon';
 
 export const SkeletonResults = () => (
   <Fragment>

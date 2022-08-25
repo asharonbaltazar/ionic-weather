@@ -2,7 +2,7 @@ import React from 'react';
 import { TempPreference } from '@pages/settings/TempPreference';
 import { SpeedPreference } from '@pages/settings/SpeedPreference';
 import { TimePreference } from '@pages/settings/TimePreference';
-import { HeaderWithBackButton } from 'src/components/HeaderWithBackButton';
+import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 
 export const Settings = () => (
   <div className="h-screen">

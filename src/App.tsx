@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import { Main } from '@pages/Main/Main';
+import { Main } from '@pages/main/Main';
 import { Settings } from '@pages/settings/Settings';
-import { Search } from '@pages/Main/SearchDrawer/Search';
+import { Search } from '@pages/search/SearchDrawer/Search';
 
 const App = () => (
   <BrowserRouter>

@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import { LocationInput } from '@pages/Main/SearchDrawer/LocationInput';
-import { LocationSelection } from '@pages/Main/SearchDrawer/LocationSelection';
-import { GoogleAttribution } from '@pages/Main/SearchDrawer/GoogleAttribution';
+import { LocationInput } from '@pages/search/SearchDrawer/LocationInput';
+import { LocationSelection } from '@pages/search/SearchDrawer/LocationSelection';
+import { GoogleAttribution } from '@pages/search/SearchDrawer/GoogleAttribution';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { useAppDispatch } from '@store';
-import { resetQueries } from 'src/slices/searchSlice';
+import { resetQueries } from '@slices/searchSlice';
 
 export const Search = () => {
   const dispatch = useAppDispatch();

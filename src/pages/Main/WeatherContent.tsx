@@ -2,7 +2,7 @@ import React from 'react';
 import { Tabs } from '@mantine/core';
 import { WeatherTimeline } from '@components/WeatherTimeline';
 import { NextSevenDays } from '@components/NextSevenDays';
-import { MainPlaceholder } from '@pages/Main/MainPagePlaceholder';
+import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 

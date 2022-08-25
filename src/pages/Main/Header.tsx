@@ -2,7 +2,7 @@ import React from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
-import { LinkWithIcon } from 'src/components/LinkWithIcon';
+import { LinkWithIcon } from '@components/LinkWithIcon';
 
 export const Header = () => {
   const { selectedWeather } = useSelector(

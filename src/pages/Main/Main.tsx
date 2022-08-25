@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import { Header } from '@pages/Main/Header';
-import { WeatherContent } from '@pages/Main/WeatherContent';
+import { Header } from '@pages/main/Header';
+import { WeatherContent } from '@pages/main/WeatherContent';
 
 export const Main = () => (
   <Fragment>
