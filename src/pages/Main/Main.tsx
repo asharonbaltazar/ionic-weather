@@ -1,10 +1,10 @@
 import React, { Fragment } from 'react';
 import { Header } from '@pages/Main/Header';
-import { Content } from '@pages/Main/Content';
+import { WeatherContent } from '@pages/Main/WeatherContent';
 
 export const Main = () => (
   <Fragment>
     <Header />
-    <Content />
+    <WeatherContent />
   </Fragment>
 );

@@ -1,7 +1,7 @@
 import React from 'react';
-import { TempPreference } from '@components/settings_toggles/TempPreference';
-import { SpeedPreference } from '@components/settings_toggles/SpeedPreference';
-import { TimePreference } from '@components/settings_toggles/TimePreference';
+import { TempPreference } from '@pages/settings/TempPreference';
+import { SpeedPreference } from '@pages/settings/SpeedPreference';
+import { TimePreference } from '@pages/settings/TimePreference';
 import { HeaderWithBackButton } from 'src/components/HeaderWithBackButton';
 
 export const Settings = () => (

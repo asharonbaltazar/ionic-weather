@@ -6,7 +6,7 @@ import { MainPlaceholder } from '@pages/Main/MainPagePlaceholder';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 
-export const Content = () => {
+export const WeatherContent = () => {
   const weather = useSelector((state: RootState) => state.weatherSlice);
 
   if (!weather?.selectedWeather?.weather) {

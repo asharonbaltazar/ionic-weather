@@ -2,8 +2,8 @@ import React, { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { changeWindSpeedPreference } from '@slices/settingsSlice';
-import { Modal } from '../Modal';
-import { RadioGroup } from '../RadioGroup';
+import { Modal } from '@components/Modal';
+import { RadioGroup } from '@components/RadioGroup';
 
 const WIND_SPEED_OPTIONS = [
   { value: 'miles', label: 'Miles' },

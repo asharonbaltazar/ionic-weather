@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import { Main } from '@pages/Main/Main';
-import { Settings } from '@pages/Settings';
+import { Settings } from '@pages/settings/Settings';
 import { AppProvider as ContextProvider } from '@context/app-context';
 import { Search } from '@pages/Main/SearchDrawer/Search';
 

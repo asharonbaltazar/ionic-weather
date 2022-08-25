@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { changeTimePreference } from '@slices/settingsSlice';
-import { Switch } from '../Switch';
+import { Switch } from '@components/Switch';
 
 export const TimePreference = () => {
   const { timePreference } = useSelector(
