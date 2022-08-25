@@ -13,8 +13,8 @@ export const Switch = ({ checked, onChange = () => {} }: SwitchProps) => (
     className={`${
       checked ? 'bg-blue-500' : 'bg-gray-300 dark:bg-zinc-400'
     } relative inline-flex h-6 w-11 items-center rounded-full`}
+    as="span"
   >
-    <span className="sr-only">Enable notifications</span>
     <span
       className={`${
         checked ? 'translate-x-6' : 'translate-x-1'
