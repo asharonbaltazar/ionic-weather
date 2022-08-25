@@ -14,7 +14,7 @@ export const ButtonWithIcon = ({
   ...buttonElementProps
 }: ButtonWithIconProps) => (
   <button
-    className="py-3 px-2 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium dark:text-stone-200 rounded bg-slate-100 dark:bg-zinc-800 text-gray-900"
+    className="p-3 md:p-2.5 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded bg-slate-100 dark:bg-zinc-800 "
     type={type}
     {...buttonElementProps}
   >

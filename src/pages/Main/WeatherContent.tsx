@@ -1,10 +1,11 @@
 import React from 'react';
-import { Tabs } from '@mantine/core';
+import { Tab } from '@headlessui/react';
 import { WeatherTimeline } from '@components/WeatherTimeline';
-import { NextSevenDays } from '@components/NextSevenDays';
 import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
+import { Link } from 'react-router-dom';
+import { Icon } from '@iconify/react';
 
 export const WeatherContent = () => {
   const weather = useSelector((state: RootState) => state.weatherSlice);
@@ -14,31 +15,28 @@ export const WeatherContent = () => {
   }
 
   return (
-    <Tabs
-      className="px-3 mt-14"
-      variant="pills"
-      radius="xl"
-      defaultValue="today"
-    >
-      <Tabs.List>
-        <Tabs.Tab value="today">Today</Tabs.Tab>
-        <Tabs.Tab value="tomorrow">Tomorrow</Tabs.Tab>
-        <Tabs.Tab className="ml-auto" value="nextSevenDays">
-          Next 7 Days
-        </Tabs.Tab>
-      </Tabs.List>
-
-      <Tabs.Panel value="today">
-        <WeatherTimeline day="today" />
-      </Tabs.Panel>
-
-      <Tabs.Panel value="tomorrow">
-        <WeatherTimeline day="tomorrow" />
-      </Tabs.Panel>
-
-      <Tabs.Panel value="nextSevenDays">
-        <NextSevenDays />
-      </Tabs.Panel>
-    </Tabs>
+    <Tab.Group as="main">
+      <Tab.List className="flex items-center justify-between px-3 mt-4">
+        <div className="flex items-center gap-x-2">
+          <Tab className="btn">Today</Tab>
+          <Tab className="btn">Tomorrow</Tab>
+        </div>
+        <Link className="btn flex items-center gap-x-2" to="/week">
+          Next Week
+          <Icon
+            className="text-xl md:text-2xl text-blue-500 dark:text-slate-400"
+            icon="tabler:arrow-narrow-right"
+          />
+        </Link>
+      </Tab.List>
+      <Tab.Panels className="px-3">
+        <Tab.Panel>
+          <WeatherTimeline day="today" />
+        </Tab.Panel>
+        <Tab.Panel>
+          <WeatherTimeline day="tomorrow" />
+        </Tab.Panel>
+      </Tab.Panels>
+    </Tab.Group>
   );
 };

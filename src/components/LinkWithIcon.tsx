@@ -1,16 +1,15 @@
 import React from 'react';
 import { Icon } from '@iconify/react';
-import { Link } from 'react-router-dom';
+import { Link, LinkProps } from 'react-router-dom';
 
-interface LinkWithIconProps {
-  href: string;
+interface LinkWithIconProps extends LinkProps {
   icon: string;
 }
 
-export const LinkWithIcon = ({ href, icon }: LinkWithIconProps) => (
+export const LinkWithIcon = ({ icon, ...linkProps }: LinkWithIconProps) => (
   <Link
-    to={href}
-    className="p-1 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium dark:text-stone-200 rounded"
+    {...linkProps}
+    className="p-1 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded"
   >
     <Icon
       className="text-2xl md:text-3xl text-blue-500 dark:text-slate-400"

@@ -12,12 +12,10 @@ export const Header = () => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <header className="flex items-center p-3 justify-between sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
+    <header className="flex items-center py-2 px-3 md:p-3 justify-between sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
       {address && (
         <div className="flex items-center justify-center gap-x-2">
-          <h5 className="text-gray-900 font-medium dark:text-stone-200">
-            {address}
-          </h5>
+          <h5 className="font-medium text">{address}</h5>
           {geolocation && (
             <Icon className="text-sm text-blue-600" icon="tabler:location" />
           )}
@@ -25,8 +23,8 @@ export const Header = () => {
       )}
 
       <div className="ml-auto flex items-center gap-x-3">
-        <LinkWithIcon href="/search" icon="tabler:search" />
-        <LinkWithIcon href="/settings" icon="tabler:settings" />
+        <LinkWithIcon to="/search" icon="tabler:search" />
+        <LinkWithIcon to="/settings" icon="tabler:settings" />
       </div>
     </header>
   );

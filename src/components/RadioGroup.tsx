@@ -19,7 +19,7 @@ export const RadioGroup = <Value extends unknown>({
     {([stateValue, setStateValue]) => (
       <HeadlessRadioGroup value={stateValue} onChange={setStateValue}>
         {label && <HeadlessRadioGroup.Label>{label}</HeadlessRadioGroup.Label>}
-        <ul className="space-y-1">
+        <ul className="md:space-y-1">
           {options.map(({ value, label }) => (
             <HeadlessRadioGroup.Option
               key={label}
@@ -28,7 +28,7 @@ export const RadioGroup = <Value extends unknown>({
               as="li"
             >
               {({ checked }) => (
-                <label className="py-1 w-full md:text-sm font-medium text-gray-900 dark:text-stone-200 flex justify-between hover:cursor-pointer">
+                <label className="py-1 w-full md:text-sm font-medium text flex justify-between hover:cursor-pointer">
                   {label}
                   <input
                     type="radio"

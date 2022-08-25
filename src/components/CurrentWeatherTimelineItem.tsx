@@ -1,5 +1,5 @@
 import React from 'react';
-import WeatherDetails from '@components/WeatherDetails';
+import { WeatherDetails } from '@components/WeatherDetails';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { formatTemp } from '@utilities/format';
@@ -43,13 +43,13 @@ export const CurrentWeatherTimelineItem = ({
 
   return (
     <Timeline.Item
-      className="text-gray-800 relative flex flex-col justify-between mt-4 pt-2"
+      className="text relative flex flex-col justify-between mt-4 pt-2"
       title="Right now"
       active
       {...timelineItemProps}
     >
       <i
-        className={`wi wi-owm-${icon}-${weather[0].id} weather-icon opacity-50 text-8xl lg:text-9xl text-blue-400 absolute top-7 right-0`}
+        className={`wi wi-owm-${icon}-${weather[0].id} weather-icon text-8xl lg:text-9xl text-blue-400/50 absolute top-7 right-0`}
       />
 
       <h1 className="text-7xl">{formatTemp[selectedTemp](temp.day)}°</h1>

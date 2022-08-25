@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply py-2 px-3 dark:hover:bg-slate-700 font-medium text-sm md:text-base dark:text-stone-200 rounded bg-slate-100 dark:bg-zinc-800 text-gray-900;
+  }
+
+  .text {
+    @apply text-gray-900 dark:text-stone-200;
+  }
+}

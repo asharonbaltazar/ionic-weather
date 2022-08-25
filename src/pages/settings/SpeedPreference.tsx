@@ -27,7 +27,7 @@ export const SpeedPreference = () => {
   return (
     <Fragment>
       <button
-        className="p-2 flex items-center justify-between gap-x-2 w-full dark:hover:bg-slate-700 font-medium dark:text-stone-200 rounded bg-slate-100 dark:bg-zinc-800"
+        className="p-2 flex items-center justify-between gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded bg-slate-100 dark:bg-zinc-800"
         onClick={() => setModalState(!modalState)}
       >
         Wind Speed:

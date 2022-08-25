@@ -3,8 +3,9 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { formatSpeed, formatTemp, getUviIndex } from '@utilities/format';
 import dayjs from 'dayjs';
+import { LabelAndValue } from './LabelAndValue';
 
-interface IProps {
+interface WeatherDetailsProps {
   sunrise?: string;
   sunset?: string;
   humidity: number;
@@ -16,78 +17,46 @@ interface IProps {
   compass?: string;
 }
 
-const WeatherDetails = ({
+export const WeatherDetails = ({
   sunrise,
   sunset,
   humidity,
-  dew_point,
+  dew_point = 0,
   pressure,
-  uvi,
-  wind_speed,
-  pop,
-  compass,
-}: IProps) => {
-  const selectedSpeed = useSelector(
-    (state: RootState) => state.settingsSlice.windSpeedPreference
+  uvi = 0,
+  wind_speed = 0,
+  pop = 0,
+}: WeatherDetailsProps) => {
+  const { timePreference, windSpeedPreference, tempPreference } = useSelector(
+    (state: RootState) => state.settingsSlice
   );
 
-  const selectedTemp = useSelector(
-    (state: RootState) => state.settingsSlice.tempPreference
-  );
-
-  const selectedTime = useSelector(
-    (state: RootState) => state.settingsSlice.timePreference
-  );
-
-  const exactTime = selectedTime === 'h a' ? 'h:mm a' : 'HH:mm';
+  const exactTime = timePreference === 'h a' ? 'h:mm a' : 'HH:mm';
 
   return (
-    <div className="grid grid-cols-2 gap-y-1">
-      <h5>Humidity</h5>
-      <h5 className="place-self-end">{humidity}%</h5>
-      <h5>Pressure</h5>
-      <h5 className="place-self-end">{pressure} mBar</h5>
-      {dew_point && (
-        <>
-          <h5>Dew point</h5>
-          <h5 className="place-self-end">
-            {formatTemp[selectedTemp](dew_point)}°
-          </h5>
-        </>
-      )}
-      {typeof uvi === 'number' && (
-        <>
-          <h5>UVI index</h5>
-          <h5 className="place-self-end">{`${getUviIndex(uvi)}, ${Math.ceil(
-            uvi
-          )}`}</h5>
-        </>
-      )}
-      {wind_speed && (
-        <>
-          <h5>Wind</h5>
-          <h5 className="place-self-end">
-            {formatSpeed[selectedSpeed](wind_speed)}
-            {`${selectedSpeed === 'kilometers' ? 'km/h' : 'mph'} ${compass}`}
-          </h5>
-        </>
-      )}
-      {pop && pop > 0.1 ? (
-        <>
-          <h5>Chance of rain</h5>
-          <h5 className="place-self-end">{Math.floor(pop * 100)}%</h5>
-        </>
-      ) : null}
-      {sunrise && sunset && (
-        <>
-          <h5>Sunrise/sunset</h5>
-          <h5 className="place-self-end">{`${dayjs(sunrise).format(
-            exactTime
-          )}, ${dayjs(sunset).format(exactTime)}`}</h5>
-        </>
-      )}
+    <div className="flex flex-col">
+      <LabelAndValue label="Humidity" value={humidity} />
+      <LabelAndValue label="Pressure" value={`${pressure} mBar`} />
+      <LabelAndValue
+        label="Dew point"
+        value={formatTemp[tempPreference](dew_point)}
+      />
+      <LabelAndValue
+        label="UVI index"
+        value={`${getUviIndex(uvi)}, ${Math.ceil(uvi)}`}
+      />
+      <LabelAndValue
+        label="Wind"
+        value={`${formatSpeed[windSpeedPreference](wind_speed)}`}
+      />
+
+      <LabelAndValue label="Change of rain" value={Math.floor(pop * 100)} />
+      <LabelAndValue
+        label="Sunrise/sunset"
+        value={`${dayjs(sunrise).format(exactTime)}, ${dayjs(sunset).format(
+          exactTime
+        )}`}
+      />
     </div>
   );
 };
-
-export default WeatherDetails;
