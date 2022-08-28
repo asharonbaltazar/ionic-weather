@@ -2,8 +2,8 @@ import React from 'react';
 import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
-import { CurrentWeatherTimelineItem } from './MainWeatherForecast';
-import { LinkButtonWithIcon } from 'src/components/LInkButtonWithIcon';
+import { MainWeatherForecast } from '@pages/main/MainWeatherForecast';
+import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 
 export const WeatherContent = () => {
   const weather = useSelector((state: RootState) => state.weatherSlice);
@@ -14,7 +14,7 @@ export const WeatherContent = () => {
 
   return (
     <main className="px-3 mt-4 space-y-5">
-      <CurrentWeatherTimelineItem day="today" />
+      <MainWeatherForecast day="today" />
       <div className="space-y-2">
         <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
           Hourly Forecast
