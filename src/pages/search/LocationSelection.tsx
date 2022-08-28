@@ -2,7 +2,7 @@ import React from 'react';
 
 import { useAppDispatch } from '@store';
 import { getWeatherByGeolocation } from '@slices/weatherSlice';
-import { LocationResults } from '@pages/search/LocationResults';
+import { LocationResults } from 'src/pages/Search/LocationResults';
 
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 

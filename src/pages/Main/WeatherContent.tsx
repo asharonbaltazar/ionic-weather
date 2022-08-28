@@ -1,8 +1,8 @@
 import React from 'react';
-import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
+import { MainPlaceholder } from 'src/pages/Main/MainPagePlaceholder';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
-import { MainWeatherForecast } from '@pages/main/MainWeatherForecast';
+import { MainWeatherForecast } from 'src/pages/Main/MainWeatherForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 
 export const WeatherContent = () => {

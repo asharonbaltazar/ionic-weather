@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { LocationInput } from '@pages/search/LocationInput';
-import { LocationSelection } from '@pages/search/LocationSelection';
-import { GoogleAttribution } from '@pages/search/GoogleAttribution';
+import { LocationInput } from 'src/pages/Search/LocationInput';
+import { LocationSelection } from 'src/pages/Search/LocationSelection';
+import { GoogleAttribution } from 'src/pages/Search/GoogleAttribution';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { useAppDispatch } from '@store';
 import { resetQueries } from '@slices/searchSlice';
