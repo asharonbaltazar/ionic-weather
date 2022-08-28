@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { formatSpeed, formatTemp, getUviIndex } from '@utilities/format';
 import dayjs from 'dayjs';
-import { LabelAndValue } from './LabelAndValue';
+import { LabelAndValue } from '@components/LabelAndValue';
 
 interface WeatherDetailsProps {
   sunrise?: string;
@@ -36,7 +36,9 @@ export const WeatherDetails = ({
   return (
     <div className="flex flex-col">
       <LabelAndValue label="Humidity" value={humidity} />
+
       <LabelAndValue label="Pressure" value={`${pressure} mBar`} />
+
       <LabelAndValue
         label="Dew point"
         value={formatTemp[tempPreference](dew_point)}
@@ -51,6 +53,7 @@ export const WeatherDetails = ({
       />
 
       <LabelAndValue label="Change of rain" value={Math.floor(pop * 100)} />
+
       <LabelAndValue
         label="Sunrise/sunset"
         value={`${dayjs(sunrise).format(exactTime)}, ${dayjs(sunset).format(

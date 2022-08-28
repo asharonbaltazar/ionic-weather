@@ -3,6 +3,7 @@ import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
 import { LinkWithIcon } from '@components/LinkWithIcon';
+import clsx from 'clsx';
 
 export const Header = () => {
   const { selectedWeather } = useSelector(
@@ -12,20 +13,23 @@ export const Header = () => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <header className="flex items-center py-2 px-3 md:p-3 justify-between sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
+    <header className="flex items-center py-2 px-3 md:p-3 sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
+      <span className={clsx({ 'flex-0': address, 'ml-auto mr-2': !address })}>
+        <LinkWithIcon to="/search" icon="tabler:search" />
+      </span>
+
       {address && (
-        <div className="flex items-center justify-center gap-x-2">
+        <span className="flex items-center flex-grow justify-center gap-x-2">
           <h5 className="font-medium text">{address}</h5>
           {geolocation && (
             <Icon className="text-sm text-blue-600" icon="tabler:location" />
           )}
-        </div>
+        </span>
       )}
 
-      <div className="ml-auto flex items-center gap-x-3">
-        <LinkWithIcon to="/search" icon="tabler:search" />
+      <span className="flex-0">
         <LinkWithIcon to="/settings" icon="tabler:settings" />
-      </div>
+      </span>
     </header>
   );
 };
