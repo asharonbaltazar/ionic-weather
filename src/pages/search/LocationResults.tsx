@@ -3,7 +3,7 @@ import { RootState, useAppDispatch } from '@store';
 import { setRecentQuery } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice';
 import { useSelector } from 'react-redux';
-import { SkeletonResults } from 'src/pages/Search/SkeletonResults';
+import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { useHistory } from 'react-router';
 import { Icon } from '@iconify/react';

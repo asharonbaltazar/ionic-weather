@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import { Main } from 'src/pages/Main/Main';
-import { Settings } from 'src/pages/Settings/Settings';
-import { Search } from 'src/pages/Search/Search';
-import { Weekly } from 'src/pages/Weekly/Weekly';
-import { Hourly } from 'src/pages/Hourly/Hourly';
+import { Main } from '@pages/Main/Main';
+import { Settings } from '@pages/settings/Settings';
+import { Search } from '@pages/search/Search';
+import { Weekly } from '@pages/weekly/Weekly';
+import { Hourly } from '@pages/hourly/Hourly';
 
 const App = () => (
   <BrowserRouter>
