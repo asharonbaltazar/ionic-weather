@@ -13,14 +13,14 @@ export const Header = () => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <header className="flex items-center py-2 px-3 md:p-3 sticky top-0 inset-x-0 dark:bg-stone-900 z-10">
+    <header className="flex items-center p-3 sticky top-0 inset-x-0 bg-white dark:bg-stone-900 z-10">
       <span className={clsx({ 'flex-0': address, 'ml-auto mr-2': !address })}>
         <LinkWithIcon to="/search" icon="tabler:search" />
       </span>
 
       {address && (
         <span className="flex items-center flex-grow justify-center gap-x-2">
-          <h5 className="font-medium text">{address}</h5>
+          <h5 className="font-medium text-xl text">{address}</h5>
           {geolocation && (
             <Icon className="text-sm text-blue-600" icon="tabler:location" />
           )}
