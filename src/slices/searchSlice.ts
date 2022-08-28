@@ -66,6 +66,7 @@ export const searchSlice = createSlice({
     builder.addCase(getPlacesBySearch.fulfilled, (state, action) => {
       state.queries = action.payload;
       state.loading = false;
+      state.errors = [];
     });
     builder.addCase(getPlacesBySearch.rejected, (state, action) => {
       if (typeof action.payload === 'string') {

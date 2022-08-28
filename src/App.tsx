@@ -1,40 +1,22 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from 'src/store';
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
-import { IonReactRouter } from '@ionic/react-router';
+import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import ScreenLoader from '@components/ScreenLoader';
-import Main from '@pages/Main';
-import SettingsModal from '@pages/Settings';
-import SearchModal from '@pages/Search';
-import Week from '@pages/Week';
-import { AppProvider as ContextProvider } from '@context/app-context';
+import { Main } from 'src/pages/Main/Main';
+import { Settings } from 'src/pages/Settings/Settings';
+import { Search } from 'src/pages/Search/Search';
+import { Weekly } from 'src/pages/Weekly/Weekly';
+import { Hourly } from 'src/pages/Hourly/Hourly';
 
-setupIonicReact();
-const App = () => {
-  const { selectedWeather } = useSelector(
-    (state: RootState) => state.weatherSlice
-  );
-
-  return (
-    <ContextProvider>
-      <IonApp>
-        <IonReactRouter>
-          <IonRouterOutlet>
-            <Route exact path="/" component={Main} />
-            <Route path="/search" component={SearchModal} />
-            <Route path="/settings" component={SettingsModal} />
-            <Route path="/week">
-              {selectedWeather?.weather ? <Week /> : <Redirect to="/" />}
-            </Route>
-          </IonRouterOutlet>
-          <ScreenLoader />
-        </IonReactRouter>
-      </IonApp>
-    </ContextProvider>
-  );
-};
+const App = () => (
+  <BrowserRouter>
+    <Switch>
+      <Route path="/settings" component={Settings} />
+      <Route path="/search" component={Search} />
+      <Route path="/hourly" component={Hourly} />
+      <Route path="/weekly" component={Weekly} />
+      <Route path="/" exact component={Main} />
+    </Switch>
+  </BrowserRouter>
+);
 
 export default App;
