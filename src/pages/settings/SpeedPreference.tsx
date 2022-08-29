@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { changeWindSpeedPreference } from '@slices/settingsSlice';
@@ -27,7 +27,7 @@ export const SpeedPreference = () => {
   return (
     <Fragment>
       <button
-        className="p-2 flex items-center justify-between gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded bg-slate-100 dark:bg-zinc-800"
+        className="text flex w-full items-center justify-between gap-x-2 rounded bg-slate-100 p-2 font-medium dark:bg-zinc-800 dark:hover:bg-slate-700"
         onClick={() => setModalState(!modalState)}
       >
         Wind Speed:

@@ -44,9 +44,10 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     }),
+  devTools: import.meta.env.PROD ? false : true,
 });
 
-export let persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 // Type definitions
 export type AppDispatch = typeof store.dispatch;

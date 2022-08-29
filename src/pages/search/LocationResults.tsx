@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import { Fragment } from 'react';
 import { RootState, useAppDispatch } from '@store';
 import { setRecentQuery } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice';
@@ -42,7 +42,7 @@ export const LocationResults = () => {
               onClick={() => getLatLong(text, place_id)}
             >
               {text.mainText}
-              <span className="text-gray-400 block">{text.secondaryText}</span>
+              <span className="block text-gray-400">{text.secondaryText}</span>
             </ButtonWithIcon>
           </li>
         ))}
@@ -54,7 +54,7 @@ export const LocationResults = () => {
     return (
       <Fragment>
         <li>
-          <span className="text-gray-500 text-sm pl-1 font-medium">
+          <span className="pl-1 text-sm font-medium text-gray-500">
             Recent searches
           </span>
         </li>
@@ -75,7 +75,7 @@ export const LocationResults = () => {
 
   if (errors.length) {
     return (
-      <li className="space-y-4 flex flex-col items-center w-full mt-24">
+      <li className="mt-24 flex w-full flex-col items-center space-y-4">
         <Icon
           className="text-9xl text-blue-500/50 dark:text-blue-300/50"
           icon="tabler:map-off"
@@ -93,7 +93,7 @@ export const LocationResults = () => {
   }
 
   return (
-    <li className="space-y-4 flex flex-col items-center w-full mt-24">
+    <li className="mt-24 flex w-full flex-col items-center space-y-4">
       <Icon
         className="text-9xl text-blue-500/50 dark:text-blue-300/50"
         icon="tabler:map-search"

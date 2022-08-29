@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 
 export const Weekly = () => (

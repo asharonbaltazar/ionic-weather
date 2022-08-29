@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { Icon } from '@iconify/react';
 import { Link, LinkProps } from 'react-router-dom';
 
@@ -14,20 +14,20 @@ export const LinkButtonWithIcon = ({
   ...linkProps
 }: LinkButtonWithIconProps) => (
   <Link
-    className="p-3 md:p-2.5 flex items-center justify-between w-full dark:hover:bg-slate-700 font-medium text rounded-3xl bg-slate-100 dark:bg-zinc-800 "
+    className="text flex w-full items-center justify-between rounded-3xl bg-slate-100 p-3 font-medium dark:bg-zinc-800 dark:hover:bg-slate-700 md:p-2.5 "
     type={type}
     {...linkProps}
   >
     <span className="flex items-center gap-x-2">
       <Icon
-        className="text-2xl md:text-3xl text-blue-500 dark:text-slate-400"
+        className="text-2xl text-blue-500 dark:text-slate-400 md:text-3xl"
         icon={icon}
       />
       {children}
     </span>
 
     <Icon
-      className="text-2xl md:text-3xl text-blue-500 dark:text-slate-400"
+      className="text-2xl text-blue-500 dark:text-slate-400 md:text-3xl"
       icon="tabler:arrow-up-right"
     />
   </Link>

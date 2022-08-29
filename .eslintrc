@@ -3,9 +3,16 @@
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "prettier",
+    "plugin:tailwindcss/recommended"
   ],
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "import",
+    "prettier",
+    "tailwindcss"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -21,6 +28,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "arrow-body-style": ["error", "as-needed"]
+    "arrow-body-style": ["error", "as-needed"],
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off"
   }
 }
