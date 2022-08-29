@@ -13,7 +13,7 @@ export const Header = () => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <header className="flex items-center p-3 sticky top-0 inset-x-0 bg-white dark:bg-stone-900 z-10">
+    <header className="flex items-center p-3 sticky top-0 inset-x-0 bg-white dark:bg-stone-900 z-10 shadow-sm dark:shadow-none">
       <span className={clsx({ 'flex-0': address, 'ml-auto mr-2': !address })}>
         <LinkWithIcon to="/search" icon="tabler:search" />
       </span>
