@@ -14,12 +14,12 @@ export const ButtonWithIcon = ({
   ...buttonElementProps
 }: ButtonWithIconProps) => (
   <button
-    className="p-3 md:p-2.5 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded bg-slate-100 dark:bg-zinc-800 "
+    className="text flex w-full items-center gap-x-2 rounded bg-slate-100 p-3 font-medium dark:bg-zinc-800 dark:hover:bg-slate-700 md:p-2.5 "
     type={type}
     {...buttonElementProps}
   >
     <Icon
-      className="text-2xl md:text-3xl text-blue-500 dark:text-slate-400"
+      className="text-2xl text-blue-500 dark:text-slate-400 md:text-3xl"
       icon={icon}
     />
     {children}

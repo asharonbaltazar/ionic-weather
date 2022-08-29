@@ -23,16 +23,16 @@ export const RadioGroup = <Value,>({
           {options.map(({ value, label: optionLabel }) => (
             <HeadlessRadioGroup.Option
               key={optionLabel}
-              className="flex justify-between items-center"
+              className="flex items-center justify-between"
               value={value}
               as="li"
             >
               {({ checked }) => (
-                <label className="py-1 w-full md:text-sm font-medium text flex justify-between hover:cursor-pointer">
+                <label className="text flex w-full justify-between py-1 font-medium hover:cursor-pointer md:text-sm">
                   {optionLabel}
                   <input
                     type="radio"
-                    className="w-4 h-4"
+                    className="h-4 w-4"
                     checked={checked}
                     readOnly
                   />
@@ -42,15 +42,15 @@ export const RadioGroup = <Value,>({
           ))}
         </ul>
 
-        <div className="flex justify-end items-center gap-x-2 mt-6">
+        <div className="mt-6 flex items-center justify-end gap-x-2">
           <button
-            className="md:text-sm font-medium dark:hover:bg-slate-700 hover:bg-slate-300 rounded-lg px-5 py-2 dark:bg-slate-600"
+            className="rounded-lg px-5 py-2 font-medium hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 md:text-sm"
             onClick={() => onChange(currentValue)}
           >
             Cancel
           </button>
           <button
-            className="md:text-sm font-medium dark:hover:bg-slate-700 rounded-lg px-5 py-2 dark:bg-slate-600 bg-slate-200 hover:bg-slate-300"
+            className="rounded-lg bg-slate-200 px-5 py-2 font-medium hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 md:text-sm"
             onClick={() => onChange(stateValue)}
           >
             Ok

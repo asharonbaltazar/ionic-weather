@@ -18,7 +18,7 @@ export const Switch = ({ checked, onChange = () => {} }: SwitchProps) => (
     <span
       className={`${
         checked ? 'translate-x-6' : 'translate-x-1'
-      } inline-block h-4 w-4 transform rounded-full bg-white`}
+      } inline-block h-4 w-4 rounded-full bg-white`}
     />
   </HeadlessSwitch>
 );

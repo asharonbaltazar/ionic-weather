@@ -9,10 +9,10 @@ interface LinkWithIconProps extends LinkProps {
 export const LinkWithIcon = ({ icon, ...linkProps }: LinkWithIconProps) => (
   <Link
     {...linkProps}
-    className="p-1 flex items-center gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded"
+    className="text flex w-full items-center gap-x-2 rounded p-1 font-medium dark:hover:bg-slate-700"
   >
     <Icon
-      className="text-2xl md:text-3xl text-blue-500 dark:text-slate-400"
+      className="text-2xl text-blue-500 dark:text-slate-400 md:text-3xl"
       icon={icon}
     />
   </Link>
