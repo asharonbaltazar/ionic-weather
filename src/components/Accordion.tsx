@@ -1,4 +1,4 @@
-import React, { Fragment, ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { Disclosure } from '@headlessui/react';
 import { Icon } from '@iconify/react';
 

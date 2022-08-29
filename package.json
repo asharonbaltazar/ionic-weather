@@ -20,12 +20,12 @@
     "react-router": "^5.1.2",
     "react-router-dom": "^5.1.2",
     "redux-persist": "^6.0.0",
-    "typescript": "^3.8.3"
+    "typescript": "^4.7.3"
   },
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "lint": "tsc --noEmit && eslint src/**/*.ts{,x}",
+    "lint": "eslint src/**/*.ts{,x}",
     "lint:fix": "npm run lint -- --fix",
     "format": "prettier --write src/**/*.ts{,x}"
   },

@@ -29,6 +29,7 @@
   },
   "rules": {
     "arrow-body-style": ["error", "as-needed"],
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/react-in-jsx-scope": "off"
   }
 }

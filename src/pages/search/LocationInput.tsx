@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getPlacesBySearch,
@@ -33,7 +33,7 @@ export const LocationInput = () => {
   };
 
   return (
-    <div className="px-3 mt-4">
+    <div className="mt-4 px-3">
       <Input
         placeholder="e.g. Baltimore"
         label="City Name"

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import { Fragment, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { changeTempPreference } from '@slices/settingsSlice';
@@ -28,7 +28,7 @@ export const TempPreference = () => {
   return (
     <Fragment>
       <button
-        className="p-2 flex items-center justify-between gap-x-2 w-full dark:hover:bg-slate-700 font-medium dark:text-stone-200 rounded bg-slate-100 dark:bg-zinc-800"
+        className="flex w-full items-center justify-between gap-x-2 rounded bg-slate-100 p-2 font-medium dark:bg-zinc-800 dark:text-stone-200 dark:hover:bg-slate-700"
         onClick={() => setModalState(!modalState)}
       >
         Temperature: <span className="capitalize">{tempPreference}</span>

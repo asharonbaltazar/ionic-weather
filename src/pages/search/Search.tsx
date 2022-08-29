@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { LocationInput } from '@pages/search/LocationInput';
 import { LocationSelection } from '@pages/search/LocationSelection';
 import { GoogleAttribution } from '@pages/search/GoogleAttribution';
@@ -9,14 +9,15 @@ import { resetQueries } from '@slices/searchSlice';
 export const Search = () => {
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(resetQueries());
-    };
-  }, []);
+    },
+    [dispatch]
+  );
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex h-screen flex-col">
       <HeaderWithBackButton title="Search" />
       <LocationInput />
 

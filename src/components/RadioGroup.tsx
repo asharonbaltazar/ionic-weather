@@ -1,4 +1,3 @@
-import React from 'react';
 import { RadioGroup as HeadlessRadioGroup } from '@headlessui/react';
 import { State } from '@components/State';
 

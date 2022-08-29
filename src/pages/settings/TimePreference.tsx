@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState, useAppDispatch } from '@store';
 import { changeTimePreference } from '@slices/settingsSlice';
@@ -17,9 +16,9 @@ export const TimePreference = () => {
     dispatch(changeTimePreference(checked ? 'h a' : 'HH:mm'));
 
   return (
-    <div className="flex justify-between items-center">
+    <div className="flex items-center justify-between">
       <button
-        className="p-2 flex items-center justify-between gap-x-2 w-full dark:hover:bg-slate-700 font-medium text rounded bg-slate-100 dark:bg-zinc-800"
+        className="text flex w-full items-center justify-between gap-x-2 rounded bg-slate-100 p-2 font-medium dark:bg-zinc-800 dark:hover:bg-slate-700"
         onClick={onClick}
       >
         24 Hour Format:

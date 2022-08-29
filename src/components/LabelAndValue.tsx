@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface LabelAndValueProps {
   label: string;
   value?: string | number;

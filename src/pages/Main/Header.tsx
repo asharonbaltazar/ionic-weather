@@ -1,4 +1,3 @@
-import React from 'react';
 import { Icon } from '@iconify/react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store';
@@ -13,21 +12,23 @@ export const Header = () => {
   const { address, geolocation } = selectedWeather;
 
   return (
-    <header className="flex items-center p-3 sticky top-0 inset-x-0 bg-white dark:bg-stone-900 z-10 shadow-sm dark:shadow-none">
-      <span className={clsx({ 'flex-0': address, 'ml-auto mr-2': !address })}>
+    <header className="sticky inset-x-0 top-0 z-10 flex items-center bg-white p-3 shadow-sm dark:bg-stone-900 dark:shadow-none">
+      <span
+        className={clsx({ 'flex-none': address, 'ml-auto mr-2': !address })}
+      >
         <LinkWithIcon to="/search" icon="tabler:search" />
       </span>
 
       {address && (
-        <span className="flex items-center flex-grow justify-center gap-x-2">
-          <h5 className="font-medium text-xl text">{address}</h5>
+        <span className="flex grow items-center justify-center gap-x-2">
+          <h5 className="text text-xl font-medium">{address}</h5>
           {geolocation && (
             <Icon className="text-sm text-blue-600" icon="tabler:location" />
           )}
         </span>
       )}
 
-      <span className="flex-0">
+      <span className="flex-none">
         <LinkWithIcon to="/settings" icon="tabler:settings" />
       </span>
     </header>

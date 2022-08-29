@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
 import { Main } from '@pages/Main/Main';
