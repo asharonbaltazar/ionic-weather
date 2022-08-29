@@ -9,7 +9,7 @@ interface RadioGroupProps<Value> {
   onChange: (newValue: Value) => void;
 }
 
-export const RadioGroup = <Value extends unknown>({
+export const RadioGroup = <Value,>({
   label,
   value: currentValue,
   options,
@@ -20,16 +20,16 @@ export const RadioGroup = <Value extends unknown>({
       <HeadlessRadioGroup value={stateValue} onChange={setStateValue}>
         {label && <HeadlessRadioGroup.Label>{label}</HeadlessRadioGroup.Label>}
         <ul className="md:space-y-1">
-          {options.map(({ value, label }) => (
+          {options.map(({ value, label: optionLabel }) => (
             <HeadlessRadioGroup.Option
-              key={label}
+              key={optionLabel}
               className="flex justify-between items-center"
               value={value}
               as="li"
             >
               {({ checked }) => (
                 <label className="py-1 w-full md:text-sm font-medium text flex justify-between hover:cursor-pointer">
-                  {label}
+                  {optionLabel}
                   <input
                     type="radio"
                     className="w-4 h-4"

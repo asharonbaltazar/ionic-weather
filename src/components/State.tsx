@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import { useState, Dispatch, SetStateAction } from 'react';
 
 interface StateProps<State> {
   state: State;
-  children(state: [State, (newState: State) => void]): JSX.Element;
+  children(state: [State, Dispatch<SetStateAction<State>>]): JSX.Element;
 }
 
-export const State = <State extends unknown>({
-  state,
-  children,
-}: StateProps<State>) => {
+export const State = <State,>({ state, children }: StateProps<State>) => {
   const componentState = useState(state);
 
   return children(componentState);

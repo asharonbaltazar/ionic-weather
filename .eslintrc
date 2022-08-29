@@ -3,9 +3,9 @@
     "airbnb-typescript",
     "airbnb/hooks",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "prettier"
   ],
-  "plugins": ["react", "@typescript-eslint", "import"],
+  "plugins": ["react", "@typescript-eslint", "import", "prettier"],
   "env": {
     "browser": true,
     "es6": true,
@@ -21,6 +21,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "arrow-body-style": ["error", "as-needed"]
+    "arrow-body-style": ["error", "as-needed"],
+    "prettier/prettier": "error",
+    "indent": "off"
   }
 }

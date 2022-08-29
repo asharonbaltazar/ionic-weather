@@ -6,7 +6,7 @@ import {
   fetchWeatherData,
   fetchGooglePlacesById,
 } from '@utilities/fetch';
-import { geolocation } from '@utilities/geolocation';
+import { getGeolocation } from '@utilities/geolocation';
 
 export const getWeather = createAsyncThunk<
   SelectedWeather,
@@ -46,7 +46,7 @@ export const getWeatherByGeolocation = createAsyncThunk<
 >('weather/getWeatherByGeolocation', async (_, { rejectWithValue }) => {
   // geolocation coordinates
   try {
-    const { coords } = await geolocation();
+    const { coords } = await getGeolocation();
 
     if (typeof coords === 'string')
       return rejectWithValue(

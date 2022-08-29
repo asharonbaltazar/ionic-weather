@@ -46,7 +46,7 @@ export const store = configureStore({
     }),
 });
 
-export let persistor = persistStore(store);
+export const persistor = persistStore(store);
 
 // Type definitions
 export type AppDispatch = typeof store.dispatch;
