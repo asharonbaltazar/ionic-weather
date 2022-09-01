@@ -10,7 +10,7 @@
       "@slices/*": ["src/slices/*"],
       "@pages/*": ["src/pages/*"],
       "@utilities/*": ["src/utilities/*"],
-      "@context/*": ["src/context/*"]
+      "@functions/*": ["./functions/src/*"]
     },
     /* Type Checking */
     "strict": true,
