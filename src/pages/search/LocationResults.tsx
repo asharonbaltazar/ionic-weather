@@ -19,11 +19,11 @@ export const LocationResults = () => {
     (state: RootState) => state.searchSlice
   );
 
-  const getLatLong = (text: Text, id: string) => {
+  const getLatLong = (text: Text, placeId: string) => {
     setTimeout(() => {
-      dispatch(setRecentQuery({ text, id }));
+      dispatch(setRecentQuery({ text, placeId }));
     }, 200);
-    dispatch(getWeather(id));
+    dispatch(getWeather(placeId));
 
     history.goBack();
   };
@@ -35,11 +35,11 @@ export const LocationResults = () => {
   if (queries.length) {
     return (
       <Fragment>
-        {queries.map(({ place_id, text }: any) => (
-          <li key={place_id} className="w-full">
+        {queries.map(({ placeId, text }) => (
+          <li key={placeId} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, place_id)}
+              onClick={() => getLatLong(text, placeId)}
             >
               {text.mainText}
               <span className="block text-gray-400">{text.secondaryText}</span>
@@ -58,11 +58,11 @@ export const LocationResults = () => {
             Recent searches
           </span>
         </li>
-        {recentQueries.map(({ text, id }: any, i) => (
+        {recentQueries.map(({ text, placeId }, i) => (
           <li key={i} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, id)}
+              onClick={() => getLatLong(text, placeId)}
             >
               {text.mainText}
               <span className="text-gray-400">{text.secondaryText}</span>
