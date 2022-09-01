@@ -9,29 +9,22 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import { FunctionsResponse, GMapPrediction } from '@functions/types';
+
 dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isSameOrBefore);
 
 // Search queries
-export const fetchPlacesBySearch = async (query: string) => {
-  const { data } = await axios.get(
-    `${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`
-  );
-
-  if (data.status === 'OK' && data.predictions.length) {
-    const formattedResults = data.predictions.map((element: any) => ({
-      text: {
-        mainText: element.structured_formatting.main_text,
-        secondaryText: element.structured_formatting.secondary_text,
-      },
-      place_id: element.place_id,
-    }));
-
-    return formattedResults;
+export const fetchPredictions = async (query: string) => {
+  try {
+    const { data } = await axios.get<FunctionsResponse<GMapPrediction[]>>(
+      `${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`
+    );
+    return data;
+  } catch (error) {
+    return { data: [], msg: 'Woops! Something happened :(' };
   }
-
-  return data;
 };
 
 // Google Places ID

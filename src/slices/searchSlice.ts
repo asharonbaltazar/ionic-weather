@@ -1,6 +1,6 @@
 import { GMapPrediction } from '@functions/types';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPlacesBySearch } from '@utilities/fetch';
+import { fetchPredictions } from '@utilities/fetch';
 
 interface SearchState {
   queries: GMapPrediction[];
@@ -12,7 +12,7 @@ interface SearchState {
 export const getPlacesBySearch = createAsyncThunk(
   'search/predictions',
   async (query: string, { rejectWithValue }) => {
-    const { msg, data: predictions } = await fetchPlacesBySearch(query);
+    const { msg, data: predictions } = await fetchPredictions(query);
 
     if (msg) {
       return rejectWithValue(msg);
