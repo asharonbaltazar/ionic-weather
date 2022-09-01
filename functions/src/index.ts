@@ -2,6 +2,7 @@ import { config } from 'firebase-functions';
 import axios from 'axios';
 import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
 import { onRequest } from '@api';
+import { getFormattedGMapPredictions } from '@helpers';
 
 // GOOGLE PLACES AUTOCOMPLETE
 export const getGMapSuggestions = onRequest(async (request, response) => {
@@ -18,14 +19,16 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.status(200).send(data);
+    const predictions = getFormattedGMapPredictions(data);
+
+    return response.status(200).send({ data: predictions, msg: '' });
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ data: [], msg: 'No city found' });
   }
 
-  return response.status(200).send({ predictions: [] });
+  return response.status(200).send({ data: [], msg: '' });
 });
 
 // COORDINATES VIA GOOGLE PLACE ID

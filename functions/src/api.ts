@@ -10,7 +10,9 @@ export const onRequest = (fn: (request: Request, response: Response) => void) =>
         return fn(request, response);
       } catch (error) {
         logger.error(error);
-        return response.status(500).send('Internal Server Error');
+        return response
+          .status(500)
+          .send({ data: [], msg: 'Internal Server Error' });
       }
     })
   );
