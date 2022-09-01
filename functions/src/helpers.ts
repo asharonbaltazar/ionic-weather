@@ -1,8 +1,9 @@
 import { PlaceAutocompleteResponse } from '@google/maps';
+import { GMapPrediction } from '@types';
 
 export const getFormattedGMapPredictions = ({
   predictions,
-}: PlaceAutocompleteResponse) =>
+}: PlaceAutocompleteResponse): GMapPrediction[] =>
   predictions.map((prediction) => ({
     text: {
       mainText: prediction.structured_formatting.main_text,
