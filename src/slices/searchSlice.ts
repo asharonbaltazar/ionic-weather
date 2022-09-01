@@ -1,29 +1,24 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { GMapPrediction } from '@functions/types';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { fetchPlacesBySearch } from '@utilities/fetch';
 
-type SearchQuery = {
-  label: string;
-  id: string;
-};
-
-interface InitialState {
-  queries: SearchQuery[];
-  recentQueries: SearchQuery[];
+interface SearchState {
+  queries: GMapPrediction[];
+  recentQueries: GMapPrediction[];
   errors: string[];
   loading: boolean;
 }
 
-// Thunk functions
 export const getPlacesBySearch = createAsyncThunk(
-  'search/fetchSearch',
+  'search/predictions',
   async (query: string, { rejectWithValue }) => {
-    const formattedResults = await fetchPlacesBySearch(query);
+    const { msg, data: predictions } = await fetchPlacesBySearch(query);
 
-    if (typeof formattedResults === 'string') {
-      return rejectWithValue(formattedResults);
+    if (msg) {
+      return rejectWithValue(msg);
     }
 
-    return formattedResults;
+    return predictions;
   }
 );
 
@@ -35,7 +30,7 @@ export const searchSlice = createSlice({
     recentQueries: [],
     errors: [],
     loading: false,
-  } as InitialState,
+  } as SearchState,
   reducers: {
     resetQueries: (state) => {
       state.queries = [];
@@ -46,9 +41,9 @@ export const searchSlice = createSlice({
       state.errors = [];
     },
 
-    setRecentQuery: (state, action) => {
+    setRecentQuery: (state, action: PayloadAction<GMapPrediction>) => {
       state.recentQueries = state.recentQueries.filter(
-        (element) => element.id !== action.payload.id
+        (element) => element.placeId !== action.payload.placeId
       );
 
       if (state.recentQueries.length >= 5) {
