@@ -12,7 +12,7 @@ export const onRequest = (fn: (request: Request, response: Response) => void) =>
         logger.error(error);
         return response
           .status(500)
-          .send({ data: [], msg: 'Internal Server Error' });
+          .send({ data: [], error: 'Internal Server Error' });
       }
     })
   );

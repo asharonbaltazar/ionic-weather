@@ -1,7 +1,8 @@
-export interface FunctionsResponse<T> {
-  data: T;
-  msg: string;
-}
+export type FunctionsResponse<T> =
+  | T
+  | {
+      error: string;
+    };
 
 export interface GMapPrediction {
   text: {
@@ -9,4 +10,10 @@ export interface GMapPrediction {
     secondaryText: string;
   };
   placeId: string;
+}
+
+export interface GMapGeocodeResult {
+  formattedAddress: string;
+  lat: number;
+  lng: number;
 }

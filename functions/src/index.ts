@@ -2,14 +2,17 @@ import { config } from 'firebase-functions';
 import axios from 'axios';
 import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
 import { onRequest } from '@api';
-import { getFormattedGMapPredictions } from '@helpers';
+import {
+  getFirstGMapGeocodeResult,
+  getFormattedGMapPredictions,
+} from '@helpers';
 
 // GOOGLE PLACES AUTOCOMPLETE
 export const getGMapSuggestions = onRequest(async (request, response) => {
   const { query = '' } = request.query;
 
   if (query === '') {
-    return response.status(400).send('City query has no length');
+    return response.status(400).send({ error: 'City query has no length' });
   }
 
   const { data } = await axios.get<PlaceAutocompleteResponse>(
@@ -21,14 +24,14 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
   if (data.status === 'OK') {
     const predictions = getFormattedGMapPredictions(data);
 
-    return response.status(200).send({ data: predictions, msg: '' });
+    return response.status(200).send(predictions);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send({ data: [], msg: 'No city found' });
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ data: [], msg: '' });
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // COORDINATES VIA GOOGLE PLACE ID
@@ -36,7 +39,9 @@ export const getGPlaceId = onRequest(async (request, response) => {
   const { id = '' } = request.query;
 
   if (id === '') {
-    return response.status(400).send('Geocoding ID has no length');
+    return response
+      .status(400)
+      .send({ data: {}, error: 'Geocoding ID has no length' });
   }
 
   const { data } = await axios.get<GeocodingResponse>(
@@ -46,14 +51,16 @@ export const getGPlaceId = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.status(200).send(data);
+    const geocodeResult = getFirstGMapGeocodeResult(data);
+
+    return response.status(200).send(geocodeResult);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ results: [] });
+  return response.status(200).send({ data: {} });
 });
 
 // WEATHER VIA COORDINATES
