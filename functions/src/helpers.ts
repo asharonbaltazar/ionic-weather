@@ -1,8 +1,8 @@
-import { PlaceAutocompleteResponse } from '@google/maps';
-import { GMapPrediction } from '@types';
+import { GeocodingResponse, PlaceAutocompleteResponse } from '@google/maps';
+import { GMapGeocodeResult, GMapPrediction } from '@types';
 
 export const getFormattedGMapPredictions = ({
-  predictions,
+  predictions = [],
 }: PlaceAutocompleteResponse): GMapPrediction[] =>
   predictions.map((prediction) => ({
     text: {
@@ -11,3 +11,18 @@ export const getFormattedGMapPredictions = ({
     },
     placeId: prediction.place_id,
   }));
+
+export const getFirstGMapGeocodeResult = ({
+  results,
+}: GeocodingResponse): GMapGeocodeResult => {
+  const [firstGeoCodeResult] = results;
+
+  const {
+    formatted_address: formattedAddress,
+    geometry: {
+      location: { lat, lng },
+    },
+  } = firstGeoCodeResult;
+
+  return { formattedAddress, lat, lng };
+};

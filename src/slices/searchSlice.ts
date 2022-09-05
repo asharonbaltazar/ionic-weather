@@ -1,6 +1,7 @@
-import { GMapPrediction } from '@functions/types';
+import { FunctionsResponse, GMapPrediction } from '@functions/types';
+import { hasError } from '@utilities/api';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPredictions } from '@utilities/fetch';
+import axios from 'axios';
 
 interface SearchState {
   queries: GMapPrediction[];
@@ -12,13 +13,20 @@ interface SearchState {
 export const getPlacesBySearch = createAsyncThunk(
   'search/predictions',
   async (query: string, { rejectWithValue }) => {
-    const { msg, data: predictions } = await fetchPredictions(query);
+    try {
+      const { data = [] } = await axios.get<
+        FunctionsResponse<GMapPrediction[]>
+      >(`${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`);
 
-    if (msg) {
-      return rejectWithValue(msg);
+      if (hasError(data)) {
+        return rejectWithValue(data.error);
+      }
+
+      return data;
+    } catch (error) {
+      console.error(error);
+      return rejectWithValue('Woops! Something happened :(');
     }
-
-    return predictions;
   }
 );
 
