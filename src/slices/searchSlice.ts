@@ -19,7 +19,7 @@ export const searchSlice = createSlice({
     loading: false,
   } as SearchState,
   reducers: {
-    resetQueries: (state) => {
+    resetSearch: (state) => {
       state.queries = [];
       state.loading = false;
     },
@@ -62,7 +62,7 @@ export const searchSlice = createSlice({
 });
 
 export const {
-  resetQueries,
+  resetSearch,
   setRecentQuery,
   setLoading: setSearchLoading,
   dismissSearchErrors,
