@@ -1,7 +1,6 @@
-import { FunctionsResponse, GMapPrediction } from '@functions/types';
-import { hasError } from '@utilities/api';
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import { GMapPrediction } from '@functions/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getPredictionsByQuery } from '@slices/searchSlice.thunks';
 
 interface SearchState {
   queries: GMapPrediction[];
@@ -9,26 +8,6 @@ interface SearchState {
   errors: string[];
   loading: boolean;
 }
-
-export const getPlacesBySearch = createAsyncThunk(
-  'search/predictions',
-  async (query: string, { rejectWithValue }) => {
-    try {
-      const { data = [] } = await axios.get<
-        FunctionsResponse<GMapPrediction[]>
-      >(`${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`);
-
-      if (hasError(data)) {
-        return rejectWithValue(data.error);
-      }
-
-      return data;
-    } catch (error) {
-      console.error(error);
-      return rejectWithValue('Woops! Something happened :(');
-    }
-  }
-);
 
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
@@ -66,12 +45,12 @@ export const searchSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(getPlacesBySearch.fulfilled, (state, action) => {
+    builder.addCase(getPredictionsByQuery.fulfilled, (state, action) => {
       state.queries = action.payload;
       state.loading = false;
       state.errors = [];
     });
-    builder.addCase(getPlacesBySearch.rejected, (state, action) => {
+    builder.addCase(getPredictionsByQuery.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }
