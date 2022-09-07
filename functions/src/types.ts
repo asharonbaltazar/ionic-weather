@@ -18,7 +18,7 @@ export interface GMapGeocodeResult {
   lng: number;
 }
 
-interface Weather {
+interface Details {
   id: number;
   main: string;
   description: string;
@@ -43,8 +43,8 @@ interface Hourly {
   wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  weather: Weather[];
-  pop: string;
+  weather: Details[];
+  pop: number;
 }
 
 interface Daily {
@@ -74,7 +74,7 @@ interface Daily {
   wind_speed: number;
   wind_deg: number;
   wind_gust: number;
-  weather: Weather[];
+  weather: Details[];
   clouds: number;
   pop: number;
   rain: number;
@@ -110,12 +110,64 @@ export interface OpenWeatherMapResponse {
     wind_speed: number;
     wind_deg: number;
     wind_gust: number;
-    weather: Weather[];
+    weather: Details[];
   };
-  minutely: Minutely[];
-  hourly: Hourly[];
   daily: Daily[];
+  hourly: Hourly[];
+  minutely: Minutely[];
   alerts: Alert[];
 }
 
-export interface OWMWeather {}
+export interface BaseWeather {
+  clouds: number;
+  dewPoint: number;
+  dt: string;
+  feelsLike: number;
+  humidity: number;
+  pressure: number;
+  sunrise: string;
+  sunset: string;
+  temp: number;
+  uvi: number;
+  visibility: number;
+  details: Details;
+  wind: {
+    deg: number;
+    gust: number;
+    speed: number;
+  };
+}
+
+export interface HourlyWeather extends Omit<BaseWeather, 'sunrise' | 'sunset'> {
+  pop: number;
+}
+
+export interface DailyWeather
+  extends Omit<BaseWeather, 'feelsLike' | 'temp' | 'visibility'> {
+  moonrise: string;
+  moonset: string;
+  moonPhase: number;
+  temp: {
+    day: number;
+    min: number;
+    max: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  feelsLike: {
+    day: number;
+    night: number;
+    eve: number;
+    morn: number;
+  };
+  rain: number;
+  pop: number;
+}
+
+export interface Weather {
+  current: BaseWeather;
+  hourly: HourlyWeather[];
+  daily: DailyWeather[];
+  updated: string;
+}

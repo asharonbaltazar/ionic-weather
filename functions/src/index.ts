@@ -1,11 +1,13 @@
-import { config } from 'firebase-functions';
+import { config, logger } from 'firebase-functions';
 import axios from 'axios';
 import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
 import { onRequest } from '@api';
 import {
   getFirstGMapGeocodeResult,
   getFormattedGMapPredictions,
+  getFormattedWeather,
 } from '@helpers';
+import { OpenWeatherMapResponse } from '@types';
 
 // GOOGLE PLACES AUTOCOMPLETE
 export const getGMapSuggestions = onRequest(async (request, response) => {
@@ -31,7 +33,8 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
     return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(500).send({ error: 'Internal Server Error' });
+  logger.debug(data);
+  return response.status(200).send([]);
 });
 
 // COORDINATES VIA GOOGLE PLACE ID
@@ -39,9 +42,7 @@ export const getGPlaceId = onRequest(async (request, response) => {
   const { id = '' } = request.query;
 
   if (id === '') {
-    return response
-      .status(400)
-      .send({ data: {}, error: 'Geocoding ID has no length' });
+    return response.status(400).send({ error: 'Geocoding ID has no length' });
   }
 
   const { data } = await axios.get<GeocodingResponse>(
@@ -60,7 +61,7 @@ export const getGPlaceId = onRequest(async (request, response) => {
     return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ data: {} });
+  return response.status(200).send({});
 });
 
 // WEATHER VIA COORDINATES
@@ -68,16 +69,25 @@ export const getWeatherViaCoordinates = onRequest(async (request, response) => {
   const { lat = '', lon = '' } = request.query;
 
   if (lat === '' || lon === '') {
-    return response.status(400).send('Latitude or longitude has no length');
+    return response
+      .status(400)
+      .send({ error: 'Latitude or longitude has no length' });
   }
 
-  const { data } = await axios.get(
+  const { data: weather, status } = await axios.get<OpenWeatherMapResponse>(
     `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
       config().openweatherapi.key
     }`
   );
 
-  return response.status(200).send(data);
+  if (status === 200) {
+    const formattedWeather = getFormattedWeather(weather);
+
+    return response.status(200).send(formattedWeather);
+  }
+
+  logger.error(weather);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // GEOLOCATION
