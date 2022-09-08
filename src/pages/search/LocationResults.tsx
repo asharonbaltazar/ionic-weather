@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { RootState, useAppDispatch } from '@store';
 import { setRecentQuery } from '@slices/searchSlice';
-import { getWeather } from '@slices/weatherSlice';
+import { getWeather } from '@slices/weatherSlice.thunks';
 import { useSelector } from 'react-redux';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
