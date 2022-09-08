@@ -85,10 +85,17 @@ const getCurrentWeather = ({
 const getHourlyWeather = ({
   hourly,
   timezone,
-}: OpenWeatherMapResponse): HourlyWeather[] =>
-  hourly.map((hour) => {
-    const formatTime = formatTimeByTimezone(timezone);
+}: OpenWeatherMapResponse): HourlyWeather[] => {
+  const formatTime = formatTimeByTimezone(timezone);
 
+  const tomorrowMorning = dayjs()
+    .tz(timezone)
+    .add(1, 'day')
+    .startOf('day')
+    .hour(6)
+    .unix();
+
+  return hourly.reduce((acc, hour) => {
     const {
       dt,
       dew_point: dewPoint,
@@ -100,27 +107,32 @@ const getHourlyWeather = ({
       ...restOfHour
     } = hour;
 
-    return {
-      dt: formatTime(dt),
-      details,
-      dewPoint,
-      feelsLike,
-      ...restOfHour,
-      wind: {
-        deg,
-        gust,
-        speed,
-      },
-    };
-  });
+    if (tomorrowMorning <= dt) {
+      return acc.concat({
+        dt: formatTime(dt),
+        details,
+        dewPoint,
+        feelsLike,
+        ...restOfHour,
+        wind: {
+          deg,
+          gust,
+          speed,
+        },
+      });
+    }
+
+    return acc;
+  }, [] as HourlyWeather[]);
+};
 
 const getDailyWeather = ({
   daily,
   timezone,
-}: OpenWeatherMapResponse): DailyWeather[] =>
-  daily.map((day) => {
-    const formatTime = formatTimeByTimezone(timezone);
+}: OpenWeatherMapResponse): DailyWeather[] => {
+  const formatTime = formatTimeByTimezone(timezone);
 
+  return daily.map((day) => {
     const {
       dt,
       dew_point: dewPoint,
@@ -155,6 +167,7 @@ const getDailyWeather = ({
       },
     };
   });
+};
 
 export const getFormattedWeather = (
   weather: OpenWeatherMapResponse

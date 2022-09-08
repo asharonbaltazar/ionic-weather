@@ -34,7 +34,7 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
   }
 
   logger.debug(data);
-  return response.status(200).send([]);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // COORDINATES VIA GOOGLE PLACE ID
@@ -61,7 +61,7 @@ export const getGPlaceId = onRequest(async (request, response) => {
     return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({});
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // WEATHER VIA COORDINATES
@@ -86,7 +86,7 @@ export const getWeatherViaCoordinates = onRequest(async (request, response) => {
     return response.status(200).send(formattedWeather);
   }
 
-  logger.error(weather);
+  logger.error(weather, status);
   return response.status(500).send({ error: 'Internal Server Error' });
 });
 
@@ -95,7 +95,9 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
   const { lat = '', lon = '' } = request.query;
 
   if (lat === '' || lon === '') {
-    return response.status(400).send('Latitude or longitude has no length');
+    return response
+      .status(400)
+      .send({ error: 'Latitude or longitude has no length' });
   }
 
   const { data } = await axios.get<GeocodingResponse>(
@@ -109,8 +111,9 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ results: [] });
+  logger.debug(data);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
