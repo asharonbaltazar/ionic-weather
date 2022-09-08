@@ -1,9 +1,6 @@
-export const getGeolocation = async (
-  successCallback: (geolocation: GeolocationPosition) => void = () => {},
-  rejectedCallback: (error?: unknown) => void = () => {}
-) =>
-  new Promise<GeolocationPosition>(() =>
-    navigator.geolocation.getCurrentPosition(successCallback, rejectedCallback)
+export const getGeolocation = () =>
+  new Promise<GeolocationPosition>((res, rej) =>
+    navigator.geolocation.getCurrentPosition(res, rej)
   ).catch((error) => {
     console.error(error);
     return null;

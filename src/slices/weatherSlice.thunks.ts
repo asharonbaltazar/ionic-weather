@@ -55,8 +55,6 @@ export const getWeatherByGeolocation = createAsyncThunk<
 
     const { latitude: lat, longitude: lng } = geolocation.coords;
 
-    console.log(geolocation);
-
     const { data: geocodeResult } = await axios.get<
       FunctionsResponse<GMapGeocodeResult>
     >(`${import.meta.env.VITE_GET_GEOLOCATION_DATA}?lat=${lat}&lon=${lng}`);
