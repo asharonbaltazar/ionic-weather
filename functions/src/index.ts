@@ -64,6 +64,36 @@ export const getGPlaceId = onRequest(async (request, response) => {
   return response.status(500).send({ error: 'Internal Server Error' });
 });
 
+// GEOLOCATION
+export const getGeolocationPlaceData = onRequest(async (request, response) => {
+  const { lat = '', lon = '' } = request.query;
+
+  if (lat === '' || lon === '') {
+    return response
+      .status(400)
+      .send({ error: 'Latitude or longitude has no length' });
+  }
+
+  const { data } = await axios.get<GeocodingResponse>(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
+      config().gmaps.key
+    }`
+  );
+
+  if (data.status === 'OK') {
+    const geocodeResult = getFirstGMapGeocodeResult(data);
+
+    return response.status(200).send(geocodeResult);
+  }
+
+  if (data.status === 'ZERO_RESULTS') {
+    return response.status(200).send({ error: 'No city found' });
+  }
+
+  logger.debug(data);
+  return response.status(500).send({ error: 'Internal Server Error' });
+});
+
 // WEATHER VIA COORDINATES
 export const getWeatherViaCoordinates = onRequest(async (request, response) => {
   const { lat = '', lon = '' } = request.query;
@@ -87,33 +117,5 @@ export const getWeatherViaCoordinates = onRequest(async (request, response) => {
   }
 
   logger.error(weather, status);
-  return response.status(500).send({ error: 'Internal Server Error' });
-});
-
-// GEOLOCATION
-export const getGeolocationPlaceData = onRequest(async (request, response) => {
-  const { lat = '', lon = '' } = request.query;
-
-  if (lat === '' || lon === '') {
-    return response
-      .status(400)
-      .send({ error: 'Latitude or longitude has no length' });
-  }
-
-  const { data } = await axios.get<GeocodingResponse>(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lon}&location_type=APPROXIMATE&result_type=locality&key=${
-      config().gmaps.key
-    }`
-  );
-
-  if (data.status === 'OK') {
-    return response.status(200).send(data);
-  }
-
-  if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send({ error: 'No city found' });
-  }
-
-  logger.debug(data);
   return response.status(500).send({ error: 'Internal Server Error' });
 });

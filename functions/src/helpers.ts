@@ -36,12 +36,13 @@ export const getFirstGMapGeocodeResult = ({
 
   const {
     formatted_address: formattedAddress,
+    place_id: placeId,
     geometry: {
       location: { lat, lng },
     },
   } = firstGeoCodeResult;
 
-  return { formattedAddress, lat, lng };
+  return { address: formattedAddress, placeId, lat, lng };
 };
 
 const formatTimeByTimezone = (tz: string) => (time: string | number) =>

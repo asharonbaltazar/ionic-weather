@@ -13,9 +13,10 @@ export interface GMapPrediction {
 }
 
 export interface GMapGeocodeResult {
-  formattedAddress: string;
+  address: string;
   lat: number;
   lng: number;
+  placeId: string;
 }
 
 interface Details {
@@ -170,4 +171,10 @@ export interface Weather {
   hourly: HourlyWeather[];
   daily: DailyWeather[];
   updated: string;
+}
+
+export interface StateWeather extends Weather {
+  address: string;
+  isGeolocation: boolean;
+  placeId: string;
 }
