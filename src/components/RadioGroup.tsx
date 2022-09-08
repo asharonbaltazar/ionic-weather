@@ -43,7 +43,7 @@ export const RadioGroup = <Value,>({
 
         <div className="mt-6 flex items-center justify-end gap-x-2">
           <button
-            className="rounded-lg px-5 py-2 font-medium hover:bg-slate-300 dark:bg-slate-600 dark:hover:bg-slate-700 md:text-sm"
+            className="rounded-lg px-5 py-2 font-medium hover:bg-slate-300 dark:hover:bg-slate-700 md:text-sm"
             onClick={() => onChange(currentValue)}
           >
             Cancel

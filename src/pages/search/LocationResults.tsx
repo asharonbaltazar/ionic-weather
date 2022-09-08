@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
-import { RootState, useAppDispatch } from '@store';
+import { useAppDispatch } from '@store';
 import { setRecentQuery } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice.thunks';
-import { useSelector } from 'react-redux';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { useHistory } from 'react-router';
 import { Icon } from '@iconify/react';
+import { useSearch } from '@utilities/hooks';
 
 type Text = { mainText: string; secondaryText: string };
 
@@ -15,9 +15,7 @@ export const LocationResults = () => {
 
   const dispatch = useAppDispatch();
 
-  const { queries, recentQueries, loading, errors } = useSelector(
-    (state: RootState) => state.searchSlice
-  );
+  const { queries, recentQueries, loading, errors } = useSearch();
 
   const getLatLong = (text: Text, placeId: string) => {
     setTimeout(() => {

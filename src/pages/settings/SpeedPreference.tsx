@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '@store';
+import { useAppDispatch } from '@store';
 import { changeWindSpeedPreference } from '@slices/settingsSlice';
 import { Modal } from '@components/Modal';
 import { RadioGroup } from '@components/RadioGroup';
+import { useSettings } from '@utilities/hooks';
 
 const WIND_SPEED_OPTIONS = [
   { value: 'miles', label: 'Miles' },
@@ -13,9 +13,7 @@ const WIND_SPEED_OPTIONS = [
 export const SpeedPreference = () => {
   const [modalState, setModalState] = useState(false);
 
-  const { windSpeedPreference } = useSelector(
-    (state: RootState) => state.settingsSlice
-  );
+  const { windSpeedPreference } = useSettings();
 
   const dispatch = useAppDispatch();
 
