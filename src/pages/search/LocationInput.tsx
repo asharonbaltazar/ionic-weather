@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { resetSearch, setSearchLoading } from '@slices/searchSlice';
+import { resetPredictions, setSearchLoading } from '@slices/searchSlice';
 import { getPredictionsByQuery } from '@slices/searchSlice.thunks';
 import { useDebouncedValue, useDidUpdate } from '@mantine/hooks';
 import { Input } from '@components/Input';
@@ -17,7 +17,7 @@ export const LocationInput = () => {
     if (debouncedLocationQuery.trim().length) {
       dispatch(getPredictionsByQuery(debouncedLocationQuery));
     } else {
-      dispatch(resetSearch());
+      dispatch(resetPredictions());
     }
   }, [debouncedLocationQuery]);
 

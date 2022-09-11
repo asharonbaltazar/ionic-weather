@@ -12,14 +12,16 @@ interface InitialState {
   loading: boolean;
 }
 
+const initialState: InitialState = {
+  selectedWeather: null,
+  savedWeather: [],
+  errors: [],
+  loading: false,
+};
+
 export const weatherSlice = createSlice({
   name: 'weather',
-  initialState: {
-    selectedWeather: null,
-    savedWeather: [],
-    errors: [],
-    loading: false,
-  } as InitialState,
+  initialState,
   reducers: {
     dismissWeatherErrors: (state) => {
       state.errors = [];

@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
 import { useAppDispatch } from '@store';
-import { setRecentQuery } from '@slices/searchSlice';
+import { setRecentPrediction } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
@@ -15,11 +15,16 @@ export const LocationResults = () => {
 
   const dispatch = useAppDispatch();
 
-  const { queries, recentQueries, loading, errors } = useSearch();
+  const {
+    predictions: queries,
+    recentPredictions: recentQueries,
+    loading,
+    errors,
+  } = useSearch();
 
   const getLatLong = (text: Text, placeId: string) => {
     setTimeout(() => {
-      dispatch(setRecentQuery({ text, placeId }));
+      dispatch(setRecentPrediction({ text, placeId }));
     }, 200);
     dispatch(getWeather(placeId));
 

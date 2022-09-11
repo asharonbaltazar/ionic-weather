@@ -3,24 +3,26 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getPredictionsByQuery } from '@slices/searchSlice.thunks';
 
 interface SearchState {
-  queries: GMapPrediction[];
-  recentQueries: GMapPrediction[];
+  predictions: GMapPrediction[];
+  recentPredictions: GMapPrediction[];
   errors: string[];
   loading: boolean;
 }
 
+const initialState: SearchState = {
+  predictions: [],
+  recentPredictions: [],
+  errors: [],
+  loading: false,
+};
+
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
   name: 'search',
-  initialState: {
-    queries: [],
-    recentQueries: [],
-    errors: [],
-    loading: false,
-  } as SearchState,
+  initialState,
   reducers: {
-    resetSearch: (state) => {
-      state.queries = [];
+    resetPredictions: (state) => {
+      state.predictions = [];
       state.loading = false;
     },
 
@@ -28,16 +30,16 @@ export const searchSlice = createSlice({
       state.errors = [];
     },
 
-    setRecentQuery: (state, action: PayloadAction<GMapPrediction>) => {
-      state.recentQueries = state.recentQueries.filter(
+    setRecentPrediction: (state, action: PayloadAction<GMapPrediction>) => {
+      state.recentPredictions = state.recentPredictions.filter(
         (element) => element.placeId !== action.payload.placeId
       );
 
-      if (state.recentQueries.length >= 5) {
-        state.recentQueries.pop();
+      if (state.recentPredictions.length >= 5) {
+        state.recentPredictions.pop();
       }
 
-      state.recentQueries.unshift(action.payload);
+      state.recentPredictions.unshift(action.payload);
     },
 
     setLoading: (state, action) => {
@@ -46,7 +48,7 @@ export const searchSlice = createSlice({
   },
   extraReducers(builder) {
     builder.addCase(getPredictionsByQuery.fulfilled, (state, action) => {
-      state.queries = action.payload;
+      state.predictions = action.payload;
       state.loading = false;
       state.errors = [];
     });
@@ -56,14 +58,14 @@ export const searchSlice = createSlice({
       }
 
       state.loading = false;
-      state.queries = [];
+      state.predictions = [];
     });
   },
 });
 
 export const {
-  resetSearch,
-  setRecentQuery,
+  resetPredictions,
+  setRecentPrediction,
   setLoading: setSearchLoading,
   dismissSearchErrors,
 } = searchSlice.actions;
