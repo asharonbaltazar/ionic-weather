@@ -45,14 +45,14 @@ export const getFirstGMapGeocodeResult = ({
   return { address: formattedAddress, placeId, lat, lng };
 };
 
-const formatTimeByTimezone = (tz: string) => (time: string | number) =>
-  dayjs.tz(time, tz).format();
+const formatUnixWithTimezoneAndISO = (tz: string) => (time: number) =>
+  dayjs.unix(time).tz(tz).format();
 
 const getCurrentWeather = ({
   current,
   timezone,
 }: OpenWeatherMapResponse): BaseWeather => {
-  const formatTime = formatTimeByTimezone(timezone);
+  const formatTime = formatUnixWithTimezoneAndISO(timezone);
 
   const {
     dt,
@@ -87,13 +87,13 @@ const getHourlyWeather = ({
   hourly,
   timezone,
 }: OpenWeatherMapResponse): HourlyWeather[] => {
-  const formatTime = formatTimeByTimezone(timezone);
+  const formatTime = formatUnixWithTimezoneAndISO(timezone);
 
   const tomorrowMorning = dayjs()
     .tz(timezone)
     .add(1, 'day')
-    .startOf('day')
-    .hour(6)
+    .startOf('date')
+    .add(6, 'hours')
     .unix();
 
   return hourly.reduce((acc, hour) => {
@@ -108,7 +108,7 @@ const getHourlyWeather = ({
       ...restOfHour
     } = hour;
 
-    if (tomorrowMorning <= dt) {
+    if (dt <= tomorrowMorning) {
       return acc.concat({
         dt: formatTime(dt),
         details,
@@ -131,7 +131,7 @@ const getDailyWeather = ({
   daily,
   timezone,
 }: OpenWeatherMapResponse): DailyWeather[] => {
-  const formatTime = formatTimeByTimezone(timezone);
+  const formatTime = formatUnixWithTimezoneAndISO(timezone);
 
   return daily.map((day) => {
     const {
