@@ -5,14 +5,14 @@ import {
   getWeatherByGeolocation,
 } from '@slices/weatherSlice.thunks';
 
-interface InitialState {
+interface WeatherState {
   selectedWeather: StateWeather | null;
   savedWeather: StateWeather[];
   errors: string[];
   loading: boolean;
 }
 
-const initialState: InitialState = {
+const initialState: WeatherState = {
   selectedWeather: null,
   savedWeather: [],
   errors: [],

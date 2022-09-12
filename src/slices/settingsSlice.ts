@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-interface InitialState {
+interface SettingsState {
   timePreference: 'h a' | 'HH:mm';
   tempPreference: 'celsius' | 'kelvin' | 'fahrenheit';
   windSpeedPreference: 'miles' | 'kilometers';
   colorPreference: 'primary' | 'green' | 'red' | 'yellow';
 }
 
-const initialState: InitialState = {
+const initialState: SettingsState = {
   timePreference: 'h a',
   tempPreference: 'celsius',
   windSpeedPreference: 'kilometers',
