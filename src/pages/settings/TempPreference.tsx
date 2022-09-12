@@ -1,9 +1,9 @@
 import { Fragment, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '@store';
+import { useAppDispatch } from '@store';
 import { changeTempPreference } from '@slices/settingsSlice';
 import { Modal } from '@components/Modal';
 import { RadioGroup } from '@components/RadioGroup';
+import { useSettings } from '@utilities/hooks';
 
 const TEMP_OPTIONS = [
   { value: 'celsius', label: 'Celsius' },
@@ -14,9 +14,7 @@ const TEMP_OPTIONS = [
 export const TempPreference = () => {
   const [modalState, setModalState] = useState(false);
 
-  const { tempPreference } = useSelector(
-    (state: RootState) => state.settingsSlice
-  );
+  const { tempPreference } = useSettings();
 
   const dispatch = useAppDispatch();
 

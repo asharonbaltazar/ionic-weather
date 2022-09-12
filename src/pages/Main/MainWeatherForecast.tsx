@@ -1,38 +1,34 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
 import { formatTemp } from '@utilities/format';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
 import { ColorfulStat } from '@components/ColorfulStat';
+import { useSettings, useWeather } from '@utilities/hooks';
 dayjs.extend(isBetween);
 
-interface MainWeatherProps {
-  day: 'today' | 'tomorrow';
-}
+export const MainWeatherForecast = () => {
+  const { tempPreference } = useSettings();
 
-export const MainWeatherForecast = ({ day }: MainWeatherProps) => {
-  const selectedTemp = useSelector(
-    (state: RootState) => state.settingsSlice.tempPreference
-  );
+  const { selectedWeather } = useWeather();
 
-  const { details } = useSelector(
-    (state: RootState) => state.weatherSlice.selectedWeather.weather[day]
-  );
+  if (!selectedWeather) {
+    return null;
+  }
 
   const {
+    details,
+    dewPoint,
     dt,
+    feelsLike,
+    humidity,
+    pressure,
     sunrise,
     sunset,
     temp,
-    feels_like,
-    dew_point,
-    humidity,
-    pressure,
     uvi,
-    weather,
-    wind_speed,
-    pop,
-  } = details;
+    wind,
+  } = selectedWeather.current;
+
+  const [{ pop }] = selectedWeather.daily;
 
   const icon = dayjs(dt).isBetween(sunrise, sunset) ? 'day' : 'night';
 
@@ -42,19 +38,19 @@ export const MainWeatherForecast = ({ day }: MainWeatherProps) => {
         <div className="relative">
           <div>
             <h1 className="text-7xl font-bold text-slate-800 dark:text-stone-200">
-              {formatTemp[selectedTemp](temp.day)}°
+              {formatTemp[tempPreference](temp)}°
             </h1>
             <h4 className="mt-1 font-medium text-slate-800 opacity-70 dark:text-stone-200 dark:opacity-50">
-              feels like {formatTemp[selectedTemp](feels_like.day)}°
+              feels like {formatTemp[tempPreference](feelsLike)}°
             </h4>
           </div>
           <i
-            className={`wi wi-owm-${icon}-${weather[0].id} weather-icon absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl`}
+            className={`wi wi-owm-${icon}-${details.id} weather-icon absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl`}
           />
         </div>
 
         <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200">
-          {weather[0].description}
+          {details.description}
         </h2>
       </div>
 
@@ -73,12 +69,12 @@ export const MainWeatherForecast = ({ day }: MainWeatherProps) => {
         />
         <ColorfulStat
           label="Wind Speed"
-          value={wind_speed}
+          value={wind.speed}
           bgColor="bg-emerald-500"
         />
         <ColorfulStat
           label="Dew Point"
-          value={dew_point}
+          value={dewPoint}
           bgColor="bg-blue-500"
         />
         <ColorfulStat

@@ -1,7 +1,6 @@
 import { useAppDispatch } from '@store';
-import { getWeatherByGeolocation } from '@slices/weatherSlice';
+import { getWeatherByGeolocation } from '@slices/weatherSlice.thunks';
 import { LocationResults } from '@pages/search/LocationResults';
-
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 
 export const LocationSelection = () => {

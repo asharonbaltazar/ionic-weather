@@ -1,12 +1,12 @@
 import { Fragment } from 'react';
-import { RootState, useAppDispatch } from '@store';
-import { setRecentQuery } from '@slices/searchSlice';
-import { getWeather } from '@slices/weatherSlice';
-import { useSelector } from 'react-redux';
+import { useAppDispatch } from '@store';
+import { setRecentPrediction } from '@slices/searchSlice';
+import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { useHistory } from 'react-router';
 import { Icon } from '@iconify/react';
+import { useSearch } from '@utilities/hooks';
 
 type Text = { mainText: string; secondaryText: string };
 
@@ -15,15 +15,18 @@ export const LocationResults = () => {
 
   const dispatch = useAppDispatch();
 
-  const { queries, recentQueries, loading, errors } = useSelector(
-    (state: RootState) => state.searchSlice
-  );
+  const {
+    predictions: queries,
+    recentPredictions: recentQueries,
+    loading,
+    errors,
+  } = useSearch();
 
-  const getLatLong = (text: Text, id: string) => {
+  const getLatLong = (text: Text, placeId: string) => {
     setTimeout(() => {
-      dispatch(setRecentQuery({ text, id }));
+      dispatch(setRecentPrediction({ text, placeId }));
     }, 200);
-    dispatch(getWeather(id));
+    dispatch(getWeather(placeId));
 
     history.goBack();
   };
@@ -35,11 +38,11 @@ export const LocationResults = () => {
   if (queries.length) {
     return (
       <Fragment>
-        {queries.map(({ place_id, text }: any) => (
-          <li key={place_id} className="w-full">
+        {queries.map(({ placeId, text }) => (
+          <li key={placeId} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, place_id)}
+              onClick={() => getLatLong(text, placeId)}
             >
               {text.mainText}
               <span className="block text-gray-400">{text.secondaryText}</span>
@@ -58,11 +61,11 @@ export const LocationResults = () => {
             Recent searches
           </span>
         </li>
-        {recentQueries.map(({ text, id }: any, i) => (
+        {recentQueries.map(({ text, placeId }, i) => (
           <li key={i} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, id)}
+              onClick={() => getLatLong(text, placeId)}
             >
               {text.mainText}
               <span className="text-gray-400">{text.secondaryText}</span>

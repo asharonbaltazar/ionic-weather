@@ -1,14 +1,20 @@
-import { config } from 'firebase-functions';
+import { config, logger } from 'firebase-functions';
 import axios from 'axios';
 import { PlaceAutocompleteResponse, GeocodingResponse } from '@google/maps';
 import { onRequest } from '@api';
+import {
+  getFirstGMapGeocodeResult,
+  getFormattedGMapPredictions,
+  getFormattedWeather,
+} from '@helpers';
+import { OpenWeatherMapResponse } from '@types';
 
 // GOOGLE PLACES AUTOCOMPLETE
 export const getGMapSuggestions = onRequest(async (request, response) => {
   const { query = '' } = request.query;
 
   if (query === '') {
-    return response.status(400).send('City query has no length');
+    return response.status(400).send({ error: 'City query has no length' });
   }
 
   const { data } = await axios.get<PlaceAutocompleteResponse>(
@@ -18,14 +24,17 @@ export const getGMapSuggestions = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.status(200).send(data);
+    const predictions = getFormattedGMapPredictions(data);
+
+    return response.status(200).send(predictions);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ predictions: [] });
+  logger.debug(data);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // COORDINATES VIA GOOGLE PLACE ID
@@ -33,7 +42,7 @@ export const getGPlaceId = onRequest(async (request, response) => {
   const { id = '' } = request.query;
 
   if (id === '') {
-    return response.status(400).send('Geocoding ID has no length');
+    return response.status(400).send({ error: 'Geocoding ID has no length' });
   }
 
   const { data } = await axios.get<GeocodingResponse>(
@@ -43,31 +52,16 @@ export const getGPlaceId = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.status(200).send(data);
+    const geocodeResult = getFirstGMapGeocodeResult(data);
+
+    return response.status(200).send(geocodeResult);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ results: [] });
-});
-
-// WEATHER VIA COORDINATES
-export const getWeatherViaCoordinates = onRequest(async (request, response) => {
-  const { lat = '', lon = '' } = request.query;
-
-  if (lat === '' || lon === '') {
-    return response.status(400).send('Latitude or longitude has no length');
-  }
-
-  const { data } = await axios.get(
-    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
-      config().openweatherapi.key
-    }`
-  );
-
-  return response.status(200).send(data);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });
 
 // GEOLOCATION
@@ -75,7 +69,9 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
   const { lat = '', lon = '' } = request.query;
 
   if (lat === '' || lon === '') {
-    return response.status(400).send('Latitude or longitude has no length');
+    return response
+      .status(400)
+      .send({ error: 'Latitude or longitude has no length' });
   }
 
   const { data } = await axios.get<GeocodingResponse>(
@@ -85,12 +81,41 @@ export const getGeolocationPlaceData = onRequest(async (request, response) => {
   );
 
   if (data.status === 'OK') {
-    return response.status(200).send(data);
+    const geocodeResult = getFirstGMapGeocodeResult(data);
+
+    return response.status(200).send(geocodeResult);
   }
 
   if (data.status === 'ZERO_RESULTS') {
-    return response.status(200).send('No city found');
+    return response.status(200).send({ error: 'No city found' });
   }
 
-  return response.status(200).send({ results: [] });
+  logger.debug(data);
+  return response.status(500).send({ error: 'Internal Server Error' });
+});
+
+// WEATHER VIA COORDINATES
+export const getWeatherViaCoordinates = onRequest(async (request, response) => {
+  const { lat = '', lon = '' } = request.query;
+
+  if (lat === '' || lon === '') {
+    return response
+      .status(400)
+      .send({ error: 'Latitude or longitude has no length' });
+  }
+
+  const { data: weather, status } = await axios.get<OpenWeatherMapResponse>(
+    `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&appid=${
+      config().openweatherapi.key
+    }`
+  );
+
+  if (status === 200) {
+    const formattedWeather = getFormattedWeather(weather);
+
+    return response.status(200).send(formattedWeather);
+  }
+
+  logger.error(weather, status);
+  return response.status(500).send({ error: 'Internal Server Error' });
 });

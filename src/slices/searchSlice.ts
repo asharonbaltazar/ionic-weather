@@ -1,44 +1,28 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchPlacesBySearch } from '@utilities/fetch';
+import { GMapPrediction } from '@functions/types';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getPredictionsByQuery } from '@slices/searchSlice.thunks';
 
-type SearchQuery = {
-  label: string;
-  id: string;
-};
-
-interface InitialState {
-  queries: SearchQuery[];
-  recentQueries: SearchQuery[];
+interface SearchState {
+  predictions: GMapPrediction[];
+  recentPredictions: GMapPrediction[];
   errors: string[];
   loading: boolean;
 }
 
-// Thunk functions
-export const getPlacesBySearch = createAsyncThunk(
-  'search/fetchSearch',
-  async (query: string, { rejectWithValue }) => {
-    const formattedResults = await fetchPlacesBySearch(query);
-
-    if (typeof formattedResults === 'string') {
-      return rejectWithValue(formattedResults);
-    }
-
-    return formattedResults;
-  }
-);
+const initialState: SearchState = {
+  predictions: [],
+  recentPredictions: [],
+  errors: [],
+  loading: false,
+};
 
 // Slice in charge of retrieving search queries
 export const searchSlice = createSlice({
   name: 'search',
-  initialState: {
-    queries: [],
-    recentQueries: [],
-    errors: [],
-    loading: false,
-  } as InitialState,
+  initialState,
   reducers: {
-    resetQueries: (state) => {
-      state.queries = [];
+    resetPredictions: (state) => {
+      state.predictions = [];
       state.loading = false;
     },
 
@@ -46,16 +30,16 @@ export const searchSlice = createSlice({
       state.errors = [];
     },
 
-    setRecentQuery: (state, action) => {
-      state.recentQueries = state.recentQueries.filter(
-        (element) => element.id !== action.payload.id
+    setRecentPrediction: (state, action: PayloadAction<GMapPrediction>) => {
+      state.recentPredictions = state.recentPredictions.filter(
+        (element) => element.placeId !== action.payload.placeId
       );
 
-      if (state.recentQueries.length >= 5) {
-        state.recentQueries.pop();
+      if (state.recentPredictions.length >= 5) {
+        state.recentPredictions.pop();
       }
 
-      state.recentQueries.unshift(action.payload);
+      state.recentPredictions.unshift(action.payload);
     },
 
     setLoading: (state, action) => {
@@ -63,25 +47,25 @@ export const searchSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(getPlacesBySearch.fulfilled, (state, action) => {
-      state.queries = action.payload;
+    builder.addCase(getPredictionsByQuery.fulfilled, (state, action) => {
+      state.predictions = action.payload;
       state.loading = false;
       state.errors = [];
     });
-    builder.addCase(getPlacesBySearch.rejected, (state, action) => {
+    builder.addCase(getPredictionsByQuery.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }
 
       state.loading = false;
-      state.queries = [];
+      state.predictions = [];
     });
   },
 });
 
 export const {
-  resetQueries,
-  setRecentQuery,
+  resetPredictions,
+  setRecentPrediction,
   setLoading: setSearchLoading,
   dismissSearchErrors,
 } = searchSlice.actions;

@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@emotion/react": "^11.10.0",
     "@headlessui/react": "^1.6.6",
     "@iconify/react": "^3.2.2",
     "@mantine/hooks": "^5.1.6",

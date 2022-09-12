@@ -1,12 +1,10 @@
-import { useSelector } from 'react-redux';
-import { RootState, useAppDispatch } from '@store';
+import { useAppDispatch } from '@store';
 import { changeTimePreference } from '@slices/settingsSlice';
 import { Switch } from '@components/Switch';
+import { useSettings } from 'src/utilities/hooks';
 
 export const TimePreference = () => {
-  const { timePreference } = useSelector(
-    (state: RootState) => state.settingsSlice
-  );
+  const { timePreference } = useSettings();
 
   const dispatch = useAppDispatch();
 

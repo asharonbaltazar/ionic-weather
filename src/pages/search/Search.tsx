@@ -4,14 +4,14 @@ import { LocationSelection } from '@pages/search/LocationSelection';
 import { GoogleAttribution } from '@pages/search/GoogleAttribution';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { useAppDispatch } from '@store';
-import { resetQueries } from '@slices/searchSlice';
+import { resetPredictions } from '@slices/searchSlice';
 
 export const Search = () => {
   const dispatch = useAppDispatch();
 
   useEffect(
     () => () => {
-      dispatch(resetQueries());
+      dispatch(resetPredictions());
     },
     [dispatch]
   );

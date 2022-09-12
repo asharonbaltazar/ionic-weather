@@ -8,7 +8,9 @@
     "noEmit": false,
     "baseUrl": "./",
     "paths": {
-      "@api": ["./src/api"]
+      "@api": ["./src/api"],
+      "@helpers": ["./src/helpers"],
+      "@types": ["./src/types"]
     }
   }
 }

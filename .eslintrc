@@ -25,7 +25,7 @@
     },
     "ecmaVersion": 2018,
     "sourceType": "module",
-    "project": "./tsconfig.json"
+    "project": ["./tsconfig.json", "./functions/tsconfig.json"]
   },
   "rules": {
     "arrow-body-style": ["error", "as-needed"],

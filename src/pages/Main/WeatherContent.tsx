@@ -1,19 +1,18 @@
 import { MainPlaceholder } from 'src/pages/Main/MainPagePlaceholder';
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
 import { MainWeatherForecast } from 'src/pages/Main/MainWeatherForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
+import { useWeather } from '@utilities/hooks';
 
 export const WeatherContent = () => {
-  const weather = useSelector((state: RootState) => state.weatherSlice);
+  const { selectedWeather } = useWeather();
 
-  if (!weather?.selectedWeather?.weather) {
+  if (!selectedWeather) {
     return <MainPlaceholder />;
   }
 
   return (
     <main className="mt-4 space-y-5 px-3">
-      <MainWeatherForecast day="today" />
+      <MainWeatherForecast />
       <div className="space-y-2">
         <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
           Hourly Forecast
