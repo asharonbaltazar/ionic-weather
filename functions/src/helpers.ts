@@ -86,6 +86,7 @@ const getCurrentWeather = ({
 const getHourlyWeather = ({
   hourly,
   timezone,
+  current: { sunrise, sunset },
 }: OpenWeatherMapResponse): HourlyWeather[] => {
   const formatTime = formatUnixWithTimezoneAndISO(timezone);
 
@@ -114,6 +115,8 @@ const getHourlyWeather = ({
         details,
         dewPoint,
         feelsLike,
+        sunrise: formatTime(sunrise),
+        sunset: formatTime(sunset),
         ...restOfHour,
         wind: {
           deg,

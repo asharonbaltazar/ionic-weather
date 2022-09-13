@@ -139,7 +139,7 @@ export interface BaseWeather {
   };
 }
 
-export interface HourlyWeather extends Omit<BaseWeather, 'sunrise' | 'sunset'> {
+export interface HourlyWeather extends BaseWeather {
   pop: number;
 }
 
