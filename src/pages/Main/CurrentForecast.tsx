@@ -1,9 +1,9 @@
 import { formatTemp } from '@utilities/format';
 import { ColorfulStat } from '@components/ColorfulStat';
 import { useSettings, useWeather } from '@utilities/hooks';
-import { WeatherIcon } from 'src/components/WeatherIcon';
+import { WeatherIcon } from '@components/WeatherIcon';
 
-export const MainWeatherForecast = () => {
+export const CurrentForecast = () => {
   const { tempPreference } = useSettings();
 
   const { selectedWeather } = useWeather();
