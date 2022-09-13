@@ -1,9 +1,7 @@
 import { formatTemp } from '@utilities/format';
-import dayjs from 'dayjs';
-import isBetween from 'dayjs/plugin/isBetween';
 import { ColorfulStat } from '@components/ColorfulStat';
 import { useSettings, useWeather } from '@utilities/hooks';
-dayjs.extend(isBetween);
+import { WeatherIcon } from 'src/components/WeatherIcon';
 
 export const MainWeatherForecast = () => {
   const { tempPreference } = useSettings();
@@ -14,23 +12,10 @@ export const MainWeatherForecast = () => {
     return null;
   }
 
-  const {
-    details,
-    dewPoint,
-    dt,
-    feelsLike,
-    humidity,
-    pressure,
-    sunrise,
-    sunset,
-    temp,
-    uvi,
-    wind,
-  } = selectedWeather.current;
+  const { details, dewPoint, feelsLike, humidity, pressure, temp, uvi, wind } =
+    selectedWeather.current;
 
-  const [{ pop }] = selectedWeather.daily;
-
-  const icon = dayjs(dt).isBetween(sunrise, sunset) ? 'day' : 'night';
+  const [{ pop }] = selectedWeather.hourly;
 
   return (
     <div className="space-y-5">
@@ -44,11 +29,11 @@ export const MainWeatherForecast = () => {
               feels like {formatTemp[tempPreference](feelsLike)}°
             </h4>
           </div>
-          <i
-            className={`wi wi-owm-${icon}-${details.id} weather-icon absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl`}
+          <WeatherIcon
+            className="absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl"
+            weather={selectedWeather.current}
           />
         </div>
-
         <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200">
           {details.description}
         </h2>
