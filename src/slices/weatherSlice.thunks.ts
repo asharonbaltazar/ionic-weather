@@ -15,29 +15,25 @@ export const getWeather = createAsyncThunk<
   string,
   { state: RootState }
 >('weather/getWeather', async (placeId, { rejectWithValue }) => {
-  try {
-    const { data: geocodeResult } = await axios.get<
-      FunctionsResponse<GMapGeocodeResult>
-    >(`${import.meta.env.VITE_GET_GPLACE_ID}?id=${placeId}`);
+  const { data: geocodeResult } = await axios.get<
+    FunctionsResponse<GMapGeocodeResult>
+  >(`${import.meta.env.VITE_GET_GPLACE_ID}?id=${placeId}`);
 
-    if (hasError(geocodeResult)) {
-      return rejectWithValue(geocodeResult.error);
-    }
-
-    const { lat, lng, address } = geocodeResult;
-
-    const { data: weather } = await axios.get<FunctionsResponse<Weather>>(
-      `${import.meta.env.VITE_GET_WEATHER_VIA_COORDS}?lat=${lat}&lon=${lng}`
-    );
-
-    if (hasError(weather)) {
-      return rejectWithValue(weather.error);
-    }
-
-    return { address, placeId, isGeolocation: false, ...weather };
-  } catch (error) {
-    return rejectWithValue('');
+  if (hasError(geocodeResult)) {
+    return rejectWithValue(geocodeResult.error);
   }
+
+  const { lat, lng, address } = geocodeResult;
+
+  const { data: weather } = await axios.get<FunctionsResponse<Weather>>(
+    `${import.meta.env.VITE_GET_WEATHER_VIA_COORDS}?lat=${lat}&lon=${lng}`
+  );
+
+  if (hasError(weather)) {
+    return rejectWithValue(weather.error);
+  }
+
+  return { address, placeId, isGeolocation: false, ...weather };
 });
 
 export const getWeatherByGeolocation = createAsyncThunk<
@@ -45,41 +41,37 @@ export const getWeatherByGeolocation = createAsyncThunk<
   void,
   { state: RootState }
 >('weather/getWeatherByGeolocation', async (_, { rejectWithValue }) => {
-  try {
-    const geolocation = await getGeolocation();
+  const geolocation = await getGeolocation();
 
-    if (!geolocation)
-      return rejectWithValue(
-        'Please allow geolocation permissions to use this feature'
-      );
-
-    const { latitude: lat, longitude: lng } = geolocation.coords;
-
-    const { data: geocodeResult } = await axios.get<
-      FunctionsResponse<GMapGeocodeResult>
-    >(`${import.meta.env.VITE_GET_GEOLOCATION_DATA}?lat=${lat}&lon=${lng}`);
-
-    if (hasError(geocodeResult)) {
-      return rejectWithValue(geocodeResult.error);
-    }
-
-    const { address, placeId } = geocodeResult;
-
-    const { data: weather } = await axios.get<FunctionsResponse<Weather>>(
-      `${import.meta.env.VITE_GET_WEATHER_VIA_COORDS}?lat=${lat}&lon=${lng}`
+  if (!geolocation)
+    return rejectWithValue(
+      'Please allow geolocation permissions to use this feature'
     );
 
-    if (hasError(weather)) {
-      return rejectWithValue(weather.error);
-    }
+  const { latitude: lat, longitude: lng } = geolocation.coords;
 
-    return {
-      address,
-      placeId,
-      isGeolocation: true,
-      ...weather,
-    };
-  } catch {
-    return rejectWithValue('');
+  const { data: geocodeResult } = await axios.get<
+    FunctionsResponse<GMapGeocodeResult>
+  >(`${import.meta.env.VITE_GET_GEOLOCATION_DATA}?lat=${lat}&lon=${lng}`);
+
+  if (hasError(geocodeResult)) {
+    return rejectWithValue(geocodeResult.error);
   }
+
+  const { address, placeId } = geocodeResult;
+
+  const { data: weather } = await axios.get<FunctionsResponse<Weather>>(
+    `${import.meta.env.VITE_GET_WEATHER_VIA_COORDS}?lat=${lat}&lon=${lng}`
+  );
+
+  if (hasError(weather)) {
+    return rejectWithValue(weather.error);
+  }
+
+  return {
+    address,
+    placeId,
+    isGeolocation: true,
+    ...weather,
+  };
 });
