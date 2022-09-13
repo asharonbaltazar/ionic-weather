@@ -1,4 +1,4 @@
-import { HeaderWithBackButton } from 'src/components/HeaderWithBackButton';
+import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 
 export const Hourly = () => (
   <div className="h-screen">

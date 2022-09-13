@@ -1,5 +1,5 @@
-import { MainPlaceholder } from 'src/pages/Main/MainPagePlaceholder';
-import { MainWeatherForecast } from 'src/pages/Main/MainWeatherForecast';
+import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
+import { MainWeatherForecast } from '@pages/main/MainWeatherForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 import { useWeather } from '@utilities/hooks';
 
