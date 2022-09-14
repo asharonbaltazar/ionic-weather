@@ -7,16 +7,20 @@ import {
   BaseWeather,
   HourlyWeather,
   DailyWeather,
+  Details,
+  BaseDetails,
 } from '@types';
 
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import dayjsTimezone from 'dayjs/plugin/timezone';
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore';
+import isBetween from 'dayjs/plugin/isBetween';
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);
 dayjs.extend(dayjsTimezone);
+dayjs.extend(isBetween);
 
 export const getFormattedGMapPredictions = ({
   predictions = [],
@@ -48,6 +52,21 @@ export const getFirstGMapGeocodeResult = ({
 const formatUnixWithTimezoneAndISO = (tz: string) => (time: number) =>
   dayjs.unix(time).tz(tz).format();
 
+const formatDetails = (
+  { description, id, main }: Details,
+  dt: number,
+  sunrise: number,
+  sunset: number
+): BaseDetails => {
+  const timeOfDay = dayjs(dt).isBetween(sunrise, sunset) ? 'day' : 'night';
+
+  return {
+    description,
+    main,
+    icon: `${timeOfDay}-${id}`,
+  };
+};
+
 const getCurrentWeather = ({
   current,
   timezone,
@@ -69,7 +88,7 @@ const getCurrentWeather = ({
 
   return {
     dt: formatTime(dt),
-    details,
+    details: formatDetails(details, dt, sunrise, sunset),
     dewPoint,
     feelsLike,
     sunrise: formatTime(sunrise),
@@ -112,7 +131,7 @@ const getHourlyWeather = ({
     if (dt <= tomorrowMorning) {
       return acc.concat({
         dt: formatTime(dt),
-        details,
+        details: formatDetails(details, dt, sunrise, sunset),
         dewPoint,
         feelsLike,
         sunrise: formatTime(sunrise),
@@ -155,7 +174,7 @@ const getDailyWeather = ({
 
     return {
       dt: formatTime(dt),
-      details,
+      details: formatDetails(details, dt, sunrise, sunset),
       dewPoint,
       feelsLike,
       sunrise: formatTime(sunrise),
