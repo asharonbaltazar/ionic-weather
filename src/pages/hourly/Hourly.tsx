@@ -1,9 +1,10 @@
+import { Fragment } from 'react';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
 
 export const Hourly = () => (
-  <div className="h-screen">
+  <Fragment>
     <HeaderWithBackButton title="Hourly" />
     <HourlyForecasts />
-  </div>
+  </Fragment>
 );
