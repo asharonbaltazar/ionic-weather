@@ -30,8 +30,8 @@ export const CurrentForecast = () => {
             </h4>
           </div>
           <WeatherIcon
-            className="absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl"
-            weather={selectedWeather.current}
+            className="absolute right-0 top-5 text-7xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl"
+            icon={details.icon}
           />
         </div>
         <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200">
