@@ -134,8 +134,6 @@ const getHourlyWeather = ({
         details: formatDetails(details, dt, sunrise, sunset),
         dewPoint,
         feelsLike,
-        sunrise: formatTime(sunrise),
-        sunset: formatTime(sunset),
         ...restOfHour,
         wind: {
           deg,
