@@ -11,7 +11,7 @@ export const TimePreference = () => {
   const checked = timePreference === 'HH:mm';
 
   const onClick = () =>
-    dispatch(changeTimePreference(checked ? 'h a' : 'HH:mm'));
+    dispatch(changeTimePreference(checked ? 'hh:mm a' : 'HH:mm'));
 
   return (
     <div className="flex items-center justify-between">
