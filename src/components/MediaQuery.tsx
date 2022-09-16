@@ -1,29 +1,45 @@
 import { Fragment, ReactNode } from 'react';
 import { useMediaQuery } from '@mantine/hooks';
+// Disabling because rule is incorrect
+// eslint-disable-next-line import/no-extraneous-dependencies
+import defaultTheme from 'tailwindcss/defaultTheme';
+// https://tailwindcss.com/docs/responsive-design
 
-interface MediaQueryProps {
-  children: ReactNode;
-  mediaQuery?: string;
+interface MediaQueryWithInvert {
+  mediaQuery?: keyof typeof defaultTheme.screens;
   invert?: boolean;
+  children: ReactNode;
 }
 
+interface MediaQueryWithRenderProps {
+  mediaQuery?: keyof typeof defaultTheme.screens;
+  children(matches: boolean): JSX.Element;
+}
+
+type MediaQueryProps = MediaQueryWithInvert | MediaQueryWithRenderProps;
+
 export const MediaQuery = ({
-  // https://tailwindcss.com/docs/responsive-design
-  mediaQuery = '(min-width: 1024px)',
+  mediaQuery = 'lg',
   children,
-  invert = false,
+  ...props
 }: MediaQueryProps) => {
-  const hasReachedMediaQuery = useMediaQuery(mediaQuery);
+  const hasReachedMediaQuery = useMediaQuery(
+    `(min-width: ${defaultTheme.screens[mediaQuery]})`
+  );
+
+  if (typeof children === 'function') {
+    return children(hasReachedMediaQuery);
+  }
 
   if (!hasReachedMediaQuery) {
-    if (invert) {
+    if ('invert' in props) {
       return <Fragment>{children}</Fragment>;
     }
 
     return null;
   }
 
-  if (invert) {
+  if ('invert' in props) {
     return null;
   }
 

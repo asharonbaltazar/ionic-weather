@@ -1,10 +1,20 @@
 import { Fragment } from 'react';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
-import { WeeklyForecasts } from './WeeklyForecasts';
+import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
+import { MediaQuery } from '@components/MediaQuery';
+import { Redirect } from 'react-router';
 
 export const Weekly = () => (
-  <Fragment>
-    <HeaderWithBackButton title="Weekly" />
-    <WeeklyForecasts />
-  </Fragment>
+  <MediaQuery>
+    {(matches) =>
+      matches ? (
+        <Redirect to="/" />
+      ) : (
+        <Fragment>
+          <HeaderWithBackButton title="Weekly" />
+          <WeeklyForecasts />
+        </Fragment>
+      )
+    }
+  </MediaQuery>
 );
