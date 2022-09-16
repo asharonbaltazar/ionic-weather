@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { LinkWithIcon } from './LinkWithIcon';
+import { LinkWithIcon } from '@components/LinkWithIcon';
 
 interface HeaderWithBackButtonProps {
   title: string;
