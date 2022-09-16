@@ -5,6 +5,8 @@ import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
 export const Hourly = () => (
   <Fragment>
     <HeaderWithBackButton title="Hourly" />
-    <HourlyForecasts />
+    <main>
+      <HourlyForecasts />
+    </main>
   </Fragment>
 );

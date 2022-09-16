@@ -10,12 +10,10 @@ export const HourlyForecasts = () => {
   }
 
   return (
-    <main className="mt-4 px-3 pb-4">
-      <ul className="space-y-2">
-        {selectedWeather.hourly.map((hourly) => (
-          <HourlyForecast key={hourly.dt} hourly={hourly} />
-        ))}
-      </ul>
-    </main>
+    <ul className="mt-4 space-y-2 overflow-auto px-3 pb-4">
+      {selectedWeather.hourly.map((hourly) => (
+        <HourlyForecast key={hourly.dt} hourly={hourly} />
+      ))}
+    </ul>
   );
 };
