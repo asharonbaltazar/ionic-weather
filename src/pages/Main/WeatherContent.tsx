@@ -11,9 +11,9 @@ export const WeatherContent = () => {
   }
 
   return (
-    <main className="mt-4 space-y-5 px-3">
+    <div className="mt-4 space-y-5 px-3">
       <CurrentForecast />
-      <div className="space-y-2">
+      <div className="space-y-2 lg:hidden">
         <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
           Hourly Forecast
         </LinkButtonWithIcon>
@@ -21,6 +21,6 @@ export const WeatherContent = () => {
           Weekly Forecast
         </LinkButtonWithIcon>
       </div>
-    </main>
+    </div>
   );
 };
