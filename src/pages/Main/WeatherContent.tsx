@@ -1,5 +1,5 @@
-import { MainPlaceholder } from 'src/pages/Main/MainPagePlaceholder';
-import { MainWeatherForecast } from 'src/pages/Main/MainWeatherForecast';
+import { MainPlaceholder } from '@pages/main/MainPagePlaceholder';
+import { CurrentForecast } from '@pages/main/CurrentForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 import { useWeather } from '@utilities/hooks';
 
@@ -11,9 +11,9 @@ export const WeatherContent = () => {
   }
 
   return (
-    <main className="mt-4 space-y-5 px-3">
-      <MainWeatherForecast />
-      <div className="space-y-2">
+    <div className="mt-4 space-y-5 px-3">
+      <CurrentForecast />
+      <div className="space-y-2 lg:hidden">
         <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
           Hourly Forecast
         </LinkButtonWithIcon>
@@ -21,6 +21,6 @@ export const WeatherContent = () => {
           Weekly Forecast
         </LinkButtonWithIcon>
       </div>
-    </main>
+    </div>
   );
 };

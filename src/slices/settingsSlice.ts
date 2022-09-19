@@ -1,34 +1,38 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface SettingsState {
-  timePreference: 'h a' | 'HH:mm';
+  timePreference: 'hh:mm a' | 'HH:mm';
   tempPreference: 'celsius' | 'kelvin' | 'fahrenheit';
   windSpeedPreference: 'miles' | 'kilometers';
-  colorPreference: 'primary' | 'green' | 'red' | 'yellow';
 }
 
 const initialState: SettingsState = {
-  timePreference: 'h a',
+  timePreference: 'hh:mm a',
   tempPreference: 'celsius',
   windSpeedPreference: 'kilometers',
-  colorPreference: 'primary',
 };
 
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    changeTimePreference: (state, action) => {
+    changeTimePreference: (
+      state,
+      action: PayloadAction<SettingsState['timePreference']>
+    ) => {
       state.timePreference = action.payload;
     },
-    changeTempPreference: (state, action) => {
+    changeTempPreference: (
+      state,
+      action: PayloadAction<SettingsState['tempPreference']>
+    ) => {
       state.tempPreference = action.payload;
     },
-    changeWindSpeedPreference: (state, action) => {
+    changeWindSpeedPreference: (
+      state,
+      action: PayloadAction<SettingsState['windSpeedPreference']>
+    ) => {
       state.windSpeedPreference = action.payload;
-    },
-    changeColorPreference: (state, action) => {
-      state.colorPreference = action.payload;
     },
   },
 });
@@ -37,6 +41,5 @@ export const {
   changeTempPreference,
   changeWindSpeedPreference,
   changeTimePreference,
-  changeColorPreference,
 } = settingsSlice.actions;
 export default settingsSlice.reducer;

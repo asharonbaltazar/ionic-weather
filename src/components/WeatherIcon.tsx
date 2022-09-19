@@ -2,34 +2,23 @@ import { DetailedHTMLProps, HtmlHTMLAttributes } from 'react';
 import clsx from 'clsx';
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import { BaseWeather } from '@functions/types';
+import { BaseDetails } from '@functions/types';
 
 dayjs.extend(isBetween);
 
-type WeatherIconProps = { weather: BaseWeather } & DetailedHTMLProps<
+type WeatherIconProps = { icon: BaseDetails['icon'] } & DetailedHTMLProps<
   HtmlHTMLAttributes<HTMLElement>,
   HTMLElement
 >;
 
 export const WeatherIcon = ({
-  weather,
+  icon,
   className,
   ...iProps
-}: WeatherIconProps) => {
-  const {
-    dt,
-    sunrise,
-    sunset,
-    details: { id },
-  } = weather;
-
-  const timeOfDay = dayjs(dt).isBetween(sunrise, sunset) ? 'day' : 'night';
-
-  return (
-    <i
-      // Disabling due to custom CSS className for weather icons
-      className={clsx(`wi wi-owm-${timeOfDay}-${id}`, className)} // eslint-disable-line
-      {...iProps}
-    />
-  );
-};
+}: WeatherIconProps) => (
+  <i
+    // Disabling due to custom CSS className for weather icons
+    className={clsx(`wi wi-owm-${icon}`, className)} // eslint-disable-line
+    {...iProps}
+  />
+);

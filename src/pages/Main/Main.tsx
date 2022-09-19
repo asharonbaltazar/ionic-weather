@@ -1,10 +1,19 @@
 import { Fragment } from 'react';
-import { Header } from 'src/pages/Main/Header';
-import { WeatherContent } from 'src/pages/Main/WeatherContent';
+import { Header } from '@pages/main/Header';
+import { WeatherContent } from '@pages/main/WeatherContent';
+import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
+import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
+import { MediaQuery } from '@components/MediaQuery';
 
 export const Main = () => (
   <Fragment>
     <Header />
-    <WeatherContent />
+    <main className="lg:contents">
+      <WeatherContent />
+      <MediaQuery>
+        <HourlyForecasts />
+        <WeeklyForecasts />
+      </MediaQuery>
+    </main>
   </Fragment>
 );

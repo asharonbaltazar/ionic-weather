@@ -1,9 +1,9 @@
 import { formatTemp } from '@utilities/format';
 import { ColorfulStat } from '@components/ColorfulStat';
 import { useSettings, useWeather } from '@utilities/hooks';
-import { WeatherIcon } from 'src/components/WeatherIcon';
+import { WeatherIcon } from '@components/WeatherIcon';
 
-export const MainWeatherForecast = () => {
+export const CurrentForecast = () => {
   const { tempPreference } = useSettings();
 
   const { selectedWeather } = useWeather();
@@ -30,8 +30,8 @@ export const MainWeatherForecast = () => {
             </h4>
           </div>
           <WeatherIcon
-            className="absolute right-0 top-5 text-8xl text-blue-400/90 dark:text-blue-200/90 lg:text-9xl"
-            weather={selectedWeather.current}
+            className="absolute right-0 top-5 text-7xl text-blue-400/90 dark:text-blue-200/90"
+            icon={details.icon}
           />
         </div>
         <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200">

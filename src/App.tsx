@@ -1,6 +1,6 @@
 import { Route, BrowserRouter, Switch } from 'react-router-dom';
 
-import { Main } from '@pages/Main/Main';
+import { Main } from '@pages/main/Main';
 import { Settings } from '@pages/settings/Settings';
 import { Search } from '@pages/search/Search';
 import { Weekly } from '@pages/weekly/Weekly';

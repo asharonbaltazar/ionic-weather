@@ -19,7 +19,7 @@ export interface GMapGeocodeResult {
   placeId: string;
 }
 
-interface Details {
+export interface Details {
   id: number;
   main: string;
   description: string;
@@ -119,6 +119,8 @@ export interface OpenWeatherMapResponse {
   alerts: Alert[];
 }
 
+export type BaseDetails = Omit<Details, 'id'>;
+
 export interface BaseWeather {
   clouds: number;
   dewPoint: number;
@@ -131,7 +133,7 @@ export interface BaseWeather {
   temp: number;
   uvi: number;
   visibility: number;
-  details: Details;
+  details: BaseDetails;
   wind: {
     deg: number;
     gust: number;

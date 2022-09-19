@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { LinkWithIcon } from './LinkWithIcon';
+import { LinkWithIcon } from '@components/LinkWithIcon';
 
 interface HeaderWithBackButtonProps {
   title: string;
@@ -12,7 +12,7 @@ export const HeaderWithBackButton = ({
   backHref = '/',
   rightContent,
 }: HeaderWithBackButtonProps) => (
-  <header className="flex items-center justify-between bg-white p-3 shadow-sm dark:bg-stone-900 dark:shadow-none md:p-3">
+  <header className="sticky inset-y-0 flex items-center justify-between bg-white p-3 shadow-sm dark:bg-stone-900 dark:shadow-none md:p-3">
     <div className="flex items-center gap-x-2">
       <LinkWithIcon to={backHref} icon="tabler:arrow-back-up" />
       <span className="text text-xl font-medium">{title}</span>
