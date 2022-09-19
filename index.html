@@ -27,6 +27,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons.min.css"
     />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/weather-icons/2.0.10/css/weather-icons-wind.min.css"
@@ -36,7 +37,10 @@
   </head>
 
   <body>
-    <div class="lg:grid lg:grid-cols-3 lg:h-screen" id="root"></div>
+    <div
+      class="lg:grid lg:grid-cols-[min-content_1fr_1fr_1fr] lg:h-screen"
+      id="root"
+    ></div>
   </body>
 
   <script type="module" src="/src/index.tsx"></script>
