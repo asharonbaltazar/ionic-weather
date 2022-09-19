@@ -3,45 +3,45 @@ import { useMediaQuery } from '@mantine/hooks';
 // Disabling because rule is incorrect
 // eslint-disable-next-line import/no-extraneous-dependencies
 import defaultTheme from 'tailwindcss/defaultTheme';
-// https://tailwindcss.com/docs/responsive-design
 
-interface MediaQueryWithInvert {
-  mediaQuery?: keyof typeof defaultTheme.screens;
-  invert?: boolean;
+type MediaQueryWithInvert = {
+  // https://tailwindcss.com/docs/responsive-design
+  breakpoint?: keyof typeof defaultTheme.screens;
+  show?: boolean;
   children: ReactNode;
-}
+};
 
 interface MediaQueryWithRenderProps {
-  mediaQuery?: keyof typeof defaultTheme.screens;
+  breakpoint?: keyof typeof defaultTheme.screens;
   children(matches: boolean): JSX.Element;
 }
 
 type MediaQueryProps = MediaQueryWithInvert | MediaQueryWithRenderProps;
 
 export const MediaQuery = ({
-  mediaQuery = 'lg',
+  breakpoint = 'lg',
   children,
   ...props
 }: MediaQueryProps) => {
   const hasReachedMediaQuery = useMediaQuery(
-    `(min-width: ${defaultTheme.screens[mediaQuery]})`
+    `(min-width: ${defaultTheme.screens[breakpoint]})`
   );
 
   if (typeof children === 'function') {
     return children(hasReachedMediaQuery);
   }
 
-  if (!hasReachedMediaQuery) {
-    if ('invert' in props) {
-      return <Fragment>{children}</Fragment>;
+  if (hasReachedMediaQuery) {
+    if ('show' in props && props.show) {
+      return null;
     }
 
-    return null;
+    return <Fragment>{children}</Fragment>;
   }
 
-  if ('invert' in props) {
-    return null;
+  if ('show' in props && props.show) {
+    return <Fragment>{children}</Fragment>;
   }
 
-  return <Fragment>{children}</Fragment>;
+  return null;
 };
