@@ -5,9 +5,11 @@ import { Settings } from '@pages/settings/Settings';
 import { Search } from '@pages/search/Search';
 import { Weekly } from '@pages/weekly/Weekly';
 import { Hourly } from '@pages/hourly/Hourly';
+import { Sidebar } from '@components/Sidebar';
 
 const App = () => (
   <BrowserRouter>
+    <Sidebar />
     <Switch>
       <Route path="/settings" component={Settings} />
       <Route path="/search" component={Search} />
