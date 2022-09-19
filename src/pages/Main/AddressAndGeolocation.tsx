@@ -1,9 +1,13 @@
+import { StateWeather } from '@functions/types';
 import { Icon } from '@iconify/react';
-import { useWeather } from '@utilities/hooks';
 
-export const AddressAndGeolocation = () => {
-  const { selectedWeather } = useWeather();
+interface AddressAndGeolocationProps {
+  selectedWeather: StateWeather | null;
+}
 
+export const AddressAndGeolocation = ({
+  selectedWeather,
+}: AddressAndGeolocationProps) => {
   if (!selectedWeather) {
     return null;
   }

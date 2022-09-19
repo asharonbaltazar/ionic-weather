@@ -9,7 +9,7 @@ export const Header = () => {
 
   return (
     <header className="sticky inset-x-0 top-0 z-10 flex items-center bg-white p-3 shadow-sm dark:bg-stone-900 dark:shadow-none lg:col-span-3 lg:contents">
-      <MediaQuery invert>
+      <MediaQuery show>
         <span
           className={clsx({
             'flex-none': selectedWeather,
@@ -20,7 +20,7 @@ export const Header = () => {
         </span>
       </MediaQuery>
 
-      <AddressAndGeolocation />
+      <AddressAndGeolocation selectedWeather={selectedWeather} />
 
       <MediaQuery>
         <h5 className="text bg-white p-3 text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none">
@@ -31,7 +31,7 @@ export const Header = () => {
         </h5>
       </MediaQuery>
 
-      <MediaQuery invert>
+      <MediaQuery show>
         <span className="flex-none">
           <LinkWithIcon to="/settings" icon="tabler:settings" />
         </span>
