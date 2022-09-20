@@ -8,7 +8,7 @@ import { MediaQuery } from '@components/MediaQuery';
 export const MainPage = () => (
   <Fragment>
     <Header />
-    <main className="lg:contents">
+    <main className="pb-4 lg:contents lg:pb-0">
       <WeatherContent />
       <MediaQuery>
         <HourlyForecasts />

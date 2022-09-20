@@ -23,7 +23,7 @@ export const HourlyForecast = ({ hourly }: HourlyForecastProps) => {
 
           <div className="text-right">
             <p className="text text-xl font-semibold">{formatTemp(temp)}</p>
-            <p className="text-xs text-slate-800 opacity-70 dark:text-stone-200/70">
+            <p className="text-sm text-slate-800 opacity-70 dark:text-stone-200/70">
               feels like {formatTemp(feelsLike)}
             </p>
           </div>

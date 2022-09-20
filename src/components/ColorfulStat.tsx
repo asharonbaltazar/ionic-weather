@@ -16,6 +16,6 @@ export const ColorfulStat = ({
   value ? (
     <div className={clsx('rounded-3xl p-6', bgColor, textColor)}>
       <p className="opacity-90 lg:text-sm 2xl:text-base">{label}</p>
-      <p className="text-4xl lg:text-2xl 2xl:text-4xl">{value}</p>
+      <p className="text-3xl lg:text-2xl 2xl:text-4xl">{value}</p>
     </div>
   ) : null;

@@ -24,7 +24,7 @@ export const CurrentForecast = ({ selectedWeather }: CurrentForecastProps) => {
             <h1 className="text-7xl font-bold text-slate-800 dark:text-stone-200 lg:text-5xl 2xl:text-7xl">
               {formatTemp(temp)}
             </h1>
-            <h4 className="mt-1 font-medium text-slate-800 opacity-70 dark:text-stone-200/70">
+            <h4 className="mt-1 font-medium text-slate-800/70 dark:text-stone-200/70">
               feels like {formatTemp(feelsLike)}
             </h4>
           </div>
@@ -33,7 +33,7 @@ export const CurrentForecast = ({ selectedWeather }: CurrentForecastProps) => {
             icon={details.icon}
           />
         </div>
-        <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200 2xl:text-4xl">
+        <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200 lg:text-3xl 2xl:text-4xl">
           {details.description}
         </h2>
       </div>
