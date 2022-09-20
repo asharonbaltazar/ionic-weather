@@ -5,7 +5,7 @@ import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
 import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
 import { MediaQuery } from '@components/MediaQuery';
 
-export const Main = () => (
+export const MainPage = () => (
   <Fragment>
     <Header />
     <main className="lg:contents">
