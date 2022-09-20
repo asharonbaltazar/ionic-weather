@@ -5,7 +5,7 @@ interface FullscreenLoadingProps {
 }
 
 export const FullscreenLoading = ({ loading }: FullscreenLoadingProps) => {
-  if (loading) {
+  if (!loading) {
     return null;
   }
 
