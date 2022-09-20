@@ -12,7 +12,7 @@ export const WeatherContent = () => {
 
   return (
     <div className="mt-4 space-y-5 px-3">
-      <CurrentForecast />
+      <CurrentForecast selectedWeather={selectedWeather} />
       <div className="space-y-2 lg:hidden">
         <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
           Hourly Forecast
