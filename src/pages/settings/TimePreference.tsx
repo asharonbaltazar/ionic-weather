@@ -1,14 +1,14 @@
 import { useAppDispatch } from '@store';
 import { changeTimePreference } from '@slices/settingsSlice';
 import { Switch } from '@components/Switch';
-import { useSettings } from 'src/utilities/hooks';
+import { useSettings } from '@utilities/hooks';
 
 export const TimePreference = () => {
-  const { timePreference } = useSettings();
+  const { time } = useSettings();
 
   const dispatch = useAppDispatch();
 
-  const checked = timePreference === 'HH:mm';
+  const checked = time === 'HH:mm';
 
   const onClick = () =>
     dispatch(changeTimePreference(checked ? 'hh:mm a' : 'HH:mm'));

@@ -1,18 +1,20 @@
 import { HourlyWeather } from '@functions/types';
 import { WeatherIcon } from '@components/WeatherIcon';
-import dayjs from 'dayjs';
+import { useFormatting } from 'src/utilities/hooks';
 
 interface HourlyForecastProps {
   hourly: HourlyWeather;
 }
 
 export const HourlyForecast = ({ hourly }: HourlyForecastProps) => {
+  const { formatTemp, formatTime } = useFormatting();
+
   const { details, dt, temp } = hourly;
 
   return (
     <li className="space-y-1">
       <span className="pl-2 text-sm text-gray-900/50 dark:text-stone-200/70">
-        {dayjs(dt).format('hh:mm a')}
+        {formatTime(dt)}
       </span>
       <div className="space-y-1 rounded-3xl bg-slate-100 px-3 py-6 dark:bg-zinc-800">
         <div className="flex items-center justify-between">
@@ -25,7 +27,7 @@ export const HourlyForecast = ({ hourly }: HourlyForecastProps) => {
               {details.description}
             </p>
           </div>
-          <p className="text-xl font-semibold">{temp}</p>
+          <p className="text-xl font-semibold">{formatTemp(temp)}</p>
         </div>
       </div>
     </li>
