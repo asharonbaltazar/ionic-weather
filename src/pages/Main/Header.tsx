@@ -22,14 +22,16 @@ export const Header = () => {
 
       <AddressAndGeolocation selectedWeather={selectedWeather} />
 
-      <MediaQuery>
-        <h5 className="text bg-white p-3 text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none">
-          Hourly
-        </h5>
-        <h5 className="text bg-white p-3 text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none">
-          Weekly
-        </h5>
-      </MediaQuery>
+      {selectedWeather && (
+        <MediaQuery>
+          <h5 className="text bg-white text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none lg:px-3 lg:py-4">
+            Hourly
+          </h5>
+          <h5 className="text bg-white text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none lg:px-3 lg:py-4">
+            Weekly
+          </h5>
+        </MediaQuery>
+      )}
 
       <MediaQuery show>
         <span className="flex-none">

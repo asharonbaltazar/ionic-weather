@@ -19,7 +19,7 @@ export const Modal = ({
   <Dialog className="relative z-50" open={open} onClose={() => onClose(false)}>
     <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
     <div className="fixed inset-0 flex items-center justify-center">
-      <Dialog.Panel className="w-9/12 rounded-lg bg-slate-100 p-4 dark:bg-zinc-800 sm:w-7/12 md:w-5/12">
+      <Dialog.Panel className="w-9/12 rounded-lg bg-slate-100 p-4 dark:bg-zinc-800 sm:w-7/12 md:w-5/12 lg:w-2/12">
         <Dialog.Title className="font-medium text-gray-900/50 dark:text-stone-200/70 md:text-sm">
           {title}
         </Dialog.Title>

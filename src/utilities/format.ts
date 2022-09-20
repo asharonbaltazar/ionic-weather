@@ -1,35 +1,27 @@
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
+import { Temperature, WindSpeed } from '@slices/settingsSlice';
 dayjs.extend(isBetween);
 
-// Compass directions
 const DIRECTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 
-export const formatTemp = {
-  celsius: (value: number) => Math.ceil(value - 273.15),
-  fahrenheit: (value: number) => Math.ceil((value - 273.15) * 1.8 + 32),
-  kelvin: (value: number) => Math.ceil(value),
+export const formatTemp: { [key in Temperature]: (temp: number) => number } = {
+  c: (temp: number) => Math.ceil(temp - 273.15),
+  f: (temp: number) => Math.ceil((temp - 273.15) * 1.8 + 32),
+  k: (temp: number) => Math.ceil(temp),
 };
 
-export const formatSpeed = {
-  miles: (value: number) => Math.ceil(value / 1.609),
-  kilometers: (value: number) => value,
+export const formatSpeed: {
+  [key in WindSpeed]: (windSpeed: number) => number;
+} = {
+  mph: (windSpeed: number) => Math.ceil(windSpeed / 1.609),
+  kph: (windSpeed: number) => windSpeed,
 };
 
-export const formatIconTime = (day: boolean): string => (day ? 'day' : 'night');
-
-export const timeIsWithinTimes = (
-  time: string,
-  times: { sunrise: string; sunset: string }[]
-): boolean =>
-  times.some((element) =>
-    dayjs(time).isBetween(element.sunrise, element.sunset)
-  );
-
-export const getDirection = (angle: number): string =>
+export const getDirection = (angle: number) =>
   DIRECTIONS[Math.round(((angle %= 360) < 0 ? angle + 360 : angle) / 45) % 8];
 
-export const getUviIndex = (uvi: number): string => {
+export const formatUviIndex = (uvi: number): string => {
   switch (true) {
     case uvi >= 0 && uvi <= 2:
       return 'Low';
