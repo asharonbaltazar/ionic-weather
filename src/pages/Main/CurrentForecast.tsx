@@ -21,19 +21,19 @@ export const CurrentForecast = ({ selectedWeather }: CurrentForecastProps) => {
       <div className="relative space-y-10 rounded-3xl bg-slate-100 p-6 dark:bg-zinc-800">
         <div className="relative">
           <div>
-            <h1 className="text-7xl font-bold text-slate-800 dark:text-stone-200">
+            <h1 className="text-7xl font-bold text-slate-800 dark:text-stone-200 lg:text-5xl 2xl:text-7xl">
               {formatTemp(temp)}
             </h1>
-            <h4 className="mt-1 font-medium text-slate-800 opacity-70 dark:text-stone-200 dark:opacity-50">
+            <h4 className="mt-1 font-medium text-slate-800 opacity-70 dark:text-stone-200/70">
               feels like {formatTemp(feelsLike)}
             </h4>
           </div>
           <WeatherIcon
-            className="absolute right-0 top-5 text-7xl text-blue-400/90 dark:text-blue-200/90"
+            className="absolute right-0 top-5 text-7xl text-blue-400/90 dark:text-blue-200/90 sm:text-8xl lg:text-6xl 2xl:text-8xl"
             icon={details.icon}
           />
         </div>
-        <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200">
+        <h2 className="text-4xl font-medium text-slate-800 first-letter:capitalize dark:text-stone-200 2xl:text-4xl">
           {details.description}
         </h2>
       </div>
