@@ -1,38 +1,33 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export type Temperature = 'c' | 'k' | 'f';
+export type Time = 'hh:mm a' | 'HH:mm';
+export type WindSpeed = 'mph' | 'kph';
+
 interface SettingsState {
-  timePreference: 'hh:mm a' | 'HH:mm';
-  tempPreference: 'celsius' | 'kelvin' | 'fahrenheit';
-  windSpeedPreference: 'miles' | 'kilometers';
+  time: Time;
+  temperature: Temperature;
+  windSpeed: WindSpeed;
 }
 
 const initialState: SettingsState = {
-  timePreference: 'hh:mm a',
-  tempPreference: 'celsius',
-  windSpeedPreference: 'kilometers',
+  time: 'hh:mm a',
+  temperature: 'c',
+  windSpeed: 'kph',
 };
 
 export const settingsSlice = createSlice({
   name: 'settings',
   initialState,
   reducers: {
-    changeTimePreference: (
-      state,
-      action: PayloadAction<SettingsState['timePreference']>
-    ) => {
-      state.timePreference = action.payload;
+    changeTimePreference: (state, action: PayloadAction<Time>) => {
+      state.time = action.payload;
     },
-    changeTempPreference: (
-      state,
-      action: PayloadAction<SettingsState['tempPreference']>
-    ) => {
-      state.tempPreference = action.payload;
+    changeTempPreference: (state, action: PayloadAction<Temperature>) => {
+      state.temperature = action.payload;
     },
-    changeWindSpeedPreference: (
-      state,
-      action: PayloadAction<SettingsState['windSpeedPreference']>
-    ) => {
-      state.windSpeedPreference = action.payload;
+    changeWindSpeedPreference: (state, action: PayloadAction<WindSpeed>) => {
+      state.windSpeed = action.payload;
     },
   },
 });
