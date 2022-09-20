@@ -1,7 +1,7 @@
 import { LinkWithIcon } from '@components/LinkWithIcon';
 import { MediaQuery } from '@components/MediaQuery';
 import { useWeather } from '@utilities/hooks';
-import { AddressAndGeolocation } from '@pages/main/AddressAndGeolocation';
+import { AddressAndGeolocation } from '@pages/home/AddressAndGeolocation';
 import clsx from 'clsx';
 
 export const Header = () => {

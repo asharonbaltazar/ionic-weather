@@ -1,6 +1,6 @@
 import { Fragment } from 'react';
-import { Header } from '@pages/main/Header';
-import { WeatherContent } from '@pages/main/WeatherContent';
+import { Header } from '@pages/home/Header';
+import { WeatherContent } from '@pages/home/WeatherContent';
 import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
 import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
 import { MediaQuery } from '@components/MediaQuery';

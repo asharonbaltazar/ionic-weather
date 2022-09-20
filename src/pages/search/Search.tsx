@@ -6,7 +6,7 @@ import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { useAppDispatch } from '@store';
 import { resetPredictions } from '@slices/searchSlice';
 
-export const SearchPage = () => {
+export const Search = () => {
   const dispatch = useAppDispatch();
 
   useEffect(

@@ -3,7 +3,7 @@ import { SpeedPreference } from '@pages/settings/SpeedPreference';
 import { TimePreference } from '@pages/settings/TimePreference';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 
-export const SettingsPage = () => (
+export const Settings = () => (
   <div className="h-screen">
     <HeaderWithBackButton title="Settings" />
 
