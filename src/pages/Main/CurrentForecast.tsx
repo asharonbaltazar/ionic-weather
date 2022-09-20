@@ -41,7 +41,7 @@ export const CurrentForecast = ({ selectedWeather }: CurrentForecastProps) => {
       <div className="grid grid-cols-2 gap-2">
         <ColorfulStat
           label="Humidity"
-          value={humidity}
+          value={`${humidity}%`}
           bgColor="bg-slate-500"
         />
         <ColorfulStat label="Pressure" value={pressure} bgColor="bg-zinc-500" />
