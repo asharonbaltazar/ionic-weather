@@ -1,8 +1,8 @@
 import { Icon } from '@iconify/react';
 import clsx from 'clsx';
-import { Link, LinkProps } from 'react-router-dom';
+import { NavLink, NavLinkProps } from 'react-router-dom';
 
-interface LinkWithIconProps extends LinkProps {
+interface LinkWithIconProps extends NavLinkProps {
   icon: string;
 }
 
@@ -11,16 +11,27 @@ export const LinkWithIcon = ({
   className,
   ...linkProps
 }: LinkWithIconProps) => (
-  <Link
+  <NavLink
     {...linkProps}
-    className={clsx(
-      'text flex w-full items-center gap-x-2 rounded p-1 font-medium dark:hover:bg-slate-700',
-      className
-    )}
+    className={({ isActive }) =>
+      clsx(
+        'text flex w-full items-center gap-x-2 rounded p-1 font-medium dark:hover:bg-slate-700',
+        {
+          'bg-blue-500/90': isActive,
+        },
+        className
+      )
+    }
+    end
   >
-    <Icon
-      className="text-2xl text-blue-500 dark:text-slate-400 md:text-3xl"
-      icon={icon}
-    />
-  </Link>
+    {({ isActive }) => (
+      <Icon
+        className={clsx('text-2xl  md:text-3xl', {
+          'text-stone-200': isActive,
+          'text-blue-500 dark:text-slate-400': !isActive,
+        })}
+        icon={icon}
+      />
+    )}
+  </NavLink>
 );

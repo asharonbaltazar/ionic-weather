@@ -2,13 +2,13 @@ import { Fragment } from 'react';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
 import { MediaQuery } from '@components/MediaQuery';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 
 export const Weekly = () => (
   <MediaQuery>
     {(matches) =>
       matches ? (
-        <Redirect to="/" />
+        <Navigate to="/" />
       ) : (
         <Fragment>
           <HeaderWithBackButton title="Weekly" />

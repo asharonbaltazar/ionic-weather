@@ -1,5 +1,5 @@
 import { HourlyWeather } from '@functions/types';
-import { useFormatting } from 'src/utilities/hooks';
+import { useFormatting } from '@utilities/hooks';
 
 interface HourlyForecastProps {
   hourly: HourlyWeather;

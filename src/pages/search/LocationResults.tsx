@@ -4,14 +4,14 @@ import { setRecentPrediction } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
-import { useHistory } from 'react-router';
+import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSearch } from '@utilities/hooks';
 
 type Text = { mainText: string; secondaryText: string };
 
 export const LocationResults = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const dispatch = useAppDispatch();
 
@@ -28,7 +28,7 @@ export const LocationResults = () => {
     }, 200);
     dispatch(getWeather(placeId));
 
-    history.goBack();
+    navigate('/');
   };
 
   if (loading) {
