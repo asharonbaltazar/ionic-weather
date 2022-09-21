@@ -2,8 +2,8 @@
   "extends": "../tsconfig.json",
   "include": ["src"],
   "compilerOptions": {
+    "lib": ["ES2015"],
     "outDir": "dist",
-    "rootDir": "./src",
     "composite": true,
     "noEmit": false,
     "baseUrl": "./",
