@@ -3,7 +3,7 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { MainPage } from '@pages/home/MainPage';
 import { Settings } from '@pages/settings/Settings';
 import { Search } from '@pages/search/Search';
-import { Daily } from '@pages/daily/Weekly';
+import { Daily } from '@pages/daily/Daily';
 import { Hourly } from '@pages/hourly/Hourly';
 import { Sidebar } from '@components/Sidebar';
 
