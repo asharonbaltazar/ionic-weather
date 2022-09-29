@@ -17,7 +17,7 @@ export const LinkWithIcon = ({
       clsx(
         'text flex w-full items-center gap-x-2 rounded p-1 font-medium dark:hover:bg-slate-700',
         {
-          'bg-blue-500/90': isActive,
+          'bg-blue-500/90 dark:hover:bg-blue-600/50': isActive,
         },
         className
       )
