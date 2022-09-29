@@ -9,26 +9,18 @@ interface DailyTempProps {
 export const DailyTemp = ({ temp, open }: DailyTempProps) => {
   const { formatTemp } = useFormatting();
 
-  const { day, night } = temp;
+  const { max, min } = temp;
 
   if (open) {
     return (
       <div>
-        <p className="text">
-          <span className="text-sm text-gray-900/50 dark:text-stone-200/70">
-            Day:
-          </span>{' '}
-          <span className="font-semibold">{formatTemp(day)}</span>
-        </p>
-        <p className="text">
-          <span className="text-sm text-gray-900/50 dark:text-stone-200/70">
-            Night:
-          </span>{' '}
-          <span className="font-semibold">{formatTemp(night)}</span>
+        <p className="text font-semibold">{formatTemp(max)}</p>
+        <p className="text text-gray-900/50 dark:text-stone-200/70">
+          {formatTemp(min)}
         </p>
       </div>
     );
   }
 
-  return <p className="text text-xl font-semibold">{formatTemp(day)}</p>;
+  return <p className="text text-xl font-semibold">{formatTemp(max)}</p>;
 };
