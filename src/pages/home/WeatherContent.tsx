@@ -1,9 +1,9 @@
+import { Fragment } from 'react';
 import { MainPlaceholder } from '@pages/home/MainPagePlaceholder';
 import { CurrentForecast } from '@pages/home/CurrentForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 import { useWeather } from '@utilities/hooks';
 import { FullscreenLoading } from 'src/components/FullscreenLoading';
-import { Fragment } from 'react';
 
 export const WeatherContent = () => {
   const { selectedWeather, loading } = useWeather();
@@ -21,7 +21,7 @@ export const WeatherContent = () => {
           <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
             Hourly Forecast
           </LinkButtonWithIcon>
-          <LinkButtonWithIcon icon="tabler:calendar-event" to="/weekly">
+          <LinkButtonWithIcon icon="tabler:calendar-event" to="/daily">
             Weekly Forecast
           </LinkButtonWithIcon>
         </div>

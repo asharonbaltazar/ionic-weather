@@ -1,10 +1,10 @@
 import { Fragment } from 'react';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
-import { WeeklyForecasts } from '@pages/weekly/WeeklyForecasts';
+import { DailyForecasts } from '@pages/daily/DailyForecasts';
 import { MediaQuery } from '@components/MediaQuery';
 import { Navigate } from 'react-router-dom';
 
-export const Weekly = () => (
+export const Daily = () => (
   <MediaQuery>
     {(matches) =>
       matches ? (
@@ -12,7 +12,7 @@ export const Weekly = () => (
       ) : (
         <Fragment>
           <HeaderWithBackButton title="Weekly" />
-          <WeeklyForecasts />
+          <DailyForecasts />
         </Fragment>
       )
     }

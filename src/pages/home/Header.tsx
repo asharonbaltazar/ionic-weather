@@ -28,7 +28,7 @@ export const Header = () => {
             Hourly
           </h5>
           <h5 className="text bg-white text-xl font-medium shadow-sm dark:bg-stone-900 dark:shadow-none lg:px-3 lg:py-4">
-            Weekly
+            Daily
           </h5>
         </MediaQuery>
       )}
