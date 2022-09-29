@@ -11,7 +11,7 @@ export const DailyForecasts = () => {
   return (
     <ul className="space-y-2 overflow-auto px-3 py-4">
       {selectedWeather.daily.map((daily) => (
-        <DailyForecast key={daily.dt} weekly={daily} />
+        <DailyForecast key={daily.dt} daily={daily} />
       ))}
     </ul>
   );
