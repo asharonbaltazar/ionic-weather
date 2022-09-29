@@ -1,4 +1,4 @@
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
 import { MainPage } from '@pages/home/MainPage';
 import { Settings } from '@pages/settings/Settings';
@@ -10,13 +10,13 @@ import { Sidebar } from '@components/Sidebar';
 const App = () => (
   <BrowserRouter>
     <Sidebar />
-    <Switch>
-      <Route path="/settings" component={Settings} />
-      <Route path="/search" component={Search} />
-      <Route path="/hourly" component={Hourly} />
-      <Route path="/weekly" component={Weekly} />
-      <Route path="/" exact component={MainPage} />
-    </Switch>
+    <Routes>
+      <Route path="/settings" element={<Settings />} />
+      <Route path="/search" element={<Search />} />
+      <Route path="/hourly" element={<Hourly />} />
+      <Route path="/weekly" element={<Weekly />} />
+      <Route path="/" element={<MainPage />} />
+    </Routes>
   </BrowserRouter>
 );
 

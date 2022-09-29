@@ -2,13 +2,13 @@ import { Fragment } from 'react';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
 import { HourlyForecasts } from '@pages/hourly/HourlyForecasts';
 import { MediaQuery } from '@components/MediaQuery';
-import { Redirect } from 'react-router';
+import { Navigate } from 'react-router-dom';
 
 export const Hourly = () => (
   <MediaQuery>
     {(matches) =>
       matches ? (
-        <Redirect to="/" />
+        <Navigate to="/" />
       ) : (
         <Fragment>
           <HeaderWithBackButton title="Hourly" />
