@@ -3,7 +3,6 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outdir=dist --keep-names",
     "dev": "concurrently \"npm run build -- --watch\" \"firebase emulators:start --only functions\"",
-    "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
