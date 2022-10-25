@@ -6,7 +6,7 @@
 > Search is powered by Google. Weather is provided by OpenWeatherMap. The project uses Firebase Functions as a makeshift backend.
 > **Ionic Weather** supports hourly and daily views, unit preferences, and geolocation.
 
-The `README` for the backend can be found in the `functions` folder.
+The `README` for the backend [can be found](/functions/README.md) in the `functions` folder.
 
 ## Installation & Running
 
