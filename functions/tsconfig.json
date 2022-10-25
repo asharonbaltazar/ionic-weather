@@ -2,15 +2,21 @@
   "extends": "../tsconfig.json",
   "include": ["src"],
   "compilerOptions": {
-    "lib": ["ES2015"],
+    "module": "commonjs",
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
     "outDir": "dist",
-    "composite": true,
+    "sourceMap": false,
+    "strict": true,
     "noEmit": false,
+    "composite": true,
+    "target": "es2017",
     "baseUrl": "./",
     "paths": {
       "@api": ["./src/api"],
       "@helpers": ["./src/helpers"],
       "@types": ["./src/types"]
     }
-  }
+  },
+  "compileOnSave": true
 }
