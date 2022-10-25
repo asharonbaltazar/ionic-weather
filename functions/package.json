@@ -3,12 +3,11 @@
   "scripts": {
     "build": "esbuild src/index.ts --bundle --platform=node --format=cjs --outdir=dist --keep-names",
     "dev": "concurrently \"npm run build -- --watch\" \"firebase emulators:start --only functions\"",
-    "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
   "engines": {
-    "node": "14"
+    "node": "16"
   },
   "main": "dist/index.js",
   "dependencies": {
@@ -16,9 +15,9 @@
     "cors": "^2.8.5",
     "dayjs": "^1.11.5",
     "esbuild": "^0.15.0",
-    "firebase-admin": "^8.10.0",
-    "firebase-functions": "^3.6.1",
-    "firebase-tools": "^8.12.1"
+    "firebase-admin": "^11.2.0",
+    "firebase-functions": "^4.0.1",
+    "firebase-tools": "^11.15.0"
   },
   "devDependencies": {
     "concurrently": "^7.3.0",

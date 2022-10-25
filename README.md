@@ -1,25 +1,50 @@
+<h1 align="center">
+	🌥 Ionic Weather 🌧
+</h1>
 
-# Ionic Weather
-## 🌥 An open-source weather app, built with the Ionic framework 🌧
+> **Ionic Weather** is built with React, Typescript, and Tailwind. It's a minimal weather application, unweighted by bloat or ads.
+> Search is powered by Google. Weather is provided by OpenWeatherMap. The project uses Firebase Functions as a makeshift backend.
+> **Ionic Weather** supports hourly and daily views, unit preferences, and geolocation.
 
-### Instructions for installing
-It's a bit of a setup, thankfully not too complicated, but *it is* long — so bear with me. 
-##### npm
- - Clone this repo
- - `npm install` 
-##### firebase
-- Navigate to the functions folder (`cd functions`)
- - `npm install` again
- - Make an account on firebase.google.com (it's free) and create a new project. Then make an account for Google's Cloud Platform. Have an API key ready. Do the same with OpenWeatherMap
- - Back at the console, type `firebase login`; it'll open up the browser for you to log in.
- - Pick your project from the console using the arrow keys
- - Run `firebase functions:config:set gmaps.key="YOUR_API_KEY"`
- - Replace `gmaps.key` with `owmapi.key` and run that function again
- - Run `firebase deploy`. It'll deploy the functions in the `index.ts` file and upload them to your firebase project. 
- - Create a `.env.local` file in the root directory of the project, and use your firebase function URLs to create these variables: 
-	 1. `REACT_APP_GET_GPLACE_ID=getGPlaceId`
-	2.  `REACT_APP_GET_WEATHER_VIA_COORDS=getWeatherViaCoordinates` 
-	3. `REACT_APP_GET_GMAPS_SUGGESTIONS=getGMapSuggestions` 
-	4. `REACT_APP_GET_GEOLOCATION_DATA=getGeolocationPlaceData` 
+The `README` for the backend [can be found](/functions/README.md) in the `functions` folder.
 
-### That's it. You're all set. Just have your commits begin with the issue-number. Thank you! 🤗
+## Installation & Running
+
+[npm](https://www.npmjs.com/) is the project's package manager. [Vite](https://vitejs.dev/) serves the code in the browser.
+
+##### Install the dependencies and serve the project in `localhost:3000`:
+
+```
+npm i
+npm start
+```
+
+## Linting & Formatting
+
+[ESlint](https://eslint.org/) scans the code for code quality, consistency in styles, and correct React practices. [Prettier](https://prettier.io/) formats the code.
+
+##### Log all issues in the console:
+
+```
+npm run lint
+```
+
+##### Fix all fixable issues:
+
+```
+npm run lint:fix
+```
+
+##### Format the code:
+
+```
+npm run format
+```
+
+## Building
+
+##### To build and minify the code in a `dist` folder:
+
+```
+npm run build
+```
