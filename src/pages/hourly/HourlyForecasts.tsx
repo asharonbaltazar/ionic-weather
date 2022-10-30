@@ -1,12 +1,11 @@
 import { useWeather } from '@utilities/hooks';
-import { Navigate } from 'react-router-dom';
 import { HourlyForecast } from '@pages/hourly/HourlyForecast';
 
 export const HourlyForecasts = () => {
   const { selectedWeather } = useWeather();
 
   if (!selectedWeather) {
-    return <Navigate to="/" />;
+    return null;
   }
 
   return (
