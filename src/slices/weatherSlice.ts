@@ -23,11 +23,12 @@ export const weatherSlice = createSlice({
   name: 'weather',
   initialState,
   reducers: {
-    dismissWeatherErrors: (state) => {
+    clearWeatherErrors: (state) => {
       state.errors = [];
     },
   },
   extraReducers(builder) {
+    // getWeather
     builder.addCase(getWeather.pending, (state) => {
       state.loading = true;
     });
@@ -35,6 +36,15 @@ export const weatherSlice = createSlice({
       state.selectedWeather = action.payload;
       state.loading = false;
     });
+    builder.addCase(getWeather.rejected, (state, action) => {
+      if (typeof action.payload === 'string') {
+        state.errors.push(action.payload);
+      }
+
+      state.loading = false;
+    });
+
+    // getWeatherByGeolocation
     builder.addCase(getWeatherByGeolocation.pending, (state) => {
       state.loading = true;
     });
@@ -52,5 +62,5 @@ export const weatherSlice = createSlice({
   },
 });
 
-export const { dismissWeatherErrors } = weatherSlice.actions;
+export const { clearWeatherErrors } = weatherSlice.actions;
 export default weatherSlice.reducer;
