@@ -20,7 +20,7 @@ export const Header = () => {
         </span>
       </MediaQuery>
 
-      <AddressAndGeolocation selectedWeather={selectedWeather} />
+      <AddressAndGeolocation />
 
       {selectedWeather && (
         <MediaQuery>

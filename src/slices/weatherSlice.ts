@@ -1,10 +1,10 @@
+import { Weather } from '@functions/types';
 import { createSlice } from '@reduxjs/toolkit';
-import { StateWeather } from '@functions/types';
 import { getWeather } from '@slices/weatherSlice.thunks';
 
 interface WeatherState {
-  selectedWeather: StateWeather | null;
-  savedWeather: StateWeather[];
+  selectedWeather: Weather | null;
+  savedWeather: Weather[];
   errors: string[];
   loading: boolean;
 }

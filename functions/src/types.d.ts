@@ -174,9 +174,3 @@ export interface Weather {
   daily: DailyWeather[];
   updated: string;
 }
-
-export interface StateWeather extends Weather {
-  address: string;
-  isGeolocation: boolean;
-  placeId: string;
-}

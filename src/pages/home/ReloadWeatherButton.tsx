@@ -1,13 +1,6 @@
-import { Weather } from '@functions/types';
 import { Icon } from '@iconify/react';
 
-interface ReloadWeatherButtonProps {
-  selectedWeather: Weather;
-}
-
-export const ReloadWeatherButton = ({
-  selectedWeather,
-}: ReloadWeatherButtonProps) => {
+export const ReloadWeatherButton = () => {
   const onReload = () => {};
 
   return (
