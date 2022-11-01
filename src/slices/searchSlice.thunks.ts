@@ -1,11 +1,15 @@
-import { FunctionsResponse, GMapPrediction } from '@functions/types';
+import {
+  FunctionsResponse,
+  GMapGeocodeResult,
+  GMapPrediction,
+} from '@functions/types';
 import { hasError } from '@utilities/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const getPredictionsByQuery = createAsyncThunk(
+export const getLocationByQuery = createAsyncThunk<GMapPrediction[], string>(
   'search/predictions',
-  async (query: string, { rejectWithValue }) => {
+  async (query, { rejectWithValue }) => {
     const { data: predictions = [] } = await axios.get<
       FunctionsResponse<GMapPrediction[]>
     >(`${import.meta.env.VITE_GET_GMAPS_SUGGESTIONS}?query=${query}`);
@@ -15,5 +19,20 @@ export const getPredictionsByQuery = createAsyncThunk(
     }
 
     return predictions;
+  }
+);
+
+export const getGeocodeResult = createAsyncThunk<GMapGeocodeResult, string>(
+  'search/result',
+  async (placeId, { rejectWithValue }) => {
+    const { data: geocodeResult } = await axios.get<
+      FunctionsResponse<GMapGeocodeResult>
+    >(`${import.meta.env.VITE_GET_GPLACE_ID}?id=${placeId}`);
+
+    if (hasError(geocodeResult)) {
+      return rejectWithValue(geocodeResult.error);
+    }
+
+    return geocodeResult;
   }
 );
