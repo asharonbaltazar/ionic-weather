@@ -1,9 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { StateWeather } from '@functions/types';
-import {
-  getWeather,
-  getWeatherByGeolocation,
-} from '@slices/weatherSlice.thunks';
+import { getWeather } from '@slices/weatherSlice.thunks';
 
 interface WeatherState {
   selectedWeather: StateWeather | null;
@@ -37,22 +34,6 @@ export const weatherSlice = createSlice({
       state.loading = false;
     });
     builder.addCase(getWeather.rejected, (state, action) => {
-      if (typeof action.payload === 'string') {
-        state.errors.push(action.payload);
-      }
-
-      state.loading = false;
-    });
-
-    // getWeatherByGeolocation
-    builder.addCase(getWeatherByGeolocation.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(getWeatherByGeolocation.fulfilled, (state, action) => {
-      state.selectedWeather = action.payload;
-      state.loading = false;
-    });
-    builder.addCase(getWeatherByGeolocation.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }
