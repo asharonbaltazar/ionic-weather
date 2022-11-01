@@ -1,12 +1,14 @@
 import { Fragment } from 'react';
 import { useAppDispatch } from '@store';
-import { setRecentPrediction } from '@slices/searchSlice';
+import { setRecentLocation } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
+import { getGeocode } from '@slices/searchSlice.thunks';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSearch } from '@utilities/hooks';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 type Text = { mainText: string; secondaryText: string };
 
@@ -15,34 +17,28 @@ export const LocationResults = () => {
 
   const dispatch = useAppDispatch();
 
-  const {
-    predictions: queries,
-    recentPredictions: recentQueries,
-    loading,
-    errors,
-  } = useSearch();
+  const { locations, recentLocations, loading, errors } = useSearch();
 
-  const getLatLong = (text: Text, placeId: string) => {
-    setTimeout(() => {
-      dispatch(setRecentPrediction({ text, placeId }));
-    }, 200);
-    dispatch(getWeather(placeId));
+  const getGeocoding = async (text: Text, placeId: string) => {
+    const geocodeLocation = unwrapResult(await dispatch(getGeocode(placeId)));
 
-    navigate('/');
+    return dispatch(getWeather(geocodeLocation))
+      .then(() => navigate('/'))
+      .then(() => dispatch(setRecentLocation({ text, placeId })));
   };
 
   if (loading) {
     return <SkeletonResults />;
   }
 
-  if (queries.length) {
+  if (locations.length) {
     return (
       <Fragment>
-        {queries.map(({ placeId, text }) => (
+        {locations.map(({ placeId, text }) => (
           <li key={placeId} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, placeId)}
+              onClick={() => getGeocoding(text, placeId)}
             >
               {text.mainText}
               <span className="block text-gray-400">{text.secondaryText}</span>
@@ -53,7 +49,7 @@ export const LocationResults = () => {
     );
   }
 
-  if (recentQueries.length) {
+  if (recentLocations.length) {
     return (
       <Fragment>
         <li>
@@ -61,11 +57,11 @@ export const LocationResults = () => {
             Recent searches
           </span>
         </li>
-        {recentQueries.map(({ text, placeId }, i) => (
+        {recentLocations.map(({ text, placeId }, i) => (
           <li key={i} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getLatLong(text, placeId)}
+              onClick={() => getGeocoding(text, placeId)}
             >
               {text.mainText}
               <span className="text-gray-400">{text.secondaryText}</span>

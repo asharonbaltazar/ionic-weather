@@ -1,23 +1,25 @@
-import { StateWeather } from '@functions/types';
+import { useSearch } from '@utilities/hooks';
+import { ReloadWeatherButton } from '@pages/home/ReloadWeatherButton';
 import { Icon } from '@iconify/react';
 
-interface AddressAndGeolocationProps {
-  selectedWeather: StateWeather | null;
-}
+export const AddressAndGeolocation = () => {
+  const { selectedLocation } = useSearch();
 
-export const AddressAndGeolocation = ({
-  selectedWeather,
-}: AddressAndGeolocationProps) => {
-  if (!selectedWeather) {
+  if (!selectedLocation) {
     return null;
   }
 
   return (
-    <div className="flex grow items-center justify-center gap-x-2 lg:col-start-2 lg:justify-start lg:bg-white lg:px-3 lg:py-4 lg:shadow-sm lg:dark:bg-stone-900 lg:dark:shadow-none">
-      <h5 className="text text-xl font-medium">{selectedWeather.address}</h5>
-      {selectedWeather.isGeolocation && (
-        <Icon className="text-sm text-blue-600" icon="tabler:location" />
-      )}
+    <div className="flex grow items-center truncate lg:col-start-2 lg:bg-white lg:p-3 lg:shadow-sm lg:dark:bg-stone-900 lg:dark:shadow-none">
+      <span className="flex grow items-center justify-center gap-x-2 truncate pl-5 lg:justify-start lg:pl-0">
+        <h5 className="text truncate text-xl font-medium">
+          {selectedLocation.address}
+        </h5>
+        {selectedLocation.isGeolocation && (
+          <Icon className="text-sm text-blue-600" icon="tabler:location" />
+        )}
+      </span>
+      <ReloadWeatherButton />
     </div>
   );
 };
