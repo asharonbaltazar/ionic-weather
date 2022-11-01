@@ -16,7 +16,7 @@ export const Header = () => {
             'ml-auto mr-2': !selectedWeather,
           })}
         >
-          <LinkWithIcon to="/search" icon="tabler:search" />
+          <LinkWithIcon to="/search" icon="tabler:search" title="Search" />
         </span>
       </MediaQuery>
 
@@ -35,7 +35,11 @@ export const Header = () => {
 
       <MediaQuery show>
         <span className="flex-none">
-          <LinkWithIcon to="/settings" icon="tabler:settings" />
+          <LinkWithIcon
+            to="/settings"
+            icon="tabler:settings"
+            title="Settings"
+          />
         </span>
       </MediaQuery>
     </header>
