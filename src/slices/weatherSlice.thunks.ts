@@ -6,24 +6,11 @@ import {
 import { hasError } from '@utilities/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { RootState } from 'src/store';
 
-export const getWeather = createAsyncThunk<
-  Weather,
-  GMapGeocodeResult,
-  { state: RootState }
->(
+export const getWeather = createAsyncThunk<Weather, GMapGeocodeResult>(
   'weather/getWeather',
-  async (geocodeResult, { rejectWithValue, getState }) => {
-    const {
-      searchSlice: { selectedLocationGeocode: selectedLocation },
-    } = getState();
-
-    if (!selectedLocation) {
-      return rejectWithValue('');
-    }
-
-    const { lat, lng } = selectedLocation;
+  async (geocodeLocation, { rejectWithValue }) => {
+    const { lat, lng } = geocodeLocation;
 
     const { data: weather } = await axios.get<FunctionsResponse<Weather>>(
       `${import.meta.env.VITE_GET_WEATHER_VIA_COORDS}?lat=${lat}&lon=${lng}`

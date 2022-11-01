@@ -3,7 +3,7 @@ import { useAppDispatch } from '@store';
 import { setRecentLocation } from '@slices/searchSlice';
 import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
-import { getGeocodeResult } from '@slices/searchSlice.thunks';
+import { getGeocode } from '@slices/searchSlice.thunks';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -19,12 +19,13 @@ export const LocationResults = () => {
 
   const { locations, recentLocations, loading, errors } = useSearch();
 
-  const getGeocoding = async (text: Text, placeId: string) =>
-    dispatch(getGeocodeResult(placeId))
-      .then(unwrapResult)
-      .then((geocodeResult) => dispatch(getWeather(geocodeResult)))
+  const getGeocoding = async (text: Text, placeId: string) => {
+    const geocodeLocation = unwrapResult(await dispatch(getGeocode(placeId)));
+
+    return dispatch(getWeather(geocodeLocation))
       .then(() => navigate('/'))
       .then(() => dispatch(setRecentLocation({ text, placeId })));
+  };
 
   if (loading) {
     return <SkeletonResults />;

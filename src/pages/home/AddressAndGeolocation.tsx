@@ -3,7 +3,7 @@ import { ReloadWeatherButton } from '@pages/home/ReloadWeatherButton';
 import { Icon } from '@iconify/react';
 
 export const AddressAndGeolocation = () => {
-  const { selectedLocationGeocode: selectedLocation } = useSearch();
+  const { selectedLocation } = useSearch();
 
   if (!selectedLocation) {
     return null;

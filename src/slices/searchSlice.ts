@@ -1,19 +1,19 @@
 import { GMapGeocodeResult, GMapPrediction } from '@functions/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
-  getGeocodeResult,
-  getGeolocationGeocodeResult,
+  getGeocode,
+  getGeolocationGeocode,
   getLocationByQuery,
 } from '@slices/searchSlice.thunks';
 
-interface SelectionLocationGeocode extends GMapGeocodeResult {
+interface SelectionLocation extends GMapGeocodeResult {
   isGeolocation: boolean;
 }
 
 interface SearchState {
   locations: GMapPrediction[];
   recentLocations: GMapPrediction[];
-  selectedLocationGeocode: SelectionLocationGeocode | null;
+  selectedLocation: SelectionLocation | null;
   errors: string[];
   loading: boolean;
 }
@@ -21,7 +21,7 @@ interface SearchState {
 const initialState: SearchState = {
   locations: [],
   recentLocations: [],
-  selectedLocationGeocode: null,
+  selectedLocation: null,
   errors: [],
   loading: false,
 };
@@ -73,34 +73,34 @@ export const searchSlice = createSlice({
     });
 
     // getGeocodeResult
-    builder.addCase(getGeocodeResult.fulfilled, (state, action) => {
+    builder.addCase(getGeocode.fulfilled, (state, action) => {
       state.errors = [];
-      state.selectedLocationGeocode = {
+      state.selectedLocation = {
         ...action.payload,
         isGeolocation: false,
       };
     });
-    builder.addCase(getGeocodeResult.pending, (state) => {
+    builder.addCase(getGeocode.pending, (state) => {
       state.errors = [];
     });
-    builder.addCase(getGeocodeResult.rejected, (state, action) => {
+    builder.addCase(getGeocode.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }
     });
 
     // getGeolocationGeocodeResult
-    builder.addCase(getGeolocationGeocodeResult.fulfilled, (state, action) => {
+    builder.addCase(getGeolocationGeocode.fulfilled, (state, action) => {
       state.errors = [];
-      state.selectedLocationGeocode = {
+      state.selectedLocation = {
         ...action.payload,
         isGeolocation: true,
       };
     });
-    builder.addCase(getGeolocationGeocodeResult.pending, (state) => {
+    builder.addCase(getGeolocationGeocode.pending, (state) => {
       state.errors = [];
     });
-    builder.addCase(getGeolocationGeocodeResult.rejected, (state, action) => {
+    builder.addCase(getGeolocationGeocode.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }

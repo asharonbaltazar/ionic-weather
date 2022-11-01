@@ -6,7 +6,7 @@ import {
 import { hasError } from '@utilities/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { getGeolocation } from 'src/utilities/geolocation';
+import { getGeolocation } from '@utilities/geolocation';
 
 export const getLocationByQuery = createAsyncThunk<GMapPrediction[], string>(
   'search/locations',
@@ -23,8 +23,8 @@ export const getLocationByQuery = createAsyncThunk<GMapPrediction[], string>(
   }
 );
 
-export const getGeocodeResult = createAsyncThunk<GMapGeocodeResult, string>(
-  'search/geocodeResult',
+export const getGeocode = createAsyncThunk<GMapGeocodeResult, string>(
+  'search/geocode',
   async (placeId, { rejectWithValue }) => {
     const { data: geocodeResult } = await axios.get<
       FunctionsResponse<GMapGeocodeResult>
@@ -38,26 +38,26 @@ export const getGeocodeResult = createAsyncThunk<GMapGeocodeResult, string>(
   }
 );
 
-export const getGeolocationGeocodeResult = createAsyncThunk<
-  GMapGeocodeResult,
-  void
->('search/geolocationGeocodeResult', async (_, { rejectWithValue }) => {
-  const geolocation = await getGeolocation();
+export const getGeolocationGeocode = createAsyncThunk<GMapGeocodeResult, void>(
+  'search/geolocationGeocode',
+  async (_, { rejectWithValue }) => {
+    const geolocation = await getGeolocation();
 
-  if (!geolocation)
-    return rejectWithValue(
-      'Please allow geolocation permissions to use this feature'
-    );
+    if (!geolocation)
+      return rejectWithValue(
+        'Please allow geolocation permissions to use this feature'
+      );
 
-  const { latitude: lat, longitude: lng } = geolocation.coords;
+    const { latitude: lat, longitude: lng } = geolocation.coords;
 
-  const { data: geocodeResult } = await axios.get<
-    FunctionsResponse<GMapGeocodeResult>
-  >(`${import.meta.env.VITE_GET_GEOLOCATION_DATA}?lat=${lat}&lon=${lng}`);
+    const { data: geocodeResult } = await axios.get<
+      FunctionsResponse<GMapGeocodeResult>
+    >(`${import.meta.env.VITE_GET_GEOLOCATION_DATA}?lat=${lat}&lon=${lng}`);
 
-  if (hasError(geocodeResult)) {
-    return rejectWithValue(geocodeResult.error);
+    if (hasError(geocodeResult)) {
+      return rejectWithValue(geocodeResult.error);
+    }
+
+    return geocodeResult;
   }
-
-  return geocodeResult;
-});
+);
