@@ -1,11 +1,11 @@
 import { ColorfulStat } from '@components/ColorfulStat';
 import { useFormatting } from '@utilities/hooks';
 import { WeatherIcon } from '@components/WeatherIcon';
-import { StateWeather } from '@functions/types';
+import { Weather } from '@functions/types';
 import { formatUviIndex } from '@utilities/format';
 
 interface CurrentForecastProps {
-  selectedWeather: StateWeather;
+  selectedWeather: Weather;
 }
 
 export const CurrentForecast = ({ selectedWeather }: CurrentForecastProps) => {
