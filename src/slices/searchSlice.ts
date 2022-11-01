@@ -1,17 +1,20 @@
 import { GMapPrediction } from '@functions/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getPredictionsByQuery } from '@slices/searchSlice.thunks';
+import {
+  getGeocodeResult,
+  getLocationByQuery,
+} from '@slices/searchSlice.thunks';
 
 interface SearchState {
-  predictions: GMapPrediction[];
-  recentPredictions: GMapPrediction[];
+  locations: GMapPrediction[];
+  recentLocations: GMapPrediction[];
   errors: string[];
   loading: boolean;
 }
 
 const initialState: SearchState = {
-  predictions: [],
-  recentPredictions: [],
+  locations: [],
+  recentLocations: [],
   errors: [],
   loading: false,
 };
@@ -21,8 +24,8 @@ export const searchSlice = createSlice({
   name: 'search',
   initialState,
   reducers: {
-    resetPredictions: (state) => {
-      state.predictions = [];
+    resetLocations: (state) => {
+      state.locations = [];
       state.loading = false;
     },
 
@@ -30,16 +33,16 @@ export const searchSlice = createSlice({
       state.errors = [];
     },
 
-    setRecentPrediction: (state, action: PayloadAction<GMapPrediction>) => {
-      state.recentPredictions = state.recentPredictions.filter(
+    setRecentLocation: (state, action: PayloadAction<GMapPrediction>) => {
+      state.recentLocations = state.recentLocations.filter(
         (element) => element.placeId !== action.payload.placeId
       );
 
-      if (state.recentPredictions.length >= 5) {
-        state.recentPredictions.pop();
+      if (state.recentLocations.length >= 5) {
+        state.recentLocations.pop();
       }
 
-      state.recentPredictions.unshift(action.payload);
+      state.recentLocations.unshift(action.payload);
     },
 
     setLoading: (state, action) => {
@@ -47,25 +50,39 @@ export const searchSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(getPredictionsByQuery.fulfilled, (state, action) => {
-      state.predictions = action.payload;
+    // getPredictionsByQuery
+    builder.addCase(getLocationByQuery.fulfilled, (state, action) => {
+      state.locations = action.payload;
       state.loading = false;
       state.errors = [];
     });
-    builder.addCase(getPredictionsByQuery.rejected, (state, action) => {
+    builder.addCase(getLocationByQuery.rejected, (state, action) => {
       if (typeof action.payload === 'string') {
         state.errors.push(action.payload);
       }
 
       state.loading = false;
-      state.predictions = [];
+      state.locations = [];
+    });
+
+    // getGetcodeResult
+    builder.addCase(getGeocodeResult.fulfilled, (state) => {
+      state.errors = [];
+    });
+    builder.addCase(getGeocodeResult.pending, (state) => {
+      state.errors = [];
+    });
+    builder.addCase(getGeocodeResult.rejected, (state, action) => {
+      if (typeof action.payload === 'string') {
+        state.errors.push(action.payload);
+      }
     });
   },
 });
 
 export const {
-  resetPredictions,
-  setRecentPrediction,
+  resetLocations,
+  setRecentLocation,
   setLoading: setSearchLoading,
   dismissSearchErrors,
 } = searchSlice.actions;
