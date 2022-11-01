@@ -24,7 +24,7 @@ export const getLocationByQuery = createAsyncThunk<GMapPrediction[], string>(
 );
 
 export const getGeocodeResult = createAsyncThunk<GMapGeocodeResult, string>(
-  'search/result',
+  'search/geocodeResult',
   async (placeId, { rejectWithValue }) => {
     const { data: geocodeResult } = await axios.get<
       FunctionsResponse<GMapGeocodeResult>
@@ -41,7 +41,7 @@ export const getGeocodeResult = createAsyncThunk<GMapGeocodeResult, string>(
 export const getGeolocationGeocodeResult = createAsyncThunk<
   GMapGeocodeResult,
   void
->('search/geolocationResult', async (_, { rejectWithValue }) => {
+>('search/geolocationGeocodeResult', async (_, { rejectWithValue }) => {
   const geolocation = await getGeolocation();
 
   if (!geolocation)

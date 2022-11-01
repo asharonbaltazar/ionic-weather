@@ -22,7 +22,7 @@ export const LocationResults = () => {
   const getGeocoding = async (text: Text, placeId: string) =>
     dispatch(getGeocodeResult(placeId))
       .then(unwrapResult)
-      .then((geocodeResult) => dispatch(getWeather({ geocodeResult })))
+      .then((geocodeResult) => dispatch(getWeather(geocodeResult)))
       .then(() => navigate('/'))
       .then(() => dispatch(setRecentLocation({ text, placeId })));
 
