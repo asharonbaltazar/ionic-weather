@@ -5,6 +5,7 @@ import { getWeather } from '@slices/weatherSlice.thunks';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
 import { getGeocode } from '@slices/searchSlice.thunks';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
+import { ClearRecentLocations } from '@pages/search/ClearRecentLocations';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import { useSearch } from '@utilities/hooks';
@@ -52,10 +53,12 @@ export const LocationResults = () => {
   if (recentLocations.length) {
     return (
       <Fragment>
-        <li>
-          <span className="pl-1 text-sm font-medium text-gray-500">
+        <li className="flex w-full items-center justify-between px-1">
+          <span className="text-sm font-medium text-gray-500">
             Recent searches
           </span>
+
+          <ClearRecentLocations />
         </li>
         {recentLocations.map(({ text, placeId }, i) => (
           <li key={i} className="w-full">
