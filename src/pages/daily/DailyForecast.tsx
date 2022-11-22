@@ -1,10 +1,9 @@
-import { Fragment } from 'react';
 import { DailyWeather } from '@functions/types';
 import { Disclosure } from '@headlessui/react';
-import dayjs from 'dayjs';
 import { DailyDetails } from '@pages/daily/DailyDetails';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
 import { DailyForecastButton } from '@pages/daily/DailyForecastButton';
+import dayjs from 'dayjs';
+import advancedFormat from 'dayjs/plugin/advancedFormat';
 
 dayjs.extend(advancedFormat);
 
@@ -24,10 +23,8 @@ export const DailyForecast = ({ daily }: DailyForecastProps) => {
         as="div"
         className="space-y-1 rounded-3xl bg-slate-100 dark:bg-zinc-800 "
       >
-        <Fragment>
-          <DailyForecastButton details={details} temp={temp} />
-          <DailyDetails daily={daily} />
-        </Fragment>
+        <DailyForecastButton details={details} temp={temp} />
+        <DailyDetails daily={daily} />
       </Disclosure>
     </li>
   );
