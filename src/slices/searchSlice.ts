@@ -52,6 +52,10 @@ export const searchSlice = createSlice({
       state.recentLocations.unshift(action.payload);
     },
 
+    clearRecentLocations: (state) => {
+      state.recentLocations = [];
+    },
+
     setLoading: (state, action) => {
       state.loading = action.payload;
     },
@@ -113,5 +117,6 @@ export const {
   setRecentLocation,
   setLoading: setSearchLoading,
   dismissSearchErrors,
+  clearRecentLocations,
 } = searchSlice.actions;
 export default searchSlice.reducer;
