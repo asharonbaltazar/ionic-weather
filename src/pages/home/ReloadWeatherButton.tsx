@@ -27,7 +27,7 @@ export const ReloadWeatherButton = () => {
 
   return (
     <button
-      className="text items-center gap-x-2 rounded font-medium dark:hover:bg-slate-700"
+      className="text items-center gap-x-2 rounded font-medium hover:bg-slate-200 dark:hover:bg-slate-700"
       onClick={onReload}
       title="Reload"
     >

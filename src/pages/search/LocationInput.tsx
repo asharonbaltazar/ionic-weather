@@ -23,10 +23,10 @@ export const LocationInput = () => {
 
   const onSearch = (newQuery: string) => {
     if (!loading && newQuery.trim().length) {
-      dispatch(setSearchLoading(true));
+      return dispatch(setSearchLoading(true));
     }
 
-    setLocationQuery(newQuery);
+    return setLocationQuery(newQuery);
   };
 
   return (
