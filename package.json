@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@headlessui/react": "^1.7.10",
-    "@iconify/react": "^4.0.1",
+    "@iconify/react": "^4.1.0",
     "@mantine/hooks": "^5.10.3",
     "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.16.5",
