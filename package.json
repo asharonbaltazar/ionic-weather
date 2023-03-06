@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "@headlessui/react": "^1.7.12",
+    "@headlessui/react": "^1.7.13",
     "@iconify/react": "^4.1.0",
     "@mantine/hooks": "^5.10.3",
     "@reduxjs/toolkit": "^1.9.3",
