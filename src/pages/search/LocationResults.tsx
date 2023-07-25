@@ -1,34 +1,38 @@
 import { Fragment } from 'react';
-import { useAppDispatch } from '@store';
-import { setRecentLocation } from '@slices/searchSlice';
-import { getWeather } from '@slices/weatherSlice.thunks';
+import { useAppSelector } from '@store';
 import { SkeletonResults } from '@pages/search/SkeletonResults';
-import { getGeocode } from '@slices/searchSlice.thunks';
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
 import { ClearRecentLocations } from '@pages/search/ClearRecentLocations';
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
-import { useSearch } from '@utilities/hooks';
-import { unwrapResult } from '@reduxjs/toolkit';
+import { GMapPrediction } from '@functions/types';
+import { useLazyGeocodeByPlaceIdQuery } from '@slices/location';
 
 type Text = { mainText: string; secondaryText: string };
 
-export const LocationResults = () => {
+type LocationResultsProps = {
+  locations: GMapPrediction[];
+  isFetching: boolean;
+};
+
+export const LocationResults = ({
+  locations,
+  isFetching,
+}: LocationResultsProps) => {
   const navigate = useNavigate();
 
-  const dispatch = useAppDispatch();
+  const [getGeocode] = useLazyGeocodeByPlaceIdQuery();
+  const { recentLocations } = useAppSelector((state) => state.app);
 
-  const { locations, recentLocations, loading, errors } = useSearch();
+  const selectGeoCode = async (text: Text, placeId: string) => {
+    const { isSuccess } = await getGeocode({ text, placeId });
 
-  const getGeocoding = async (text: Text, placeId: string) => {
-    const geocodeLocation = unwrapResult(await dispatch(getGeocode(placeId)));
-
-    return dispatch(getWeather(geocodeLocation))
-      .then(() => navigate('/'))
-      .then(() => dispatch(setRecentLocation({ text, placeId })));
+    if (isSuccess) {
+      navigate('/');
+    }
   };
 
-  if (loading) {
+  if (isFetching) {
     return <SkeletonResults />;
   }
 
@@ -39,7 +43,7 @@ export const LocationResults = () => {
           <li key={placeId} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getGeocoding(text, placeId)}
+              onClick={() => selectGeoCode(text, placeId)}
             >
               {text.mainText}
               <span className="block text-gray-400">{text.secondaryText}</span>
@@ -64,7 +68,7 @@ export const LocationResults = () => {
           <li key={i} className="w-full">
             <ButtonWithIcon
               icon="tabler:map-pin"
-              onClick={() => getGeocoding(text, placeId)}
+              onClick={() => selectGeoCode(text, placeId)}
             >
               {text.mainText}
               <span className="text-gray-400">{text.secondaryText}</span>
@@ -72,25 +76,6 @@ export const LocationResults = () => {
           </li>
         ))}
       </Fragment>
-    );
-  }
-
-  if (errors.length) {
-    return (
-      <li className="mt-24 flex w-full flex-col items-center space-y-4">
-        <Icon
-          className="text-9xl text-blue-500/50 dark:text-blue-300/50"
-          icon="tabler:map-off"
-        />
-        {errors.map((error, i) => (
-          <span
-            key={i}
-            className="text-2xl font-medium text-gray-900/50 dark:text-stone-200/50"
-          >
-            {error}
-          </span>
-        ))}
-      </li>
     );
   }
 
