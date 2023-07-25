@@ -11,4 +11,4 @@ export const weatherApi = appApi.injectEndpoints({
   }),
 });
 
-export const { useWeatherQuery } = weatherApi;
+export const { useWeatherQuery, useLazyWeatherQuery } = weatherApi;
