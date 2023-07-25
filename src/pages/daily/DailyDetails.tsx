@@ -1,8 +1,8 @@
 import { DailyWeather } from '@functions/types';
 import { Disclosure, Transition } from '@headlessui/react';
-import { Badge } from 'src/components/Badge';
-import { formatUviIndex } from 'src/utilities/format';
-import { useFormatting } from 'src/utilities/hooks';
+import { Badge } from '@components/Badge';
+import { formatUviIndex } from '@utilities/format';
+import { useFormatting } from '@utilities/hooks';
 
 interface DailyDetailsProps {
   daily: DailyWeather;

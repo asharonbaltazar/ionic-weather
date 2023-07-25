@@ -1,27 +1,26 @@
-import { useEffect } from 'react';
 import { LocationInput } from '@pages/search/LocationInput';
-import { LocationSelection } from '@pages/search/LocationSelection';
 import { GoogleAttribution } from '@pages/search/GoogleAttribution';
 import { HeaderWithBackButton } from '@components/HeaderWithBackButton';
-import { useAppDispatch } from '@store';
-import { resetLocations } from '@slices/searchSlice';
+import { useLazyLocationQuery } from '@slices/location';
+import { LocationResults } from '@pages/search/LocationResults';
+import { GeolocationButton } from '@pages/search/GeolocationButton';
 
 export const Search = () => {
-  const dispatch = useAppDispatch();
-
-  useEffect(
-    () => () => {
-      dispatch(resetLocations());
-    },
-    [dispatch]
-  );
+  const [getLocationByQuery, { data: locations = [], isFetching }] =
+    useLazyLocationQuery();
 
   return (
     <div className="flex h-screen flex-col">
       <HeaderWithBackButton title="Search" />
-      <LocationInput />
+      <LocationInput getLocation={getLocationByQuery} />
 
-      <LocationSelection />
+      <div className="mt-2 grow space-y-4 px-3">
+        <GeolocationButton />
+
+        <ul className="flex flex-col items-start gap-y-3">
+          <LocationResults locations={locations} isFetching={isFetching} />
+        </ul>
+      </div>
 
       <GoogleAttribution />
     </div>

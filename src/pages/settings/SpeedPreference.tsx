@@ -1,9 +1,8 @@
 import { Fragment, useState } from 'react';
-import { useAppDispatch } from '@store';
-import { changeWindSpeedPreference, WindSpeed } from '@slices/settingsSlice';
+import { useAppDispatch, useAppSelector } from '@store';
 import { Modal } from '@components/Modal';
 import { RadioGroup } from '@components/RadioGroup';
-import { useSettings } from '@utilities/hooks';
+import { setWindSpeedPreference, WindSpeed } from '@slices/app';
 
 const WIND_SPEED_MAP: { [key in WindSpeed]: string } = {
   mph: 'Miles',
@@ -18,12 +17,12 @@ const WIND_SPEED_OPTIONS: { value: WindSpeed; label: string }[] = [
 export const SpeedPreference = () => {
   const [modalState, setModalState] = useState(false);
 
-  const { windSpeed } = useSettings();
+  const { windSpeed } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
 
   const onWindSpeedChange = (newValue: WindSpeed) => {
-    dispatch(changeWindSpeedPreference(newValue));
+    dispatch(setWindSpeedPreference(newValue));
     setModalState(false);
   };
 

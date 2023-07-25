@@ -1,16 +1,16 @@
-import { useWeather } from '@utilities/hooks';
 import { DailyForecast } from '@pages/daily/DailyForecast';
+import { useWeather } from '@utilities/hooks';
 
 export const DailyForecasts = () => {
-  const { selectedWeather } = useWeather();
+  const { data: weather } = useWeather();
 
-  if (!selectedWeather) {
+  if (!weather) {
     return null;
   }
 
   return (
     <ul className="space-y-2 overflow-auto px-3 py-4">
-      {selectedWeather.daily.map((daily) => (
+      {weather.daily.map((daily) => (
         <DailyForecast key={daily.dt} daily={daily} />
       ))}
     </ul>

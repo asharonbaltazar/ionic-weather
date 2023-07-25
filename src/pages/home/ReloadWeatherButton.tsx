@@ -1,13 +1,12 @@
 import { Icon } from '@iconify/react';
-import { getWeather } from '@slices/weatherSlice.thunks';
-import { getGeolocationGeocode } from '@slices/searchSlice.thunks';
-import { useAppDispatch } from '@store';
-import { useSearch } from '@utilities/hooks';
-import { unwrapResult } from '@reduxjs/toolkit';
+import { useAppSelector } from '@store';
+import { useLazyGeocodeByCoordsQuery } from '@slices/location';
+import { useLazyWeatherQuery } from '@slices/weather';
 
 export const ReloadWeatherButton = () => {
-  const { selectedLocation } = useSearch();
-  const dispatch = useAppDispatch();
+  const { selectedLocation } = useAppSelector((state) => state.app);
+  const [getGeocode] = useLazyGeocodeByCoordsQuery();
+  const [getWeather] = useLazyWeatherQuery();
 
   if (!selectedLocation) {
     return null;
@@ -15,14 +14,16 @@ export const ReloadWeatherButton = () => {
 
   const onReload = async () => {
     if (selectedLocation.isGeolocation) {
-      const geolocationGeocode = unwrapResult(
-        await dispatch(getGeolocationGeocode())
-      );
+      const { data: geocodeLocation, isSuccess } = await getGeocode({
+        isGeolocation: true,
+      });
 
-      return dispatch(getWeather(geolocationGeocode));
+      if (isSuccess) {
+        getWeather(geocodeLocation);
+      }
+    } else {
+      getWeather(selectedLocation);
     }
-
-    return dispatch(getWeather(selectedLocation));
   };
 
   return (

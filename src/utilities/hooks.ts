@@ -1,25 +1,27 @@
-import { useSelector } from 'react-redux';
-import { RootState } from '@store';
+import { skipToken } from '@reduxjs/toolkit/dist/query';
 import { formatSpeed, formatTemp } from '@utilities/format';
 import dayjs from 'dayjs';
-
-export const useWeather = () =>
-  useSelector((state: RootState) => state.weatherSlice);
-
-export const useSettings = () =>
-  useSelector((state: RootState) => state.settingsSlice);
-
-export const useSearch = () =>
-  useSelector((state: RootState) => state.searchSlice);
+import { useWeatherQuery } from '@slices/weather';
+import { useAppSelector } from '@store';
 
 export const useFormatting = () => {
-  const { temperature, windSpeed, time } = useSettings();
+  const { temperature, windSpeed, time } = useAppSelector((state) => state.app);
 
   return {
     formatTemp: (temp: number) =>
-      `${formatTemp[temperature](temp)}°${temperature.toUpperCase()}`,
+      `${formatTemp(temperature, temp)}°${temperature.toUpperCase()}`,
     formatWindSpeed: (speed: number) =>
-      `${formatSpeed[windSpeed](speed)} ${windSpeed}`,
+      `${formatSpeed(windSpeed, speed)} ${windSpeed}`,
     formatTime: (dateAndTime: string) => dayjs(dateAndTime).format(time),
   };
+};
+
+export const useWeather = () => {
+  const { selectedLocation } = useAppSelector((state) => state.app);
+
+  const weatherObj = useWeatherQuery(
+    selectedLocation ? selectedLocation : skipToken
+  );
+
+  return weatherObj;
 };
