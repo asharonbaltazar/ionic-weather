@@ -1,5 +1,5 @@
-import lightLogo from 'src/assets/google_light.png';
-import darkLogo from 'src/assets/google_dark.png';
+import lightLogo from '@assets/google_light.png';
+import darkLogo from '@assets/google_dark.png';
 
 export const GoogleAttribution = () => (
   <picture className="mt-3 self-end pb-3 pr-3">

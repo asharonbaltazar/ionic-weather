@@ -1,16 +1,16 @@
-import { useWeather } from '@utilities/hooks';
 import { HourlyForecast } from '@pages/hourly/HourlyForecast';
+import { useWeather } from '@utilities/hooks';
 
 export const HourlyForecasts = () => {
-  const { selectedWeather } = useWeather();
+  const { data: weather } = useWeather();
 
-  if (!selectedWeather) {
+  if (!weather) {
     return null;
   }
 
   return (
     <ul className="space-y-2 overflow-auto px-3 py-4">
-      {selectedWeather.hourly.map((hourly) => (
+      {weather.hourly.map((hourly) => (
         <HourlyForecast key={hourly.dt} hourly={hourly} />
       ))}
     </ul>

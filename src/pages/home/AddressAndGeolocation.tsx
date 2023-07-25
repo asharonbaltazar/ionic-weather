@@ -1,9 +1,9 @@
-import { useSearch } from '@utilities/hooks';
 import { ReloadWeatherButton } from '@pages/home/ReloadWeatherButton';
 import { Icon } from '@iconify/react';
+import { useAppSelector } from '@store';
 
 export const AddressAndGeolocation = () => {
-  const { selectedLocation } = useSearch();
+  const { selectedLocation } = useAppSelector((state) => state.app);
 
   if (!selectedLocation) {
     return null;

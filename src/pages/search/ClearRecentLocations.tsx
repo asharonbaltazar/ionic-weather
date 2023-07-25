@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@store';
-import { clearRecentLocations } from '@slices/searchSlice';
+import { clearRecentLocations } from '@slices/app';
 
 export const ClearRecentLocations = () => {
   const dispatch = useAppDispatch();
