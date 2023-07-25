@@ -1,21 +1,28 @@
 import dayjs from 'dayjs';
 import isBetween from 'dayjs/plugin/isBetween';
-import { Temperature, WindSpeed } from '@slices/settingsSlice';
+import { Temperature, WindSpeed } from '@slices/app';
 dayjs.extend(isBetween);
 
 const DIRECTIONS = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
 
-export const formatTemp: { [key in Temperature]: (temp: number) => number } = {
-  c: (temp: number) => Math.ceil(temp - 273.15),
-  f: (temp: number) => Math.ceil((temp - 273.15) * 1.8 + 32),
-  k: (temp: number) => Math.ceil(temp),
+export const formatTemp = (tempUnit: Temperature, temp: number) => {
+  switch (tempUnit) {
+    case 'c':
+      return Math.ceil(temp - 273.15);
+    case 'f':
+      return Math.ceil((temp - 273.15) * 1.8 + 32);
+    default:
+      // kelvin
+      return Math.ceil(temp);
+  }
 };
 
-export const formatSpeed: {
-  [key in WindSpeed]: (windSpeed: number) => number;
-} = {
-  mph: (windSpeed: number) => Math.ceil(windSpeed / 1.609),
-  kph: (windSpeed: number) => windSpeed,
+export const formatSpeed = (windSpeedUnit: WindSpeed, windSpeed: number) => {
+  if (windSpeedUnit === 'kph') {
+    return Math.ceil(windSpeed / 1.609);
+  }
+
+  return windSpeed;
 };
 
 export const getDirection = (angle: number) =>
