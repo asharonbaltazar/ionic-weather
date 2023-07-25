@@ -1,16 +1,18 @@
 import { ButtonWithIcon } from '@components/ButtonWithIcon';
-import { useAppDispatch } from '@store';
-import { getGeolocationGeocode } from '@slices/searchSlice.thunks';
-import { getWeather } from '@slices/weatherSlice.thunks';
-import { unwrapResult } from '@reduxjs/toolkit';
+import { useLazyGeocodeByCoordsQuery } from '@slices/location';
+import { useNavigate } from 'react-router-dom';
 
 export const GeolocationButton = () => {
-  const dispatch = useAppDispatch();
+  const [getGeocode] = useLazyGeocodeByCoordsQuery();
+  const navigate = useNavigate();
 
-  const getGeoLocation = async () =>
-    dispatch(getGeolocationGeocode())
-      .then(unwrapResult)
-      .then((geolocationGeocode) => dispatch(getWeather(geolocationGeocode)));
+  const getGeoLocation = async () => {
+    const { isSuccess } = await getGeocode({ isGeolocation: true });
+
+    if (isSuccess) {
+      navigate('/');
+    }
+  };
 
   return (
     <div className="mt-3 md:mt-5">
