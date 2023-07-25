@@ -1,9 +1,8 @@
 import { Fragment, useState } from 'react';
-import { useAppDispatch } from '@store';
-import { changeTempPreference, Temperature } from '@slices/settingsSlice';
+import { useAppDispatch, useAppSelector } from '@store';
 import { Modal } from '@components/Modal';
 import { RadioGroup } from '@components/RadioGroup';
-import { useSettings } from '@utilities/hooks';
+import { setTempPreference, Temperature } from '@slices/app';
 
 const TEMP_MAP: { [key in Temperature]: string } = {
   c: 'Celsius',
@@ -20,12 +19,12 @@ const TEMP_OPTIONS: { value: Temperature; label: string }[] = [
 export const TempPreference = () => {
   const [modalState, setModalState] = useState(false);
 
-  const { temperature } = useSettings();
+  const { temperature } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
 
   const onTempChange = (newValue: Temperature) => {
-    dispatch(changeTempPreference(newValue));
+    dispatch(setTempPreference(newValue));
     setModalState(false);
   };
 

@@ -1,17 +1,16 @@
-import { useAppDispatch } from '@store';
-import { changeTimePreference } from '@slices/settingsSlice';
+import { useAppDispatch, useAppSelector } from '@store';
 import { Switch } from '@components/Switch';
-import { useSettings } from '@utilities/hooks';
+import { setTimePreference } from '@slices/app';
 
 export const TimePreference = () => {
-  const { time } = useSettings();
+  const { time } = useAppSelector((state) => state.app);
 
   const dispatch = useAppDispatch();
 
   const checked = time === 'HH:mm';
 
   const onClick = () =>
-    dispatch(changeTimePreference(checked ? 'hh:mm a' : 'HH:mm'));
+    dispatch(setTimePreference(checked ? 'hh:mm a' : 'HH:mm'));
 
   return (
     <div className="flex items-center justify-between">
