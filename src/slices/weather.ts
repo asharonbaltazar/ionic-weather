@@ -10,3 +10,5 @@ export const weatherApi = appApi.injectEndpoints({
     }),
   }),
 });
+
+export const { useWeatherQuery } = weatherApi;
