@@ -18,7 +18,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.14.2",
     "redux-persist": "^6.0.0",
-    "typescript": "^4.7.3"
+    "typescript": "^5.1.6"
   },
   "scripts": {
     "start": "vite",
