@@ -3,20 +3,18 @@ import { MainPlaceholder } from '@pages/home/MainPagePlaceholder';
 import { CurrentForecast } from '@pages/home/CurrentForecast';
 import { LinkButtonWithIcon } from '@components/LInkButtonWithIcon';
 import { useWeather } from '@utilities/hooks';
-import { FullscreenLoading } from 'src/components/FullscreenLoading';
 
 export const WeatherContent = () => {
-  const { selectedWeather, loading } = useWeather();
+  const { data: weather } = useWeather();
 
-  if (!selectedWeather) {
+  if (!weather) {
     return <MainPlaceholder />;
   }
 
   return (
     <Fragment>
-      <FullscreenLoading loading={loading} />
       <div className="mt-4 space-y-5 px-3">
-        <CurrentForecast selectedWeather={selectedWeather} />
+        <CurrentForecast selectedWeather={weather} />
         <div className="space-y-2 lg:hidden">
           <LinkButtonWithIcon icon="tabler:clock-hour-3" to="/hourly">
             Hourly Forecast
