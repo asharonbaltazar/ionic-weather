@@ -65,7 +65,7 @@
     "prettier": "^2.8.7",
     "tailwindcss": "^3.3.3",
     "vite": "^4.2.1",
-    "vite-plugin-checker": "^0.5.6",
+    "vite-plugin-checker": "^0.6.2",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "description": "Weather, bloat and ad-free, built on the Ionic and React frameworks"
